@@ -18,6 +18,7 @@ config/database.yml
 /tmp
 
 /.idea
-
+/lib/tasks/fill_database.rake
 .ruby-version
 .ruby-gemset
+
