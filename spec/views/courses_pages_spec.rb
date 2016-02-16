@@ -3,11 +3,12 @@ describe 'Show courses page' do
   subject {page}
   let(:course){Course.create(title:'Course test-title', description: Faker::Lorem.paragraph(1))}
   before do
+    @course=course
     visit courses_path
   end
   it {should have_title 'Rubyboost courses'}
-  it {should have_link 'Edit', href:edit_course_path(course)}
-  it {should have_link 'delete', href:course_path(course) }
+  it {should have_link 'Edit', href:edit_course_path(@course)}
+  it {should have_link 'delete', href:course_path(@course) }
 end
 
 describe 'Create course page' do

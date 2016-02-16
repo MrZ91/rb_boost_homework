@@ -1,0 +1,6 @@
+- provide(:title, 'Create your own course')
+= simple_form_for @course do |field|
+  = field.input :title
+  = field.input :description,  input_html:{size:'50x10'}
+  = field.submit
+= link_to 'Back', :back
