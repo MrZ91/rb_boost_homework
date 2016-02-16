@@ -3,4 +3,6 @@ class Course < ActiveRecord::Base
   validates_presence_of :title, :description
 
   paginates_per 5
+
+  mount_uploader :image, CourseImageUploader
 end

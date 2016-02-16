@@ -14,7 +14,8 @@ gem 'kaminari'
 gem 'carrierwave', '0.9.0'
 
 gem 'sass'
-gem 'mini_magick'
+#gem 'mini_magick'
+gem 'rmagick'
 
 gem 'sass-rails'
 gem 'haml-rails'

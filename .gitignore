@@ -19,6 +19,8 @@ config/database.yml
 
 /.idea
 /lib/tasks/fill_database.rake
+
 .ruby-version
 .ruby-gemset
 
+/public/uploads
