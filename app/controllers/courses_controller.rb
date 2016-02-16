@@ -2,7 +2,7 @@ class CoursesController < ApplicationController
   protect_from_forgery with: :exception
 
   def index
-    @courses_list = Course.page(params[:page]).per(5)
+    @courses_list = Course.page(params[:page])
   end
 
   def create

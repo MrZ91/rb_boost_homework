@@ -1,5 +1,5 @@
 - provide(:title, 'courses')
-= link_to 'Back', :back
+= link_to 'Main page', root_path
 - @courses_list.each do |course|
   %h3= link_to course.title, course_path(course)
   = course.description
