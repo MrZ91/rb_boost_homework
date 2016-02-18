@@ -1,13 +1,17 @@
 class CoursesController < ApplicationController
   protect_from_forgery with: :exception
 
+  COURSES_ON_PAGE=5
+
   def index
-    @courses_list = Course.page(params[:page])
+    @courses_list = Course.page(params[:page]).per(COURSES_ON_PAGE)
   end
 
   def create
     @course = Course.new(course_params)
+
     if @course.save
+
       if @course.update(course_params)
         redirect_to @course
       end
@@ -30,6 +34,7 @@ class CoursesController < ApplicationController
 
   def update
     @course = Course.find_by(id: params[:id])
+
     if @course.update(course_params)
       redirect_to @course
     else
@@ -41,6 +46,7 @@ class CoursesController < ApplicationController
   def destroy
     course = Course.find_by(id: params[:id])
     course.destroy
+
     redirect_to courses_path
   end
 
@@ -50,4 +56,3 @@ class CoursesController < ApplicationController
     params.require(:course).permit(:title, :description, :image)
   end
 end
-

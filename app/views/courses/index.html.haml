@@ -6,6 +6,7 @@
 
   %table
     %tr
+
       -if course.image.present?
         %td
           = image_tag(course.image.thumb.url, align: :middle)

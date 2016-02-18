@@ -1,6 +1,6 @@
 class Course < ActiveRecord::Base
-  validates :title, length: { maximum: 50 }
-  validates_presence_of :title, :description
+  validates :title, length: { maximum: 50 }, presence:  true
+  validates :description, presence:  true
 
   paginates_per 5
 
