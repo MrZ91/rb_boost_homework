@@ -1,7 +1,7 @@
 - provide(:title, 'courses')
 = link_to 'Main page', root_path
 
-- @courses_list.each do |course|
+- @courses.each do |course|
   %h3= link_to course.title, course_path(course)
 
   %table

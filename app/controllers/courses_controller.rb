@@ -4,7 +4,7 @@ class CoursesController < ApplicationController
   COURSES_ON_PAGE=5
 
   def index
-    @courses_list = Course.page(params[:page]).per(COURSES_ON_PAGE)
+    @courses = Course.page(params[:page]).per(COURSES_ON_PAGE)
   end
 
   def create
@@ -12,7 +12,7 @@ class CoursesController < ApplicationController
 
     if @course.save
 
-      if @course.update(course_params)
+      if @course.update(params.require(:course).permit(:image))
         redirect_to @course
       end
     else
