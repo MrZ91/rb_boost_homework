@@ -48,12 +48,8 @@ describe 'Edit course page' do
 
   it {should have_title 'Rubyboost Edit course'}
 
-  #It is seen while debugging page.html .
   describe 'should have correct information' do
-    it do
-      #binding.pry
-      should have_content course.title
-    end
+    it {should have_content course.title}
     it {should have_content course.description}
   end
 

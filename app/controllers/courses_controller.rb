@@ -12,6 +12,7 @@ class CoursesController < ApplicationController
 
     if @course.save
 
+      #Update image_url to ensure it is contains #{model.id} in address of file.
       if @course.update(params.require(:course).permit(:image))
         redirect_to @course
       end

@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 class CourseImageUploader < CarrierWave::Uploader::Base
   include CarrierWave::RMagick
 
@@ -25,5 +23,4 @@ class CourseImageUploader < CarrierWave::Uploader::Base
   def filename
     "course_#{model.id}_image.#{model.image.file.extension}" if original_filename
   end
-
 end
