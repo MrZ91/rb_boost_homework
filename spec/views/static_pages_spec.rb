@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Main page' do
+describe 'Main page', type: :feature do
   subject {page}
 
   before{visit root_path}

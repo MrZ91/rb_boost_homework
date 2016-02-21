@@ -1,14 +1,15 @@
 require 'rails_helper'
 
-describe 'Course model' do
+describe Course, type: :model do
   before do
     @course = Course.new(title:'Course test-title', description: Faker::Lorem.paragraph(3))
   end
 
   subject {@course}
 
-  it {should respond_to :title}
-  it {should respond_to :description}
+  it {should validate_presence_of :title}
+  it {should validate_presence_of :description}
+  it {should validate_length_of(:title).is_at_most(50)}
   it {should be_valid}
 
   describe 'with empty title' do

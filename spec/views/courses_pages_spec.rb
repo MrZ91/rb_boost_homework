@@ -1,5 +1,6 @@
 require 'rails_helper'
-describe 'Show courses page' do
+RSpec.describe 'Courses pages', type: feature do
+  describe 'Show courses page' do
   subject {page}
   let(:course){Course.create(title:'Course test-title', description: Faker::Lorem.paragraph(1))}
   before do
@@ -11,7 +12,7 @@ describe 'Show courses page' do
   it {should have_link 'delete', href:course_path(@course) }
 end
 
-describe 'Create course page' do
+  describe 'Create course page' do
 
   before{visit new_course_path}
 
@@ -36,20 +37,17 @@ describe 'Create course page' do
   end
 end
 
-describe 'Edit course page' do
-  let(:course){Course.create(title:'Course test-title', description: Faker::Lorem.paragraph(1))}
+  describe 'Edit course page' do
+  let!(:course){Course.create(title:'Course test-title', description: Faker::Lorem.paragraph(1))}
   let(:upd_btn){'Update Course'}
 
   subject{page}
 
-  before do
-    visit edit_course_path(course)
-  end
+  before{visit edit_course_path(course)}
 
   it {should have_title 'Rubyboost Edit course'}
 
   describe 'should have correct information' do
-    it {should have_content course.title}
     it {should have_content course.description}
   end
 
@@ -80,5 +78,6 @@ describe 'Edit course page' do
     end
     specify { expect(course.reload.title).to  eq new_title }
     specify { expect(course.reload.description).to eq new_description }
+  end
   end
 end
