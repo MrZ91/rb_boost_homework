@@ -1,5 +1,4 @@
 class CourseImageUploader < BaseUploader
-
   process resize_to_fit: [800, 800]
 
   version :thumb do

@@ -1,5 +1,5 @@
 source 'http://rubygems.org'
-#ruby '2.2.3'
+# ruby '2.2.3'
 
 gem 'rails', '4.2.5'
 gem 'uglifier'
@@ -14,7 +14,7 @@ gem 'kaminari'
 gem 'carrierwave', '0.9.0'
 
 gem 'sass'
-#gem 'mini_magick'
+# gem 'mini_magick'
 gem 'rmagick'
 
 gem 'sass-rails'
@@ -23,7 +23,6 @@ gem 'coffee-rails'
 gem 'font-awesome-sass'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-
 
 group :production, :release, :staging do
   gem 'rails_12factor'
@@ -43,6 +42,8 @@ group :test, :development do
 end
 
 group :development do
+  gem 'rubocop', require: false
+  gem 'rubycritic', require: false
   gem 'letter_opener'
   gem 'annotate'
   gem 'better_errors'

@@ -1,7 +1,7 @@
 class CoursesController < ApplicationController
   protect_from_forgery with: :exception
 
-  COURSES_ON_PAGE=5
+  COURSES_ON_PAGE = 5
 
   def index
     @courses = Course.page(params[:page]).per(COURSES_ON_PAGE)
@@ -11,7 +11,7 @@ class CoursesController < ApplicationController
     @course = Course.new(course_params)
 
     if @course.save
-        redirect_to @course
+      redirect_to @course
     else
       render :new
     end
@@ -36,7 +36,7 @@ class CoursesController < ApplicationController
       redirect_to @course
     else
       render :edit
-      #Some error messages need to be placed here!
+      # Some error messages need to be placed here!
     end
   end
 
