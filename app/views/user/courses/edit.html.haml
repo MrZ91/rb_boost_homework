@@ -1,6 +1,6 @@
-- provide(:title, 'Create your own course')
+- provide(:title, 'Edit course')
 
-= simple_form_for @course do |field|
+= simple_form_for [current_user,@course] do |field|
   = field.input :title
   = field.input :description,  input_html:{size:'50x10'}
   = field.input :image

@@ -1,8 +1,16 @@
 - provide(:title, 'courses')
 = link_to 'Main page', root_path
+%br/
+- if !user_signed_in?
+  = link_to 'Sign in', new_user_session_path
+  if you want to create your own course
 
 - @courses.each do |course|
-  %h3= link_to course.title, course_path(course)
+  %h3
+    - if course.belongs_to?(current_user) && user_signed_in?
+      = link_to course.title, user_course_path(current_user, course)
+    - else
+      = link_to course.title, course_path(course)
 
   %table
     %tr
@@ -13,9 +21,10 @@
       %td
         = course.description
 
-  = link_to 'Edit', edit_course_path(course)
-  or
-  =link_to 'delete', course_path(course), method: :delete, data: {confirm: 'Are you sure want to delete this course?!'}
-  this course
-  %br/
+  - if user_signed_in? && course.is_belongs_to?(current_user)
+    = link_to 'Edit', edit_user_course_path(current_user, course)
+    or
+    =link_to 'delete', user_course_path(current_user, course), method: :delete, data: {confirm: 'Are you sure want to delete this course?!'}
+    my course
+%br/
 = paginate @courses
