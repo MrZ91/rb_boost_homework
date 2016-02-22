@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  NAME_REGEX = /\A[A-Z]\w+|\A[A-Z]\w+\s[A-Z]\w+/
+  NAME_REGEX = /\A[A-Z]\w+|\A[A-Z]\w+\s[A-Z]\w+\z/
   EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
   devise :database_authenticatable, :registerable,
