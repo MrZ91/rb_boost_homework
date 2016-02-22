@@ -21,7 +21,7 @@
       %td
         = course.description
 
-  - if user_signed_in? && course.is_belongs_to?(current_user)
+  - if user_signed_in? && course.belongs_to?(current_user)
     = link_to 'Edit', edit_user_course_path(current_user, course)
     or
     =link_to 'delete', user_course_path(current_user, course), method: :delete, data: {confirm: 'Are you sure want to delete this course?!'}

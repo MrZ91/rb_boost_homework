@@ -16,6 +16,26 @@ RSpec.describe 'Courses pages', type: feature do
   it {should_not have_link 'delete', href:user_course_path(course, course.user) }
   end
 
+  describe 'Show courses page as signed user' do
+    let!(:another_course){create :course}
+    let!(:my_course){create :course}
+
+    before do
+      login_as(my_course.user, scope: :user)
+      visit courses_path
+    end
+
+    subject{page}
+
+    # it do
+    #   should have_no_link another_course.title,
+    #                          user_course_path(another_course.user, another_course)
+    # end
+
+    it {should have_link my_course.title,
+                         user_course_path(my_course.user, my_course)}
+  end
+
   describe 'Show my courses in cabinet' do
     let!(:another_course){create :course}
     let!(:my_course){create :course}
