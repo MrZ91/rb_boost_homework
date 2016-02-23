@@ -1,10 +1,11 @@
 = link_to 'Show courses', courses_path
 %br/
+
 - if user_signed_in?
  = link_to 'Create your own course', new_user_course_path(current_user)
  %br/
  = link_to 'My cabinet', user_path(current_user)
+ %br/
+ = link_to 'Logout', destroy_user_session_path, method: :delete
 - else
  = link_to 'Sign in!', new_user_session_path
-%br/
-= link_to 'Logout', destroy_user_session_path, method: :delete if user_signed_in?

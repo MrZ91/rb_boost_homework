@@ -4,16 +4,16 @@
 -if @course.image.present?
  = image_tag(@course.image_url)
  %br/
+
 = @course.description
 %br/
-- if user_signed_in?
- = link_to 'Edit ', edit_user_course_path(current_user, @course)
- or
- =link_to 'delete', user_course_path(current_user, @course), method: :delete, data: {confirm: 'Are you sure want to delete this course?!'}
- this course
-- else
- = link_to 'Sign in', new_user_session_path
+
+= link_to 'Edit ', edit_user_course_path(current_user, @course)
+or
+=link_to 'delete', user_course_path(current_user, @course), method: :delete, data: {confirm: 'Are you sure want to delete this course?!'}
+this course
 %br/
+
 = link_to 'Back', :back
 = link_to 'Main page', root_path
 

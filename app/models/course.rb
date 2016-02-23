@@ -4,8 +4,4 @@ class Course < ActiveRecord::Base
   belongs_to :user, dependent: :destroy
 
   mount_uploader :image, CourseImageUploader
-
-  def belongs_to?(user)
-    user_id == (user ? user.id : nil)
-  end
 end
