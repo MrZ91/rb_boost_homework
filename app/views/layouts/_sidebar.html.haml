@@ -1,0 +1,24 @@
+%aside.main-sidebar
+ %section.sidebar
+
+  = form_tag '#', method: :get, class: 'sidebar-form' do
+   .input-group
+    %input.form-control{:name => "q", :placeholder => "Search...", :type => "text"}/
+    %span.input-group-btn
+     %button#search-btn.btn.btn-flat{:name => "search", :type => "submit"}
+      %i.fa.fa-search
+
+  %ul.sidebar-menu
+   %li.header NAVIGATION
+
+   %li{class: current_page?(root_path) ? 'active' : nil}
+    = link_to root_path do
+     %i.fa.fa-desktop
+     %span Main page
+
+   %li{class: current_page?(courses_path) ? 'active' : nil}
+    = link_to courses_path do
+     %i.fa.fa-files-o
+     %span Courses
+
+

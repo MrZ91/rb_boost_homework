@@ -1,0 +1,18 @@
+%header.main-header
+
+ = link_to root_path, class: 'logo' do
+  %span.logo-lg Rubyboost
+  %span.logo-mini RB
+
+ %nav.navbar.navbar-static-top{:role => "navigation"}
+  =link_to '#', data: {toggle: 'offcanvas'}, role: 'button', class: 'sidebar-toggle' do
+   %span.sr-only Toggle navigation
+  .navbar-custom-menu
+   %ul.nav.navbar-nav
+    - if user_signed_in?
+     = render 'layouts/user_dropdown_menu'
+    - else
+     %li.user.user-menu
+      = link_to new_user_session_path, class: 'btn' do
+       %span.hidden-xs
+        Sign in!

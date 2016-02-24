@@ -1,19 +1,2 @@
-- @my_courses.each do |course|
- %h3= link_to course.title, user_course_path(current_user, course)
-
- %table
-  %tr
-
-   -if course.image.present?
-    %td
-     = image_tag(course.image.thumb.url, align: :middle)
-   %td
-    = course.description
-
- = link_to 'Edit', edit_user_course_path(current_user, course)
- or
- =link_to 'delete', user_course_path(current_user, course), method: :delete, data: {confirm: 'Are you sure want to delete this course?!'}
- this course
-
-%br/
-= paginate @my_courses
+= @user.first_name
+= @user.last_name

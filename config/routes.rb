@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :user
 
   resources :user, controller: 'user', only: [:show] do
-    root to: 'user#show'
+    root to: 'user#cabinet'
     resources :courses, controller: 'user/courses', except: [:index]
   end
 

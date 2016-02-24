@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
 
   devise :database_authenticatable, :registerable, :rememberable, :validatable
 
-  has_many :courses
+  has_many :courses, dependent: :destroy
 
   validates :first_name, :last_name, presence: true, format: NAME_REGEX
   validates :password, confirmation: true, presence: true, length: 6..22, format: { without: /\b(\w)\1+\b/i }

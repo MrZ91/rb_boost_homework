@@ -1,33 +1,5 @@
 - provide(:title, 'courses')
-= link_to 'Main page', root_path
-%br/
-
-- if !user_signed_in?
-  = link_to 'Sign in', new_user_session_path
-  if you want to create your own course
-
-- @courses.each do |course|
-  %h3
-
-    - if user_signed_in? && current_user.owner_of?(course)
-      = link_to course.title, user_course_path(current_user, course)
-    - else
-      = link_to course.title, course_path(course)
-
-  %table
-    %tr
-
-      -if course.image.present?
-        %td
-          = image_tag(course.image.thumb.url, align: :middle)
-      %td
-        = course.description
-
-  - if user_signed_in? && current_user.owner_of?(course)
-    = link_to 'Edit', edit_user_course_path(current_user, course)
-    or
-    =link_to 'delete', user_course_path(current_user, course), method: :delete, data: {confirm: 'Are you sure want to delete this course?!'}
-    my course
-%br/
-
+%div.container-fluid
+ - @courses.each do |course|
+  = render 'preview', course: course
 = paginate @courses

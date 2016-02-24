@@ -9,4 +9,8 @@ class ApplicationController < ActionController::Base
       user.permit(:first_name, :last_name, :email, :password, :password_confirmation)
     end
   end
+
+  def select_layout
+    devise_controller? ? 'devise' : 'application'
+  end
 end

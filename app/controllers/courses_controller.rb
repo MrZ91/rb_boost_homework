@@ -1,7 +1,7 @@
 class CoursesController < ApplicationController
   protect_from_forgery with: :exception
 
-  COURSES_ON_PAGE = 5
+  COURSES_ON_PAGE = 9
 
   def index
     @courses = Course.page(params[:page]).per(COURSES_ON_PAGE)

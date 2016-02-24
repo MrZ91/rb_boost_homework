@@ -9,7 +9,14 @@
 //
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
-//
+//= require_tree .
 //= require jquery
 //= require jquery_ujs
-//= require_tree .
+//= require jquery-ui
+//= require bootstrap-sprockets
+//= require slimScroll/jquery.slimscroll
+//= require fastclick/fastclick
+//= require app
+//= require pages/dashboard
+//= require demo
+

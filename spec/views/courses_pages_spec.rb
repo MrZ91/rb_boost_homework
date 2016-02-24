@@ -1,11 +1,17 @@
 require 'rails_helper'
 RSpec.describe 'Courses pages', type: feature do
+  let(:show_courses_lnk) { 'Courses' }
+  let(:sign_in_link) { 'Sign in!' }
+  let(:sign_in_btn) { 'Log in' }
+  let(:sign_up_link) { 'Sign up!' }
+
   describe 'Show courses page as unsigned user' do
     subject { page }
     let!(:course) { create :course }
 
     before do
-      visit courses_path
+      visit root_path
+      click_link show_courses_lnk
     end
     it { should have_title 'Rubyboost courses' }
     it { should have_link course.title, href: course_path(course) }
@@ -18,8 +24,12 @@ RSpec.describe 'Courses pages', type: feature do
     let!(:my_course) { create :course }
 
     before do
-      login_as(my_course.user, scope: :user)
-      visit courses_path
+      visit root_path
+      click_link sign_in_link
+      fill_in 'Email', with: my_course.user.email
+      fill_in 'Password', with: '123456'
+      click_button sign_in_btn
+      click_link show_courses_lnk
     end
 
     subject { page }
@@ -40,8 +50,12 @@ RSpec.describe 'Courses pages', type: feature do
     let!(:my_course) { create :course }
 
     before do
-      login_as(my_course.user, scope: :user)
-      visit user_path(my_course.user)
+      visit root_path
+      click_link sign_in_link
+      fill_in 'Email', with: my_course.user.email
+      fill_in 'Password', with: '123456'
+      click_button sign_in_btn
+      click_link 'Cabinet'
     end
 
     subject { page }
@@ -66,8 +80,12 @@ RSpec.describe 'Courses pages', type: feature do
     let!(:user) { create :user }
 
     before do
-      login_as(user, scope: :user)
-      visit new_user_course_path(user)
+      visit root_path
+      click_link sign_in_link
+      fill_in 'Email', with: user.email
+      fill_in 'Password', with: '123456'
+      click_button sign_in_btn
+      click_link 'Create course'
     end
 
     subject { page }
@@ -98,15 +116,18 @@ RSpec.describe 'Courses pages', type: feature do
     subject { page }
 
     before do
-      login_as(course.user, scope: :user)
       visit root_path
+      click_link sign_in_link
+      fill_in 'Email', with: course.user.email
+      fill_in 'Password', with: '123456'
+      click_button sign_in_btn
     end
 
     context 'from index page' do
       before do
-        click_link('Show courses')
-        click_link(course.title)
-        click_link('Edit')
+        click_link show_courses_lnk
+        click_link course.title
+        click_link 'Edit'
       end
 
       it { should have_title 'Rubyboost Edit course' }
@@ -148,9 +169,9 @@ RSpec.describe 'Courses pages', type: feature do
 
     context 'from cabinet page' do
       before do
-        click_link('My cabinet')
-        click_link(course.title)
-        click_link('Edit')
+        click_link 'Cabinet'
+        click_link course.title
+        click_link 'Edit'
       end
 
       it { should have_title 'Rubyboost Edit course' }

@@ -1,25 +1,7 @@
-= @course.title
-%br/
-
--if @course.image.present?
- = image_tag(@course.image_url)
- %br/
-
-= @course.description
-%br/
-
-- if user_signed_in?
-
- - if current_user.owner_of?(@course)
-  = link_to 'Edit', edit_user_course_path(@course, current_user)
-  or
-  =link_to 'delete', user_course_path(@course, current_user), method: :delete, data: {confirm: 'Are you sure want to delete this course?!'}
-  my course
-- else
- = link_to 'Sign in', new_user_session_path
- if you want to create your own course
-%br/
-
-= link_to 'Back', :back
-= link_to 'Main page', root_path
-
+- provide(:title, "#{@course.title} course")
+.container-fluid
+ .row
+  .col-md-6
+   = image_tag(@course.image_url)
+  .col-md-6
+   = @course.description
