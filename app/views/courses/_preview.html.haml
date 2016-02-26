@@ -18,8 +18,5 @@
      %i.fa.fa-times
   .box-body
    %h2
-    - if user_signed_in? && current_user.owner_of?(course)
-     = link_to course.title, user_course_path(current_user,course)
-    - else
-     = link_to course.title, course_path(course)
+    = link_to course.title, course_path(course)
    = image_tag course.image.thumb.url, alt: 'Course image', class: 'img-responsive pad'

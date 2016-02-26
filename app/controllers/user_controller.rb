@@ -1,4 +1,6 @@
 class UserController < ApplicationController
+  before_action :authenticate_user!
+
   COURSES_ON_PAGE = 9
 
   def cabinet

@@ -3,9 +3,12 @@ Rails.application.routes.draw do
 
   resources :user, controller: 'user', only: [:show] do
     root to: 'user#cabinet'
-    resources :courses, controller: 'user/courses', except: [:index]
   end
 
-  root to: 'static_pages#index'
+  namespace :user do
+    resources :courses, except: [:index]
+  end
+
   resources :courses, only: [:show, :index]
+  root to: 'static_pages#index'
 end

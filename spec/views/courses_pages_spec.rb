@@ -123,50 +123,6 @@ RSpec.describe 'Courses pages', type: feature do
       click_button sign_in_btn
     end
 
-    context 'from index page' do
-      before do
-        click_link show_courses_lnk
-        click_link course.title
-        click_link 'Edit'
-      end
-
-      it { should have_title 'Rubyboost Edit course' }
-
-      context 'should have correct information' do
-        it { should have_content course.description }
-      end
-
-      context 'with' do
-        context 'invalid title' do
-          before do
-            fill_in 'Title', with: ''
-            click_button upd_btn
-          end
-          it { should have_content("can't be blank") }
-        end
-
-        context 'invalid description' do
-          before do
-            fill_in 'Description', with: ''
-            click_button upd_btn
-          end
-          it { should have_content("can't be blank") }
-        end
-      end
-
-      context 'should change information' do
-        let(:new_title) { 'New test-title' }
-        let(:new_description) { Faker::Lorem.paragraph(3) }
-        before do
-          fill_in 'Title', with: new_title
-          fill_in 'Description', with: new_description
-          click_button upd_btn
-        end
-        specify { expect(course.reload.title).to eq new_title }
-        specify { expect(course.reload.description).to eq new_description }
-      end
-    end
-
     context 'from cabinet page' do
       before do
         click_link 'Cabinet'

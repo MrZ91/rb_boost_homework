@@ -20,5 +20,8 @@ Style/SpaceAroundEqualsInParameterDefault:
 Style/ParallelAssignment:
   Enabled: false
 
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact
+
 Metrics/LineLength:
   Max: 130

@@ -6,7 +6,7 @@
   .col-md-6
    = @course.description
 
- = link_to 'Edit ', edit_user_course_path(current_user, @course)
+ = link_to 'Edit ', edit_user_course_path(@course)
  or
- =link_to 'delete', user_course_path(current_user, @course), method: :delete, data: {confirm: 'Are you sure want to delete this course?!'}
+ =link_to 'delete', user_course_path(@course), method: :delete, data: {confirm: 'Are you sure want to delete this course?!'}
  this course

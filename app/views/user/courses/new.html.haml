@@ -3,7 +3,7 @@
  %div.row
   %div.col-md-8.col-md-offset-2
 
-   = simple_form_for [current_user, @course] do |field|
+   = simple_form_for [:user, @course] do |field|
     = field.input :title
     = field.input :description,  input_html:{size:'50x10'}
     = field.input :image

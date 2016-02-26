@@ -4,20 +4,12 @@
   %span.hidden-xs
    #{current_user.first_name} #{current_user.last_name}
  %ul.dropdown-menu
-  / User image
   %li.user-header
    = image_tag 'http://placehold.it/160x160', alt: 'User avatar', class: 'img-circle'
-   %p
+   %h4
     #{current_user.first_name} #{current_user.last_name}
-
   %li.user-body
-   -#.row
-   -# .col-xs-4.text-center
-   -#  %a{:href => "#"} Followers
-   -# .col-xs-4.text-center
-   -#  %a{:href => "#"} Sales
-   -# .col-xs-4.text-center
-   -#  %a{:href => "#"} Friends
+   = link_to  'Profile', user_path(current_user)
   %li.user-footer
    .btn-group
     = link_to 'Cabinet', user_index_root_path, class: 'btn btn-default btn-flat'

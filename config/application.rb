@@ -15,8 +15,10 @@ require 'sprockets/railtie'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+# rubocop:disable ClassAndModuleChildren
 module Homework
   class Application < Rails::Application
+    # rubocop:enable ClassAndModuleChildren
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
