@@ -1,0 +1,12 @@
+- provide(:title, "#{@course.title} course")
+.container-fluid
+ .row
+  .col-md-6
+   = image_tag(@course.image_url)
+  .col-md-6
+   = @course.description
+
+ = link_to 'Edit ', edit_user_course_path(@course)
+ or
+ =link_to 'delete', user_course_path(@course), method: :delete, data: {confirm: 'Are you sure want to delete this course?!'}
+ this course

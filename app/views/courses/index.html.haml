@@ -1,21 +1,5 @@
 - provide(:title, 'courses')
-= link_to 'Main page', root_path
-
-- @courses.each do |course|
-  %h3= link_to course.title, course_path(course)
-
-  %table
-    %tr
-
-      -if course.image.present?
-        %td
-          = image_tag(course.image.thumb.url, align: :middle)
-      %td
-        = course.description
-
-  = link_to 'Edit', edit_course_path(course)
-  or
-  =link_to 'delete', course_path(course), method: :delete, data: {confirm: 'Are you sure want to delete this course?!'}
-  this course
-  %br/
+%div.container-fluid
+ - @courses.each do |course|
+  = render 'preview', course: course
 = paginate @courses

@@ -1,0 +1,22 @@
+.col-md-4
+ .box.box-widget
+  .box-header.with-border
+   .user-block
+    = image_tag '', alt: 'User avatar', class: 'img-circle'
+    %span.username
+     = link_to "#{course.user.first_name} #{course.user.last_name}", user_path(course.user)
+    %span.description
+     Created course
+     = distance_of_time_in_words_to_now(course.created_at)
+     ago.
+   .box-tools
+    = button_tag class:'btn btn-box-tool', data:{toggle: 'tooltip'}, title: 'Mark as read', type: nil, name: nil do
+     %i.fa.fa-circle-o
+    = button_tag class:'btn btn-box-tool', data:{widget: 'collapse'}, type: nil, name: nil do
+     %i.fa.fa-minus
+    = button_tag class:'btn btn-box-tool', data:{widget: 'remove'}, type: nil, name: nil do
+     %i.fa.fa-times
+  .box-body
+   %h2
+    = link_to course.title, course_path(course)
+   = image_tag course.image.thumb.url, alt: 'Course image', class: 'img-responsive pad'

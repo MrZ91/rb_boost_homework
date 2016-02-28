@@ -1,7 +1,5 @@
 SimpleForm.setup do |config|
-  config.wrappers :default, class: :input,
-
-    hint_class: :field_with_hint, error_class: :field_with_errors do |b|
+  config.wrappers :default, class: :input, hint_class: :field_with_hint, error_class: :field_with_errors do |b|
     b.use :html5
     b.use :placeholder
     b.use :label_input
@@ -15,16 +13,10 @@ SimpleForm.setup do |config|
   end
 
   config.default_wrapper = :default
-
   config.boolean_style = :nested
-
   config.button_class = 'btn'
-
   config.error_notification_tag = :div
-
   config.error_notification_class = 'error_notification'
-
   config.browser_validations = false
-
   config.boolean_label_class = 'checkbox'
 end

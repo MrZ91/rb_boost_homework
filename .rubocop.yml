@@ -4,7 +4,6 @@ AllCops:
     - 'spec/fixtures/**/*'
     - 'tmp/**/*'
     - 'bin/*'
-    - 'spec/*'
     - 'db/schema.rb'
   TargetRubyVersion: 2.2
   DisplayCopNames: true
@@ -20,6 +19,9 @@ Style/SpaceAroundEqualsInParameterDefault:
 
 Style/ParallelAssignment:
   Enabled: false
+
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact
 
 Metrics/LineLength:
   Max: 130

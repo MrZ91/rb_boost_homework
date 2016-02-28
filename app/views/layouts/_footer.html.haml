@@ -1,0 +1,7 @@
+%footer.main-footer
+ .pull-right.hidden-xs
+  %b Version
+  0.0.1
+ %strong Copyright © Rubyboost 2016
+ /= debug(params) if Rails.env.development?
+ /= current_user.id if user_signed_in?

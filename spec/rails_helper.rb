@@ -1,7 +1,7 @@
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 
-abort("The Rails environment is running in production mode!") if Rails.env.production?
+abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'spec_helper'
 require 'rspec/rails'
 
@@ -9,6 +9,13 @@ ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
   config.include Rails.application.routes.url_helpers
+  config.include Capybara::DSL
+  config.include FactoryGirl::Syntax::Methods
+  config.include Warden::Test::Helpers
+
+  config.before :suite do
+    Warden.test_mode!
+  end
 
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
@@ -18,7 +25,9 @@ RSpec.configure do |config|
 
   config.filter_rails_from_backtrace!
 
-  config.include Capybara::DSL
+  config.after :each do
+    Warden.test_reset!
+  end
 end
 
 Shoulda::Matchers.configure do |config|

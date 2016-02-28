@@ -21,8 +21,12 @@ gem 'sass-rails'
 gem 'haml-rails'
 gem 'coffee-rails'
 gem 'font-awesome-sass'
+gem 'font-awesome-rails'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
+gem 'bootstrap-sass'
+
+gem 'devise'
 
 group :production, :release, :staging do
   gem 'rails_12factor'
