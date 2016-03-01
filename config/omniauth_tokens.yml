@@ -1,0 +1,14 @@
+development:
+  facebook:
+    key: <%= ENV['facebook_key'] %>
+    secret: <%= ENV['facebook_secret'] %>
+  twitter:
+    key: <%= ENV['twitter_key'] %>
+    secret: <%= ENV['twitter_secret'] %>
+test:
+  facebook:
+    key: <%= ENV['facebook_key'] %>
+    secret: <%= ENV['facebook_secret'] %>
+  twitter:
+    key: <%= ENV['twitter_key'] %>
+    secret: <%= ENV['twitter_secret'] %>
