@@ -1,7 +1,18 @@
-- provide(:title, "#{@course.title} course")
+- provide(:title, "#{course.title} course")
 .container-fluid
  .row
   .col-md-6
-   = image_tag(@course.image_url)
+   = image_tag(course.image_url)
   .col-md-6
    = @course.description
+ .row
+  %table.table.table-striped
+   %thead
+    %tr
+     %th Subscriber
+     %th Progress
+   %tbody
+    - @subscribers.each do |subscriber|
+     %tr
+      %td #{subscriber.first_name} #{subscriber.last_name}
+      %td Progress-bar

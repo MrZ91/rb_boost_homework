@@ -6,9 +6,16 @@
   .col-md-2
    = image_tag(course.image.thumb.url, align: :middle)
   .col-md-10
+
    .row
-    %h3= link_to course.title, user_course_path(course)
-   = course.description
+    .col-md-4
+     %h3= link_to course.title, user_course_path(course)
+     = course.description
+    .col-md-4
+     = link_to user_course_visibility_path(course), method: :put, remote: true do
+      = button_tag 'Visible', id: "visible-btn-#{course.id}",  type: 'button', class: 'btn btn-success', style:('display: none' unless course.visible)
+      = button_tag 'Hidden', id: "hidden-btn-#{course.id}",  type: 'button', class: 'btn btn-danger', style:('display: none' unless !course.visible)
+
    .row
     = link_to 'Edit', edit_user_course_path(course)
     or
