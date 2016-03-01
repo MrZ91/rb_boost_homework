@@ -9,14 +9,29 @@
      Created course
      = distance_of_time_in_words_to_now(course.created_at)
      ago.
+     %br/
+
    .box-tools
-    = button_tag class:'btn btn-box-tool', data:{toggle: 'tooltip'}, title: 'Mark as read', type: nil, name: nil do
-     %i.fa.fa-circle-o
-    = button_tag class:'btn btn-box-tool', data:{widget: 'collapse'}, type: nil, name: nil do
-     %i.fa.fa-minus
-    = button_tag class:'btn btn-box-tool', data:{widget: 'remove'}, type: nil, name: nil do
-     %i.fa.fa-times
+    - if user_signed_in?
+     = link_to user_course_subscriptions_path(course), method: :post, remote: true,
+      style: ('display: none' if current_user.subscribed_to?(course)),
+      data:{toggle: 'tooltip', remote: true}, id: "subscription-btn-#{course.id}",
+      title: 'Subscribe to this course', class:'btn btn-box-tool' do
+      %i.fa.fa-check
+     = link_to user_course_subscriptions_path(course), method: :delete, remote: true,
+      style: ('display: none' if !current_user.subscribed_to?(course)),
+      data:{toggle: 'tooltip', remote: true}, id: "unsubscription-btn-#{course.id}",
+      title: 'Unsubscribe to this course', class:'btn btn-box-tool' do
+      %i.fa.fa-close
+    -#= button_tag class:'btn btn-box-tool', data:{widget: 'collapse'}, type: nil, name: nil do
+    -# %i.fa.fa-minus
+    -#= button_tag class:'btn btn-box-tool', data:{widget: 'remove'}, type: nil, name: nil do
+    -# %i.fa.fa-times
+
   .box-body
    %h2
     = link_to course.title, course_path(course)
+   %span.description{id: "suscription-title-#{course.id}", style: ('display: none' if !current_user.subscribed_to?(course))}
+    - unless !user_signed_in?
+     You subscribed on this course
    = image_tag course.image.thumb.url, alt: 'Course image', class: 'img-responsive pad'

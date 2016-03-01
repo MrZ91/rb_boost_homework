@@ -27,6 +27,9 @@ gem 'jquery-ui-rails'
 gem 'bootstrap-sass'
 
 gem 'devise'
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem 'omniauth-twitter'
 
 group :production, :release, :staging do
   gem 'rails_12factor'
@@ -52,6 +55,7 @@ group :development do
   gem 'annotate'
   gem 'better_errors'
   gem 'spring-commands-rspec'
+  gem 'bullet'
 end
 
 group :test do

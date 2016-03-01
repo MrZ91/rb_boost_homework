@@ -1,5 +1,5 @@
 %li.dropdown.user.user-menu
- %a.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :href => "#"}
+ %a.dropdown-toggle{ "aria-expanded" => "false", "data-toggle" => "dropdown", href: "#" }
   = image_tag 'http://placehold.it/160x160', alt: 'User avatar', class: 'user-image'
   %span.hidden-xs
    #{current_user.first_name} #{current_user.last_name}
@@ -13,5 +13,5 @@
   %li.user-footer
    .btn-group
     = link_to 'Cabinet', user_index_root_path, class: 'btn btn-default btn-flat'
-    = link_to 'Create course', new_user_course_path(current_user), class: 'btn btn-default btn-flat'
+    = link_to 'Create course', new_user_course_path, class: 'btn btn-default btn-flat'
     = link_to 'Logout',  destroy_user_session_path, class: 'btn btn-default btn-flat', method: :delete

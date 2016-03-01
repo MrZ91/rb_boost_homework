@@ -11,27 +11,78 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160226061729) do
+ActiveRecord::Schema.define(version: 20160302082855) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "course_users", force: :cascade do |t|
+    t.integer "user_id",   null: false
+    t.integer "course_id", null: false
+  end
+
+  add_index "course_users", ["user_id", "course_id"], name: "index_course_users_on_user_id_and_course_id", unique: true, using: :btree
+
   create_table "courses", force: :cascade do |t|
-    t.string   "title",       limit: 50, null: false
-    t.text     "description",            null: false
+    t.string   "title",       limit: 50,                null: false
+    t.text     "description",                           null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "image"
-    t.integer  "user_id",                null: false
+    t.integer  "user_id",                               null: false
+    t.boolean  "visible",                default: true, null: false
   end
 
   add_index "courses", ["title"], name: "index_courses_on_title", using: :btree
 
+  create_table "exclusions", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.integer  "course_id",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "exclusions", ["user_id", "course_id"], name: "index_exclusions_on_user_id_and_course_id", unique: true, using: :btree
+
+  create_table "lessons", force: :cascade do |t|
+    t.string   "title",                               null: false
+    t.string   "image"
+    t.text     "description"
+    t.text     "lecture_notes",                       null: false
+    t.text     "homework_text"
+    t.integer  "position",      limit: 2, default: 1, null: false
+    t.integer  "course_id",                           null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "lessons", ["course_id", "position"], name: "index_lessons_on_course_id_and_position", unique: true, using: :btree
+
+  create_table "profiles", force: :cascade do |t|
+    t.string   "first_name", null: false
+    t.string   "last_name",  null: false
+    t.integer  "user_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", unique: true, using: :btree
+
+  create_table "social_profiles", force: :cascade do |t|
+    t.string   "provider"
+    t.string   "uid"
+    t.integer  "user_id"
+    t.boolean  "signed_up_with_social", default: true
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+  end
+
+  add_index "social_profiles", ["user_id", "provider"], name: "index_social_profiles_on_user_id_and_provider", unique: true, using: :btree
+  add_index "social_profiles", ["user_id"], name: "index_social_profiles_on_user_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "email",               null: false
     t.string   "encrypted_password",  null: false
-    t.string   "first_name",          null: false
-    t.string   "last_name",           null: false
     t.datetime "remember_created_at"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false

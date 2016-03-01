@@ -1,5 +1,4 @@
-class User::CoursesController < ApplicationController
-  before_action :authenticate_user!
+class User::CoursesController < User::AuthenticateController
   before_action :find_course, only: [:edit, :show, :update, :destroy]
 
   protect_from_forgery with: :exception
