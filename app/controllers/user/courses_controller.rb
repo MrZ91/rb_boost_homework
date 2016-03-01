@@ -21,6 +21,7 @@ class User::CoursesController < User::AuthenticateController
   end
 
   def show
+    @subscribers = @course.subscribers
   end
 
   def update

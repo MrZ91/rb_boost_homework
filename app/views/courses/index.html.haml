@@ -1,5 +1,10 @@
 - provide(:title, 'courses')
+
 %div.container-fluid
+ .alert.alert-danger.fade{:style => "position: absolute;  top: 100px; left: 300px;  right: 100px; z-index: 100;"}
+  %button.close{"data-dismiss" => "alert", :type => "button"} ×
+  %h3.text-center
+   You had been prohibited to subscribe this course.
  - @courses.each do |course|
   = render 'preview', course: course
 = paginate @courses

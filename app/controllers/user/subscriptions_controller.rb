@@ -1,10 +1,16 @@
 class User::SubscriptionsController < User::AuthenticateController
-  before_action :find_course
+  before_action :find_course, only: [:create, :destroy]
 
   COURSES_ON_PAGE = 9
 
   def create
-    @course.subscribers << current_user
+    if @course.prohibited_for?(current_user)
+      respond_to do |format|
+        format.js { render js: '$(".alert").addClass("in");' }
+      end
+    else
+      @course.subscribers << current_user
+    end
   end
 
   def destroy
@@ -12,10 +18,10 @@ class User::SubscriptionsController < User::AuthenticateController
   end
 
   def show
-    @subscriptions=current_user.subscriptions.page(params[:page]).per(COURSES_ON_PAGE)
+    @subscriptions = current_user.subscriptions.page(params[:page]).per(COURSES_ON_PAGE)
   end
 
   def find_course
-    @course = current_user.courses.find_by(id: params[:course_id])
+    @course = Course.find_by(id: params[:course_id])
   end
 end

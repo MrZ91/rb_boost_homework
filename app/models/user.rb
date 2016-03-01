@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   has_many :social_profiles, dependent: :destroy
   has_many :course_users
   has_many :subscriptions, through: :course_users, source: :course
+  has_many :exclusions, dependent: :destroy
 
   accepts_nested_attributes_for :profile
   delegate :first_name, :last_name, to: :profile

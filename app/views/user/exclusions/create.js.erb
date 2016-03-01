@@ -1,0 +1,4 @@
+$('#course-subscriber-<%= @user.id %>-column').remove();
+if (<%= @course.subscribers.count < 1 %>){
+  $('#course-subscribers-list').remove();
+}

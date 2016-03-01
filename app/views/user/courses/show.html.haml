@@ -3,17 +3,29 @@
  .row
   .col-md-4
    = image_tag(@course.image_url)
-  .row
-   .col-md-6
-    = link_to user_course_visibility_path(@course), method: :put, remote: true do
-     = button_tag 'Visible', id: "visible-btn-#{@course.id}",  type: 'button', class: 'btn btn-success', style:('display: none' unless @course.visible)
-     = button_tag 'Hidden', id: "hidden-btn-#{@course.id}",  type: 'button', class: 'btn btn-danger', style:('display: none' unless !@course.visible)
-
-
-   .col-md-6
-    = @course.description
-    %br/
-    = link_to 'Edit ', edit_user_course_path(@course)
-    or
-    =link_to 'delete', user_course_path(@course), method: :delete, data: {confirm: 'Are you sure want to delete this course?!'}
-    this course
+  .col-md-6
+   = link_to user_course_visibility_path(@course), method: :put, remote: true do
+    = button_tag 'Visible', id: "visible-btn-#{@course.id}",  type: 'button', class: 'btn btn-success', style:('display: none' unless @course.visible)
+    = button_tag 'Hidden', id: "hidden-btn-#{@course.id}",  type: 'button', class: 'btn btn-danger', style:('display: none' if @course.visible)
+  .col-md-6
+   = @course.description
+   %br/
+   = link_to 'Edit ', edit_user_course_path(@course)
+   or
+   =link_to 'delete', user_course_path(@course), method: :delete, data: {confirm: 'Are you sure want to delete this course?!'}
+   this course
+ .row
+  - unless @subscribers.count <1
+   %table.table.table-striped#course-subscribers-list
+    %thead
+     %tr
+      %th Subscriber
+      %th Progress
+      %th
+    %tbody
+     - @subscribers.each do |subscriber|
+      %tr{ id: "course-subscriber-#{subscriber.id}-column" }
+       %td #{subscriber.first_name} #{subscriber.last_name}
+       %td Progress-bar
+       %td
+        = link_to 'Exclude', user_create_course_prohibition_path(subscriber, @course), class: 'btn btn-danger', remote: true, method: :post
