@@ -1,7 +1,6 @@
-class Profile < ActiveRecord::Base
-  UNRESOLVED_SYMBOLS_REGEX = %r{\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\'|\"|\\|\||\/|\?|\.|\,|\=|\+|\{|\}|\[|\]}
-
-  validates :first_name, :last_name, presence: true, format: { without: UNRESOLVED_SYMBOLS_REGEX }
+class CourseUser < ActiveRecord::Base
+  validates :course_id, uniqueness: { scope: :user_id }
 
   belongs_to :user
+  belongs_to :course
 end

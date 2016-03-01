@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
   has_many :courses, dependent: :destroy
   has_one :profile, dependent: :destroy
   has_many :social_profiles, dependent: :destroy
+  has_many :course_users
+  has_many :subscriptions, through: :course_users, source: :course
 
   accepts_nested_attributes_for :profile
   delegate :first_name, :last_name, to: :profile
@@ -56,6 +58,10 @@ class User < ActiveRecord::Base
   def signed_up_with_social
     social_profile = social_profiles.find_by(signed_up_with_social: true)
     social_profile ? true : false
+  end
+
+  def subscribed_to?(course)
+    subscriptions.exists?(id: course.id)
   end
 
   protected

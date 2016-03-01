@@ -1,5 +1,5 @@
-class User::ProfileController < ApplicationController
-  skip_before_action :configure_profile, only: [:signed_up_with_social, :edit_signed_up_with_social]
+class User::ProfileController < User::AuthenticateController
+  skip_before_action :configure_profile, :authenticate_user!, only: [:signed_up_with_social, :edit_signed_up_with_social]
 
   layout 'devise', only: [:signed_up_with_social, :edit_signed_up_with_social]
 
