@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'User', type: :model do
   let!(:user) do
-    User.new(first_name: 'Example', last_name: 'User',
+    User.new(profile_attributes: { first_name: 'Example', last_name: 'User' },
              email: 'example@mail.com', password: '123123',
              password_confirmation: '123123')
   end
@@ -13,24 +13,24 @@ describe 'User', type: :model do
 
   context 'with first name' do
     context 'is empty' do
-      before { user.first_name = '' }
+      before { user.profile.first_name = '' }
       it { should_not be_valid }
     end
 
     context "that's contains unresolved symbols" do
-      before { user.first_name = '1@/#/%/$_' }
+      before { user.profile.first_name = '1@/#/%/$_' }
       it { should_not be_valid }
     end
   end
 
   context 'with last name' do
     context 'is empty' do
-      before { user.last_name = '' }
+      before { user.profile.last_name = '' }
       it { should_not be_valid }
     end
 
     context "that's contains unresolved symbols" do
-      before { user.last_name = '1@/#/%/$_' }
+      before { user.profile.last_name = '1@/#/%/$_' }
       it { should_not be_valid }
     end
   end

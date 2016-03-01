@@ -1,5 +1,6 @@
 class CoursesController < ApplicationController
   protect_from_forgery with: :exception
+  skip_before_action :configure_profile
 
   COURSES_ON_PAGE = 9
 
