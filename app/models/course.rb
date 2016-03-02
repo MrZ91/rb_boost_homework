@@ -3,6 +3,7 @@ class Course < ActiveRecord::Base
   validates :description, presence:  true
 
   belongs_to :user
+  has_many :lessons, dependent: :destroy
   has_many :course_users, dependent: :destroy
   has_many :subscribers, through: :course_users, source: :user
   has_many :prohibitions, class_name: 'Exclusion', foreign_key: :course_id, dependent: :destroy

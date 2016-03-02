@@ -17,7 +17,7 @@ class User::CallbacksController < ApplicationController
       user = sign_in_with_oauth_data(oauth_data)
       user.register_social_profile(oauth_data, true)
     end
-    redirect_to current_user
+    redirect_to user_cabinet_path
   end
 
   def sign_in_with_oauth_data(oauth_data)

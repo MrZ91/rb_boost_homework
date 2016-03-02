@@ -1,4 +1,4 @@
 $('#course-subscriber-<%= @user.id %>-column').remove();
-if (<%= @course.subscribers.count < 1 %>){
+if (<%= !@course.subscribers.present? %>){
   $('#course-subscribers-list').remove();
 }

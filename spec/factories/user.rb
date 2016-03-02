@@ -11,7 +11,7 @@ FactoryGirl.define do
 
   factory :profile do
     association :user
-    first_name { 'Example' }
-    last_name { 'Name' }
+    sequence(:first_name) { |i| "#{i}_Example" }
+    sequence(:last_name) { |i| "#{i}_Name" }
   end
 end

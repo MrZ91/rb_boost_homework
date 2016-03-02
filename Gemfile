@@ -25,6 +25,8 @@ gem 'font-awesome-rails'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'bootstrap-sass'
+gem 'jasny-bootstrap-rails'
+gem 'bootstrap_notify'
 
 gem 'devise'
 gem 'omniauth'

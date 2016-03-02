@@ -19,4 +19,4 @@
 //= require app
 //= require pages/dashboard
 //= require demo
-
+//= require jasny-bootstrap.min

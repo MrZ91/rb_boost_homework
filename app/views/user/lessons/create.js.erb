@@ -1,0 +1,3 @@
+$('#lesson-close').click();
+$('.lesson')[0].reset();
+$('#homework-list').append('<%= j render('user/courses/lesson', lesson: @lesson, course: @course)%>');

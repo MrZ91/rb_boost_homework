@@ -5,9 +5,7 @@ class User::SubscriptionsController < User::AuthenticateController
 
   def create
     if @course.prohibited_for?(current_user)
-      respond_to do |format|
-        format.js { render js: '$(".alert").addClass("in");' }
-      end
+      render 'user/exclusions/error'
     else
       @course.subscribers << current_user
     end

@@ -1,4 +1,5 @@
 /*
+*= require jasny-bootstrap.min
 *= require AdminLTE
 *= require skins/skin-blue
 *= require iCheck/flat/blue
@@ -8,3 +9,7 @@
 @import "font-awesome";
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+.some-good-class {
+  min-height: 20px;
+}

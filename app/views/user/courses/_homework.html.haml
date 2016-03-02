@@ -1,0 +1,41 @@
+%section.content-header
+ %h1.text-center #{course.title} homework
+
+
+%button.btn.btn-primary{"data-target" => "#CreateModal", "data-toggle" => "modal", :type => "button"}
+ Create lesson
+
+- unless course.lessons.count <1
+ %table.table.table-striped.table-hover#homework-list
+  %thead
+   %tr
+    %th
+    %th
+    %th Title
+    %th
+  %tbody.rowlink{ data: { link: 'row' } }
+   - course.lessons.each do |lesson|
+    = render 'user/courses/lesson', lesson: lesson, course: course
+
+#CreateModal.modal.fade{"aria-labelledby" => "CreateLabel", :role => "dialog", :tabindex => "-1"}
+
+ .modal-dialog.modal-lg{:role => "document"}
+  .modal-content
+   .modal-header
+    - if flash[:error]
+     =flash[:error]
+
+    %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+     %span{"aria-hidden" => "true"} ×
+    %h4#CreateModalLabel.modal-title Modal title
+
+   .modal-body
+    = simple_form_for :lesson, url: user_course_lessons_path(course), method: :post do |f|
+     = f.input :title
+     = f.input :description, as: :text
+     = f.input :lecture_notes, as: :text
+     = f.input :homework_text, as: :text
+     = f.input :image, as: :file
+     .modal-footer
+      = f.button :submit, 'Create lesson', class: 'btn btn-primary'
+      = f.button :button, 'Close', class: 'btn btn-default', data: { dismiss: 'modal' }, type: 'button', id: 'lesson-close'

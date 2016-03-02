@@ -13,16 +13,19 @@
 
    .box-tools
     - if user_signed_in?
-     = link_to user_course_subscription_path(course), method: :post, remote: true,
-      style: ('display: none' if current_user.subscribed_to?(course)),
-      data:{toggle: 'tooltip', remote: true}, id: "suscription-btn-#{course.id}",
-      title: 'Subscribe to this course', class:'btn btn-box-tool' do
-      %i.fa.fa-check
-     = link_to user_course_subscription_path(course), method: :delete, remote: true,
-      style: ('display: none' if !current_user.subscribed_to?(course)),
-      data:{toggle: 'tooltip', remote: true}, id: "unsuscription-btn-#{course.id}",
-      title: 'Unsubscribe to this course', class:'btn btn-box-tool' do
-      %i.fa.fa-close
+     - if !course.prohibited_for?(current_user)
+      = link_to user_course_subscription_path(course), method: :post, remote: true,
+       style: ('display: none' if current_user.subscribed_to?(course)),
+       data:{toggle: 'tooltip', remote: true}, id: "suscription-btn-#{course.id}",
+       title: 'Subscribe to this course', class:'btn btn-box-tool' do
+       %i.fa.fa-check
+      = link_to user_course_subscription_path(course), method: :delete, remote: true,
+       style: ('display: none' if !current_user.subscribed_to?(course)),
+       data:{toggle: 'tooltip', remote: true}, id: "unsuscription-btn-#{course.id}",
+       title: 'Unsubscribe to this course', class:'btn btn-box-tool' do
+       %i.fa.fa-close
+     - else
+      = link_to
     -#= button_tag class:'btn btn-box-tool', data:{widget: 'collapse'}, type: nil, name: nil do
     -# %i.fa.fa-minus
     -#= button_tag class:'btn btn-box-tool', data:{widget: 'remove'}, type: nil, name: nil do
@@ -31,7 +34,8 @@
   .box-body
    %h2
     = link_to course.title, course_path(course)
-   %span.description{id: "suscription-title-#{course.id}", style: ('display: none' if !current_user.subscribed_to?(course))}
-    - unless !user_signed_in?
-     You subscribed on this course
+   .some-good-class
+    %span.description{id: "suscription-title-#{course.id}", style: ('display: none' if !current_user.subscribed_to?(course))}
+     - unless !user_signed_in?
+      You subscribed on this course
    = image_tag course.image.thumb.url, alt: 'Course image', class: 'img-responsive pad'

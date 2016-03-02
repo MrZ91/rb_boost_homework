@@ -9,16 +9,11 @@
 
    .row
     .col-md-4
-     %h3= link_to course.title, user_course_path(course)
+     %h3= link_to course.title, course_path(course)
      = course.description
     .col-md-4
      = link_to 'Visible', '#', class: 'btn btn-success disabled', style:('display: none' unless course.visible)
      = link_to 'Hidden', '#', class: 'btn btn-danger disabled', style:('display: none' unless !course.visible)
 
-   .row
-    = link_to 'Edit', edit_user_course_path(course)
-    or
-    =link_to 'delete', user_course_path(course), method: :delete, data: {confirm: 'Are you sure want to delete this course?!'}
-    this course
  %br/
 = paginate @subscriptions

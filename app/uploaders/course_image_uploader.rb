@@ -10,6 +10,6 @@ class CourseImageUploader < BaseUploader
   end
 
   def default_url
-    ActionController::Base.helpers.asset_path('assets/' + [version_name, 'default.png'].compact.join('_'))
+    ActionController::Base.helpers.asset_path('assets/' + [version_name, 'course', 'default.png'].compact.join('_'))
   end
 end
