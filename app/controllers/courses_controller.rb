@@ -5,7 +5,7 @@ class CoursesController < ApplicationController
   COURSES_ON_PAGE = 9
 
   def index
-    @courses = Course.where(visible:true).page(params[:page]).per(COURSES_ON_PAGE)
+    @courses = Course.where(visible: true).page(params[:page]).per(COURSES_ON_PAGE)
   end
 
   def show

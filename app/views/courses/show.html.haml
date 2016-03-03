@@ -1,10 +1,11 @@
 - provide(:title, "#{course.title} course")
 .container-fluid
+ %h3.text-center #{course.title}
  .row
-  .col-md-6
+  .col-md-4
    = image_tag(course.image_url)
   .col-md-6
-   = @course.description
+   = course.description
  .row
   %table.table.table-striped
    %thead

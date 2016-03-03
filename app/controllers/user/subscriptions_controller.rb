@@ -12,10 +12,10 @@ class User::SubscriptionsController < User::AuthenticateController
   end
 
   def show
-    @subscriptions=current_user.subscriptions.page(params[:page]).per(COURSES_ON_PAGE)
+    @subscriptions = current_user.subscriptions.page(params[:page]).per(COURSES_ON_PAGE)
   end
 
   def find_course
-    @course = current_user.courses.find_by(id: params[:course_id])
+    @course = Course.find_by(id: params[:course_id])
   end
 end

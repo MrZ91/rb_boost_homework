@@ -13,7 +13,7 @@ RSpec.describe 'Courses pages', type: feature do
       fill_in 'Email', with: user.email
       fill_in 'Password', with: '123456'
       click_button sign_in_btn
-      click_link 'Create course'
+      click_link 'New course'
     end
 
     subject { page }
