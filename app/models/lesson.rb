@@ -8,6 +8,8 @@ class Lesson < ActiveRecord::Base
   validates :description, :lecture_notes, presence:  true
 
   belongs_to :course
+  has_many :advancements, dependent: :destroy
+  has_many :users, through: :advancements
 
   mount_uploader :image, LessonImageUploader
 

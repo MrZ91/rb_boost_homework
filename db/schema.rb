@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160302082855) do
+ActiveRecord::Schema.define(version: 20160303152105) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "advancements", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "lesson_id"
+    t.text     "version",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "advancements", ["user_id", "lesson_id"], name: "index_advancements_on_user_id_and_lesson_id", unique: true, using: :btree
 
   create_table "course_users", force: :cascade do |t|
     t.integer "user_id",   null: false

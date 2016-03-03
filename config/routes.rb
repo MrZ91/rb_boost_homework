@@ -14,9 +14,11 @@ Rails.application.routes.draw do
     resources :courses do
       resource :subscriptions, only: [:create, :destroy]
       resource :visibility, controller: :course_visibility, only: [:update]
-      resources :lessons, except: [:index, :new]
+      resources :lessons, except: [:index, :new] do
+        resources :advancements, only: [:index]
+      end
     end
-  post '/:id/courses/:courses_id/prohobition', to: 'exclusions#create', as: :create_course_prohibition
+    post '/:id/courses/:courses_id/prohibition', to: 'exclusions#create', as: :create_course_prohibition
 
     namespace :profile do
       get 'signed_up_with_social'
@@ -24,7 +26,14 @@ Rails.application.routes.draw do
     end
   end
 
-
-  resources :courses, only: [:show, :index]
+  resources :courses, only: [:show, :index] do
+    resources :lessons, only: [:show] do
+      # Rails creating recourse URL-helper as 'course_lesson_create_advancement_index'
+      # and URI as '/courses/:course_id/lessons/:lesson_id/advancement(.:format)'
+      # and controller advancement#create
+      # resource :advancement, only: [:create]
+      post 'advancement', to: 'advancement#create', as: :create_advancement
+    end
+  end
   root to: 'static_pages#index'
 end

@@ -1,21 +1,42 @@
 .container-fluid
- .row
-  %section.content-header
-   %h1.text-center #{@lesson.title}
-   =link_to 'Delete this lesson', user_course_lesson_path(@lesson.course, @lesson),
-   method: :delete,  class: 'btn btn-danger pull-right',
-   data: {confirm: 'Are you sure want to delete this lesson?!'}
-  .col-md-3
-   = image_tag @lesson.image.url, alt: 'Lesson image'
-  .col-md-8
-   %h3.text-center Lesson description:
-   #{@lesson.description}
+ %ul#coursetab.nav.nav-tabs
+  %li.active
+   %a{"data-toggle" => "tab", :href => "#description"} Description
+  %li
+   %a{"data-toggle" => "tab", :href => "#advancements"} List of advancement
+ .tab-content
+  #description.tab-pane.active
+   .row
+    %section.content-header
+     %h1.text-center #{@lesson.title}
+     =link_to 'Delete this lesson', user_course_lesson_path(@lesson.course, @lesson),
+     method: :delete,  class: 'btn btn-danger pull-right',
+     data: {confirm: 'Are you sure want to delete this lesson?!'}
+    .col-md-3
+     = image_tag @lesson.image.url, alt: 'Lesson image'
+    .col-md-8
+     %h3.text-center Lesson description:
+     #{@lesson.description}
 
- .row
-  .col-md-8.col-md-offset-2
-   %h3.text-center Lecture notes:
-   #{@lesson.lecture_notes}
- .row
-  .col-md-8.col-md-offset-2
-   %h3.text-center Homework:
-   #{@lesson.homework_text}
+   .row
+    .col-md-8.col-md-offset-2
+     %h3.text-center Lecture notes:
+     #{@lesson.lecture_notes}
+   .row
+    .col-md-8.col-md-offset-2
+     %h3.text-center Homework:
+     #{@lesson.homework_text}
+  #advancements.tab-pane
+   - if @lesson.advancements.count.zero?
+    %h1 No one done this lesson!
+   - else
+    %table.table.table-striped
+     %thead
+      %tr
+       %th
+       %th Name
+       %th Text
+       %th Progress
+     %tbody
+      - @lesson.advancements.each do |advancement|
+       = render 'user/lessons/advancements', advancement: advancement
