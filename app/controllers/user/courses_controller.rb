@@ -3,6 +3,8 @@ class User::CoursesController < User::AuthenticateController
 
   protect_from_forgery with: :exception
 
+  COURSES_ON_CABINET_PAGE = 9
+
   def create
     @course = current_user.courses.new(course_params)
 
@@ -11,6 +13,10 @@ class User::CoursesController < User::AuthenticateController
     else
       render :new
     end
+  end
+
+  def index
+    @my_courses = current_user.courses.page(params[:page]).per(COURSES_ON_CABINET_PAGE)
   end
 
   def edit

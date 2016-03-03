@@ -23,6 +23,7 @@ class ApplicationController < ActionController::Base
 
   def configure_profile
     return unless user_signed_in? && current_user.signed_up_with_social
-    redirect_to user_signed_up_with_social_path
+
+    redirect_to user_profile_signed_up_with_social_path
   end
 end

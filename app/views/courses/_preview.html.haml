@@ -31,7 +31,7 @@
   .box-body
    %h2
     = link_to course.title, course_path(course)
-   %span.description{id: "suscription-title-#{course.id}", style: ('display: none' if !current_user.subscribed_to?(course))}
+   %span.description{id: "subscription-title-#{course.id}", style: ('display: none' if !current_user.subscribed_to?(course))}
     - unless !user_signed_in?
      You subscribed on this course
    = image_tag course.image.thumb.url, alt: 'Course image', class: 'img-responsive pad'

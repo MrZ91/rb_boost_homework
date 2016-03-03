@@ -23,16 +23,18 @@ module Omniauthable
       user
     end
 
-    def register_social_profile(oauth, signed_up_with_social)
+    # rubocop:disable Metrics/AbcSize
+    def register_social_profile(oauth)
       social_profile = SocialProfile.where(provider: oauth.provider,
-                                           uid: oauth.uid, user_id: id,
-                                           signed_up_with_social: signed_up_with_social).first_or_create
-      if social_profile.present?
-        false
-      else
-        social_profile.update!(user_id: id)
-      end
+                                           uid: oauth.uid).first_or_create
 
+      if social_profile.user_id.present? && social_profile.user_id != id
+        false
+      elsif social_profiles.count.zero?
+        social_profile.update!(user_id: id, signed_up_with_social: true)
+      else
+        social_profile.update!(user_id: id, signed_up_with_social: false)
+      end
       social_profile.persisted? ? social_profile : false
     end
 
@@ -40,6 +42,7 @@ module Omniauthable
       social_profile = social_profiles.find_by(signed_up_with_social: true)
       social_profile ? true : false
     end
+    # rubocop:enable Metrics/AbcSize
 
     protected
 

@@ -12,8 +12,7 @@
    .row
     = link_to 'Edit', edit_user_course_path(course)
     or
-    =link_to 'delete', user_course_path(course), method: :delete,
-    data: { confirm: 'Are you sure want to delete this course?!' }
+    =link_to 'delete', user_course_path(course), method: :delete, data: {confirm: 'Are you sure want to delete this course?!'}
     this course
  %br/
 = paginate @my_courses
