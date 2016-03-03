@@ -1,0 +1,22 @@
+%section.content-header
+ %h1.text-center List of my courses
+- @my_courses.each do |course|
+ %br/
+ .row
+  .col-md-2
+   = image_tag(course.image.thumb.url, align: :middle)
+  .col-md-9
+   .row
+    %h3= link_to course.title, user_course_path(course)
+    = link_to user_course_visibility_path(course), method: :put, remote: true do
+     = button_tag 'Visible', id: "visible-btn-#{course.id}",  type: 'button', class: 'btn btn-success pull-right', style:('display: none' unless course.visible)
+     = button_tag 'Hidden', id: "hidden-btn-#{course.id}",  type: 'button', class: 'btn btn-danger pull-right', style:('display: none' unless !course.visible)
+
+   = course.description
+   .row
+    = link_to 'Edit', edit_user_course_path(course)
+    or
+    =link_to 'delete', user_course_path(course), method: :delete, data: {confirm: 'Are you sure want to delete this course?!'}
+    this course
+ %br/
+= paginate @my_courses

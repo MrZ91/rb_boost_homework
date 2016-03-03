@@ -1,4 +1,4 @@
-= simple_form_for(current_user, url: edit_signed_up_with_social_path, html: { method: :put }) do |f|
+= simple_form_for(:user, url: user_profile_edit_signed_up_with_social_path, html: { method: :put }) do |f|
  = f.error_notification
  .form-inputs
   = f.simple_fields_for :profile do |pf|
