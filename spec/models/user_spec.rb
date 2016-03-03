@@ -11,28 +11,14 @@ describe 'User', type: :model do
 
   it { should be_valid }
 
-  context 'with first name' do
-    context 'is empty' do
+  context 'with first name is empty' do
       before { user.profile.first_name = '' }
       it { should_not be_valid }
-    end
-
-    context "that's contains unresolved symbols" do
-      before { user.profile.first_name = '1@/#/%/$_' }
-      it { should_not be_valid }
-    end
   end
 
-  context 'with last name' do
-    context 'is empty' do
+  context 'with last name is empty' do
       before { user.profile.last_name = '' }
       it { should_not be_valid }
-    end
-
-    context "that's contains unresolved symbols" do
-      before { user.profile.last_name = '1@/#/%/$_' }
-      it { should_not be_valid }
-    end
   end
 
   context 'with email' do
@@ -85,21 +71,6 @@ describe 'User', type: :model do
     context "that's to short" do
       before { user.password_confirmation = user.password = '1234' }
       it { should_not be_valid }
-    end
-
-    context "that's contains unresolved symbols" do
-      before { user.password = user.password_confirmation = '._-\!\@\#\$' }
-      it { should_not be_valid }
-    end
-
-    context 'is too simple' do
-      it 'should not be valid' do
-        pass = %w(111111, 1111111, qqqqqq)
-        pass.each do |pas|
-          user.password = user.password_confirmation = pas
-          expect(user).not_to be_valid
-        end
-      end
     end
   end
 end

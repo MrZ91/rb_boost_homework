@@ -11,8 +11,6 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :profile
   delegate :first_name, :last_name, to: :profile
 
-  validates :password, format: { without: /\b(\w)\1+\b/i }, if: :password_required?
-  validates :password, format: { with: /\A\w+\z/i }, if: :password_required?
   validates_associated :profile
 
   def with_profile
