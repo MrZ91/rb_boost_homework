@@ -1,5 +1,4 @@
 class User < ActiveRecord::Base
-
   include Omniauthable
 
   devise :database_authenticatable, :registerable, :rememberable, :validatable,

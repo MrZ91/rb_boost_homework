@@ -3,6 +3,9 @@
 
 = link_to 'Edit profile', edit_user_registration_path
 %br/
+- if flash[:notice]
+ .notice
+  = flash[:notice]
 
 - User.omniauth_providers.each do |provider|
  = link_to "Assign your #{OmniAuth::Utils.camelize(provider)} account",
