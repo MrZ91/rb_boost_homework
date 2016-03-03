@@ -1,5 +1,6 @@
 - provide(:title, "#{@course.title} course")
 .container-fluid
+ %h3.text-center #{@course.title}
  .row
   .col-md-4
    = image_tag(@course.image_url)
