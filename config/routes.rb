@@ -18,10 +18,12 @@ Rails.application.routes.draw do
         resources :advancements, only: [:index]
       end
     end
+
     namespace :lessons_sorting do
-      get '/courses/:id', to: :prepare
-      get '/courses/:id/sort', to: :sort, as: :sort
+      get '/courses/:id', action: :prepare
+      get '/courses/:id/sort', action: :sort, as: :sort
     end
+
     post '/:id/courses/:courses_id/prohibition', to: 'exclusions#create', as: :create_course_prohibition
 
     namespace :profile do
@@ -39,5 +41,6 @@ Rails.application.routes.draw do
       post 'advancement', to: 'advancement#create', as: :create_advancement
     end
   end
+
   root to: 'static_pages#index'
 end
