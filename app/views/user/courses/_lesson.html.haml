@@ -1,8 +1,10 @@
-%tr{ id: "course-lesson-#{lesson.id}-row" }
-  %td
-    = link_to user_course_lesson_path(course, lesson) do
-      #{lesson.position}
-  %td
+%tbody.rowlink{ data: { link: 'row' } }
+ - lessons.each do |lesson|
+  %tr{ id: "#{lesson.id}" }
+   %td
+    = link_to course_lesson_path(course, lesson) do
+     #{lesson.position}
+   %td
     = image_tag lesson.image.thumb.url, alt: 'Lesson image'
-  %td #{lesson.title}
-  %td
+   %td #{lesson.title}
+   %td

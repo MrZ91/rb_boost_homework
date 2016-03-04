@@ -4,6 +4,9 @@
 
 %button.btn.btn-primary{"data-target" => "#CreateModal", "data-toggle" => "modal", :type => "button"}
  Create lesson
+= link_to  user_lessons_sorting_path(course), remote: true do
+ %button.btn.btn-primary.pull-right
+  Change lesson position
 
 - unless course.lessons.count <1
  %table.table.table-striped.table-hover#homework-list
@@ -13,9 +16,7 @@
     %th
     %th Title
     %th
-  %tbody.rowlink{ data: { link: 'row' } }
-   - course.lessons.each do |lesson|
-    = render 'user/courses/lesson', lesson: lesson, course: course
+  = render 'user/courses/lesson', lessons: course.lessons, course: course
 
 #CreateModal.modal.fade{"aria-labelledby" => "CreateLabel", :role => "dialog", :tabindex => "-1"}
 
