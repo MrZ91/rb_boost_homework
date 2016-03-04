@@ -12,3 +12,11 @@ test:
   twitter:
     key: <%= ENV['twitter_key'] %>
     secret: <%= ENV['twitter_secret'] %>
+
+production:
+  facebook:
+    key: <%= ENV['FACEBOOK_KEY'] %>
+    secret: <%= ENV['FACEBOOK_SEECRET'] %>
+  twitter:
+    key: <%= ENV['TWITTER_KEY']%>
+    secret: <%= ENV['TWITTER_SEECRET'] %>
