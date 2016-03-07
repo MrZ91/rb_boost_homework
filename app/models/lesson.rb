@@ -20,11 +20,12 @@ class Lesson < ActiveRecord::Base
   end
 
   def course_lessons_count
-    Lesson.where(course_id: course_id).count ? Lesson.where(course_id: course_id).count : 0
+    count = Lesson.where(course_id: course_id).count
+    count ? count : 0
   end
 
   def reduce_subsequent_position
-    subsequent_lessons = Lesson.all.where(course_id: course_id).where("position > #{position}")
+    subsequent_lessons = Lesson.all.where(course_id: course_id).where('position > ?', position)
     update!(position: 0)
     subsequent_lessons.each do |lesson|
       lesson.decrement!(:position)

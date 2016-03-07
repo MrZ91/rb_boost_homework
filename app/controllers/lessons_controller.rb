@@ -1,8 +1,8 @@
 class LessonsController < ApplicationController
-  before_action :find_course, only: [:create, :show, :destroy]
+  before_action :find_course
 
   def show
-    @lesson = Lesson.find_by(id: params[:id])
+    @lesson = @course.lessons.find_by(id: params[:id])
   end
 
   def homework_params

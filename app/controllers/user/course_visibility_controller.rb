@@ -2,7 +2,7 @@ class User::CourseVisibilityController < User::AuthenticateController
   before_action :find_course
 
   def update
-    @course.update!(visible: !@course.visible)
+    @course.toggle(:visible).save!
   end
 
   def find_course

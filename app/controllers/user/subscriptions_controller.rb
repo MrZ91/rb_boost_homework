@@ -12,7 +12,7 @@ class User::SubscriptionsController < User::AuthenticateController
   end
 
   def destroy
-    @course.course_users.where(user_id: current_user.id).first.destroy!
+    @course.course_users.find_by(id: curren_user.id).destroy!
   end
 
   def show

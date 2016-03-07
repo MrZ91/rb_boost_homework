@@ -19,9 +19,6 @@ class User::CoursesController < User::AuthenticateController
     @my_courses = current_user.courses.page(params[:page]).per(COURSES_ON_CABINET_PAGE)
   end
 
-  def edit
-  end
-
   def new
     @course = current_user.courses.build
   end
@@ -32,7 +29,7 @@ class User::CoursesController < User::AuthenticateController
 
   def update
     if @course.update(course_params)
-      redirect_to @course
+      redirect_to user_course_path(@course)
     else
       render :edit
       # Some error messages need to be placed here!

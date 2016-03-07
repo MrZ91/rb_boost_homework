@@ -10,6 +10,6 @@ class User::LessonsSortingController < User::AuthenticateController
   private
 
   def find_course
-    @course = Course.find_by(id: params[:id])
+    @course = current_user.courses.find_by(id: params[:id])
   end
 end

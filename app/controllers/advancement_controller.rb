@@ -3,8 +3,8 @@ class AdvancementController < ApplicationController
   before_action :find_lesson
   # rubocop:disable Metrics/AbcSize
   def create
-    advancement = Advancement.new(version: params[:advancement][:version],
-                                  user_id: current_user.id, lesson_id: @lesson.id)
+    advancement = @lesson.advancements.build(version: params[:advancement][:version],
+                                             user_id: current_user.id)
     # rubocop:enable Metrics/AbcSize
     unless advancement.save
       if current_user.advancements.where(lesson_id: @lesson.id).count.zero?

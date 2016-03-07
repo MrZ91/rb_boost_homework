@@ -18,7 +18,21 @@
 
    %li{ class: current_page?(courses_path) ? 'active' : nil }
     = link_to courses_path do
-     %i.fa.fa-files-o
+     %i.fa.fa-th
      %span Courses
 
+   - if user_signed_in?
+    %li{ class: current_page?(user_path(current_user)) ? 'active' : nil }
+     = link_to user_path(current_user) do
+      %i.fa.fa-user
+      %span My profile
 
+    %li{ class: current_page?(user_courses_path) ? 'active' : nil }
+     = link_to user_courses_path do
+      %i.fa.fa-tasks
+      %span My cabinet
+
+    %li{ class: current_page?(user_subscription_path) ? 'active' : nil }
+     = link_to user_subscription_path do
+      %i.fa.fa-check-square-o
+      %span My subscriptions

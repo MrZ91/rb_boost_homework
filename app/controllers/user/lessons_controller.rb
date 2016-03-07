@@ -8,14 +8,8 @@ class User::LessonsController < User::AuthenticateController
     redirect_to user_course_path(@course)
   end
 
-  def edit
-  end
-
   def show
     @lesson = @course.lessons.find_by(id: params[:id])
-  end
-
-  def update
   end
 
   def destroy

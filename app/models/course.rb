@@ -1,5 +1,5 @@
 class Course < ActiveRecord::Base
-  belongs_to :user
+  belongs_to :user, -> { includes :profile }
   has_many :lessons, dependent: :destroy
   has_many :course_users, dependent: :destroy
   has_many :subscribers, through: :course_users, source: :user

@@ -34,7 +34,7 @@ Rails.application.routes.draw do
 
   resources :courses, only: [:show, :index] do
     resources :lessons, only: [:show] do
-      # Rails creating recourse URL-helper as 'course_lesson_create_advancement_index'
+      # Rails creating resource URL-helper as 'course_lesson_create_advancement_index'
       # and URI as '/courses/:course_id/lessons/:lesson_id/advancement(.:format)'
       # and controller advancement#create
       # resource :advancement, only: [:create]
