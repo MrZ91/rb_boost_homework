@@ -1,11 +1,11 @@
 = simple_form_for(:user, url: user_profile_edit_signed_up_with_social_path, html: { method: :put }) do |f|
  = f.error_notification
  .form-inputs
-  = f.simple_fields_for :profile do |pf|
-   = pf.input :first_name, required: true, autofocus: true, hint: "Please set your first"
-   = pf.input :last_name, required: true, hint: "and last name."
+  = f.simple_fields_for :profile_attributes do |pf|
+   = pf.input :first_name, required: true, autofocus: true, hint: 'Please set your first'
+   = pf.input :last_name, required: true, hint: 'and last name.'
   = f.input :email, required: true
-  = f.input :password, autocomplete: "off", hint: "Please set password for your account", required: true
+  = f.input :password, autocomplete: 'off', hint: 'Please set password for your account', required: true
   = f.input :password_confirmation, required: false
  .form-actions
-  = f.button :submit, "Update"
+  = f.button :submit, 'Update'
