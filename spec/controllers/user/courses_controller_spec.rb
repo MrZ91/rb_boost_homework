@@ -2,12 +2,26 @@ require 'rails_helper'
 require 'user/courses_controller'
 describe User::CoursesController, type: :controller do
   let!(:user) { create :user }
-  before { sign_in user }
+  before do
+    user.add_role :trainer
+    sign_in user
+  end
 
   context 'create' do
     context 'with valid params' do
       it 'should create course' do
         expect { post :create, course: attributes_for(:course) }.to change(user.courses, :count).by(1)
+      end
+
+      context  do
+        before { post :create, course: attributes_for(:course) }
+        it { expect(response).to redirect_to user_course_path(user.courses.last) }
+      end
+    end
+
+    context 'with invalid params' do
+      it 'should not create course' do
+        expect { post :create, course: attributes_for(:course, title: '') }.to change(user.courses, :count).by(0)
       end
 
       context 'should redirect to creation' do
@@ -16,15 +30,25 @@ describe User::CoursesController, type: :controller do
       end
     end
 
-    context 'with invalid params' do
-      it 'should create course' do
-        expect { post :create, course: attributes_for(:course, title: '') }.to change(user.courses, :count).by(0)
-      end
+    context 'without the required role' do
+      before { user.remove_role :trainer }
 
-      context 'should redirect to course page' do
-        before { post :create, course: attributes_for(:course) }
-        it { expect(response).to redirect_to user_course_path(user.courses.last) }
+      it 'should not create course' do
+        expect { post :create, course: attributes_for(:course) }.to change(user.courses, :count).by(0)
       end
+    end
+  end
+
+  context 'destroy' do
+    let!(:course) { create :course, user_id: user.id}
+
+    it 'should delete course' do
+      expect { delete :destroy, id: course.id }.to change(user.courses, :count).by(-1)
+    end
+
+    context  do
+      before { delete :destroy, id: course.id }
+      it { expect(response).to redirect_to user_courses_path }
     end
   end
 

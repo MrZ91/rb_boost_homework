@@ -28,6 +28,7 @@ gem 'bootstrap-sass'
 gem 'jasny-bootstrap-rails'
 gem 'bootstrap_notify'
 
+gem 'rolify'
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-facebook'

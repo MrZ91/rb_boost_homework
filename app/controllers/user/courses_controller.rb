@@ -8,9 +8,11 @@ class User::CoursesController < User::AuthenticateController
   def create
     @course = current_user.courses.new(course_params)
 
-    if @course.save
+    if (current_user.has_role? :trainer) && @course.save
+
       redirect_to user_course_path(@course)
     else
+
       render :new
     end
   end
@@ -20,6 +22,10 @@ class User::CoursesController < User::AuthenticateController
   end
 
   def new
+    unless current_user.has_role? :trainer
+
+      redirect_to :back
+    end
     @course = current_user.courses.build
   end
 
@@ -29,8 +35,10 @@ class User::CoursesController < User::AuthenticateController
 
   def update
     if @course.update(course_params)
+
       redirect_to user_course_path(@course)
     else
+
       render :edit
       # Some error messages need to be placed here!
     end
@@ -39,7 +47,7 @@ class User::CoursesController < User::AuthenticateController
   def destroy
     @course.destroy
 
-    redirect_to courses_path
+    redirect_to user_courses_path
   end
 
   private

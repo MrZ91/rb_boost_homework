@@ -1,5 +1,9 @@
 class User < ActiveRecord::Base
+  rolify
+
   include Omniauthable
+
+  after_commit :apply_default_role
 
   devise :database_authenticatable, :registerable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: [:facebook, :twitter]
@@ -24,5 +28,11 @@ class User < ActiveRecord::Base
 
   def subscribed_to?(course)
     subscriptions.exists?(id: course.id)
+  end
+
+  private
+
+  def apply_default_role
+    add_role :apprentice
   end
 end
