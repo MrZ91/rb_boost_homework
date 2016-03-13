@@ -20,7 +20,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def course_lessons_count
-    count = Lesson.where(course_id: course_id).count
+    count = course.lessons.count
     count ? count : 0
   end
 

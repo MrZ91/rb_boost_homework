@@ -19,7 +19,7 @@
       title: 'Subscribe to this course', class:'btn btn-box-tool' do
       %i.fa.fa-check
      = link_to user_course_subscriptions_path(course), method: :delete, remote: true,
-      style: ('display: none' if !current_user.subscribed_to?(course)),
+      style: ('display: none' unless current_user.subscribed_to?(course)),
       data:{toggle: 'tooltip', remote: true}, id: "unsubscription-btn-#{course.id}",
       title: 'Unsubscribe from this course', class:'btn btn-box-tool' do
       %i.fa.fa-close
@@ -33,6 +33,6 @@
     = link_to course.title, course_path(course)
    - if user_signed_in?
     .some-good-class
-     %span.description{id: "subscription-title-#{course.id}", style: ('display: none' unless current_user.subscribed_to?(course))}
+     %span.description{id: "subscribed-title-#{course.id}", style: ('display: none' unless current_user.subscribed_to?(course))}
       You subscribed on this course
    = image_tag course.image.thumb.url, alt: 'Course image', class: 'img-responsive pad'
