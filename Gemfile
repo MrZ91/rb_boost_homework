@@ -13,6 +13,7 @@ gem 'kaminari'
 
 gem 'carrierwave', '0.9.0'
 gem 'date_validator'
+gem 'aasm'
 
 gem 'sass'
 # gem 'mini_magick'

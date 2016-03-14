@@ -12,10 +12,10 @@
  %table.table.table-striped.table-hover#homework-list
   %thead
    %tr
-    %th
+    %th Performing date
     %th
     %th Title
-    %th
+    %th Status
   %tbody.rowlink{ data: { link: 'row' } }
    - course.lessons.each do |lesson|
     = render 'user/courses/lesson', lesson: lesson, course: course
