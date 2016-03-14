@@ -5,6 +5,8 @@
    %button.btn.btn-primary{"data-target" => "#CreateModal", "data-toggle" => "modal", :type => "button"}
     Pass lesson
   .col-md-3
+   %h5 Will start at:
+   %h5 #{@lesson.date_of.to_formatted_s(:long)}
    = image_tag @lesson.image.url, alt: 'Lesson image'
   .col-md-8
    %h3.text-center Lesson description:

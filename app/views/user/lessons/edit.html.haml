@@ -1,0 +1,14 @@
+- provide(:title, 'Create your own course')
+%div.container-fluid
+ %div.row
+  %div.col-md-8.col-md-offset-2
+   = simple_form_for [:user, @course, @lesson] do |f|
+    = f.input :title
+    = f.input :description, as: :text
+    = f.input :lecture_notes, as: :text
+    = f.input :homework_text, as: :text
+    = f.input :date_of
+    = f.input :image, as: :file
+    .modal-footer
+     = f.button :submit, 'Update lesson', class: 'btn btn-primary'
+     = f.button :button, 'Close', class: 'btn btn-default', data: { dismiss: 'modal' }, type: 'button', id: 'lesson-close'

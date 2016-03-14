@@ -5,7 +5,8 @@ class Lesson < ActiveRecord::Base
   before_destroy :reduce_subsequent_position
 
   validates :title, length: { maximum: 50 }, presence:  true
-  validates :description, :lecture_notes, presence:  true
+  validates :description, :lecture_notes, :date_of, presence:  true
+  validates :date_of, date: { after_or_equal_to: proc { Time.now } }, uniqueness: { scope: :course_id }
 
   belongs_to :course
   has_many :advancements, dependent: :destroy

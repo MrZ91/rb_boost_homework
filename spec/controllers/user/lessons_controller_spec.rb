@@ -15,7 +15,7 @@ describe User::LessonsController, type: :controller do
 
       context 'should redirect to course page' do
         before { post :create, course_id: course.id, lesson: attributes_for(:lesson) }
-        it { expect(response).to redirect_to user_course_path(course) }
+        it { expect(response).to redirect_to user_course_path(course, anchor: 'homework') }
       end
     end
 
@@ -28,7 +28,7 @@ describe User::LessonsController, type: :controller do
 
       context 'should redirect to course page' do
         before { post :create, course_id: course.id, lesson: attributes_for(:lesson, title: '') }
-        it { expect(response).to redirect_to user_course_path(course) }
+        it { expect(response).to render_template :new }
       end
     end
   end

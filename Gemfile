@@ -12,6 +12,7 @@ gem 'puma', '1.5.0'
 gem 'kaminari'
 
 gem 'carrierwave', '0.9.0'
+gem 'date_validator'
 
 gem 'sass'
 # gem 'mini_magick'
