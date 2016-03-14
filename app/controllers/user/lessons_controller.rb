@@ -32,6 +32,8 @@ class User::LessonsController < User::AuthenticateController
     redirect_to user_course_path(@course, anchor: 'homework')
   end
 
+  private
+
   def homework_params
     params.require(:lesson).permit(:title, :description, :image, :lecture_notes, :homework_text, :date_of)
   end

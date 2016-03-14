@@ -52,10 +52,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def check_for_performing
-    if expected_to_performing?
-      if DateTime.now > date_of
-        perform!
-      end
-    end
+    return unless expected_to_performing? && DateTime.now > date_of
+    perform!
   end
 end

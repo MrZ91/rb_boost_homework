@@ -16,6 +16,7 @@
     %th
     %th Title
     %th Status
+    %th Advancements pending
   %tbody.rowlink{ data: { link: 'row' } }
    - course.lessons.each do |lesson|
     = render 'user/courses/lesson', lesson: lesson, course: course

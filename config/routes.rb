@@ -10,12 +10,18 @@ Rails.application.routes.draw do
   end
 
   namespace :user do
-    resource :subscription, only: [:show]
+    resources :my_advancements, only: [:index, :show, :edit, :update]
+    resource  :subscription, only: [:show]
     resources :courses do
-      resource :subscriptions, only: [:create, :destroy]
-      resource :visibility, controller: :course_visibility, only: [:update]
+      resource  :subscriptions, only: [:create, :destroy]
+      resource  :visibility, controller: :course_visibility, only: [:update]
       resources :lessons, except: [:index] do
-        resources :advancements, only: [:index]
+        resources :advancements, only: [:index, :show] do
+          controller :advancements_state do
+            post :approve
+            post :reject
+          end
+        end
       end
     end
 

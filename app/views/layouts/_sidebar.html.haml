@@ -36,3 +36,8 @@
      = link_to user_subscription_path do
       %i.fa.fa-check-square-o
       %span My subscriptions
+
+    %li{ class: current_page?(user_my_advancements_path) ? 'active' : nil }
+     = link_to user_my_advancements_path do
+      %i.fa.fa-file-text-o
+      %span My advancements

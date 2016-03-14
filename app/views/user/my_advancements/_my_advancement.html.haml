@@ -1,0 +1,11 @@
+.container-fluid
+ .row
+  .col-md-8.col-md-offset-2
+   %br/
+   = link_to 'Advancement ',  user_my_advancement_path(my_advancement)
+   in lesson
+   = link_to my_advancement.lesson.title,  course_lesson_path(my_advancement.lesson.course, my_advancement.lesson)
+   %br/
+   #{my_advancement.version}
+   %br/
+   Status: #{my_advancement.state}
