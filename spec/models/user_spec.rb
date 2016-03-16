@@ -11,16 +11,6 @@ describe 'User', type: :model do
 
   it { should be_valid }
 
-  context 'with first name is empty' do
-    before { user.profile.first_name = '' }
-    it { should_not be_valid }
-  end
-
-  context 'with last name is empty' do
-    before { user.profile.last_name = '' }
-    it { should_not be_valid }
-  end
-
   context 'with email' do
     context "that's emtpy" do
       before { user.email = '' }

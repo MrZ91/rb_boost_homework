@@ -1,5 +1,5 @@
 class Lesson < ActiveRecord::Base
-  default_scope -> { order('position ASC') }
+  scope :by_position, -> { order('position ASC') }
 
   before_create :set_position
   before_destroy :reduce_subsequent_position

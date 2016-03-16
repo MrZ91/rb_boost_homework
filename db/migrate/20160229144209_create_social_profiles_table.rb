@@ -11,5 +11,7 @@ class CreateSocialProfilesTable < ActiveRecord::Migration
 
     add_index :social_profiles, :user_id
     add_index :social_profiles, [:user_id, :provider], unique: true
+
+    change_column_default :users, :encrypted_password, ''
   end
 end

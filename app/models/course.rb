@@ -1,5 +1,7 @@
 class Course < ActiveRecord::Base
-  belongs_to :user, -> { includes :profile }
+  scope :visible, -> { where(visible: true) }
+
+  belongs_to :user
   has_many :lessons, dependent: :destroy
   has_many :course_users, dependent: :destroy
   has_many :subscribers, through: :course_users, source: :user
@@ -12,5 +14,9 @@ class Course < ActiveRecord::Base
 
   def prohibited_for?(user)
     prohibitions.exists?(user_id: user.id)
+  end
+
+  def sort_lessons_by_order(order)
+    lessons.each { |l| l.update(position: (order.index(l.id.to_s) + 1)) }
   end
 end

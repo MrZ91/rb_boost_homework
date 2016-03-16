@@ -2,15 +2,15 @@
 .container-fluid
 
  %ul#coursetab.nav.nav-tabs
-  %li
-   %a{"data-toggle" => "tab", :href => "#homework"} Homework
-  %li
-   %a{"data-toggle" => "tab", :href => "#subscribers"} Subscribers
   %li.active
-   %a{"data-toggle" => "tab", :href => "#description"} Description
+   = link_to 'Homework', '#homework', data: {toggle: 'tab'}
+  %li
+   = link_to 'Subscribers', '#subscribers', data: {toggle: 'tab'}
+  %li
+   = link_to 'Description', '#description', data: {toggle: 'tab'}
  .tab-content
 
-  #homework.tab-pane
+  #homework.tab-pane.active
    = render 'user/courses/homework', course: @course
   #subscribers.tab-pane
    %section.content-header
@@ -29,5 +29,5 @@
         %td Progress-bar
         %td
          = link_to 'Exclude', user_create_course_prohibition_path(subscriber, @course), class: 'btn btn-danger', remote: true, method: :post
-  #description.tab-pane.active
+  #description.tab-pane
    = render 'user/courses/description', course: @course

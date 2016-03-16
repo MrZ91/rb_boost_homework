@@ -2,11 +2,11 @@
 .container-fluid
  %ul#coursetab.nav.nav-tabs
   %li.active
-   %a{"data-toggle" => "tab", :href => "#homework"} Homework
+   = link_to 'Homework', '#homework', data: {toggle: 'tab'}
   %li
-   %a{"data-toggle" => "tab", :href => "#subscribers"} Subscribers
+   = link_to 'Subscribers', '#subscribers', data: {toggle: 'tab'}
   %li
-   %a{"data-toggle" => "tab", :href => "#description"} Description
+   = link_to 'Description', '#description', data: {toggle: 'tab'}
  .tab-content
   #homework.tab-pane.active
    %section.content-header

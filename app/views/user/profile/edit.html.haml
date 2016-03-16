@@ -1,0 +1,13 @@
+%h2
+ Edit profile.
+= simple_form_for current_user.with_profile, url: user_profile_path, html: { method: :put } do |f|
+ .form-inputs
+  = f.simple_fields_for :profile do |pf|
+   = pf.input :first_name, required: true
+   = pf.input :last_name, required: true
+  = f.input :email, required: true, autofocus: true
+  = f.input :password, autocomplete: "off", required: false
+  = f.input :password_confirmation, required: false
+ .form-actions
+  = f.button :submit, "Update"
+= link_to "Back", :back

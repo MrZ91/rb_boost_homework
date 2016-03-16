@@ -20,15 +20,11 @@ describe User::LessonsController, type: :controller do
     end
 
     context 'with invalid params' do
-      it 'should create course' do
+      before { request.env['HTTP_REFERER'] = 'where_i_came_from' }
+      it 'should not create lesson' do
         expect do
           post :create, course_id: course.id, lesson: attributes_for(:lesson, title: '')
         end.to change(course.lessons, :count).by(0)
-      end
-
-      context 'should redirect to course page' do
-        before { post :create, course_id: course.id, lesson: attributes_for(:lesson, title: '') }
-        it { expect(response).to redirect_to user_course_path(course) }
       end
     end
   end
