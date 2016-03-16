@@ -12,21 +12,21 @@
      %br/
 
    .box-tools
-    - if user_signed_in?
-     = link_to user_course_subscriptions_path(course), method: :post, remote: true,
-      style: ('display: none' if current_user.subscribed_to?(course)),
-      data:{toggle: 'tooltip', remote: true}, id: "subscription-btn-#{course.id}",
+    - if profile_configured?
+     = link_to user_profile_signed_up_with_social_path, data:{toggle: 'tooltip'},
       title: 'Subscribe to this course', class:'btn btn-box-tool' do
       %i.fa.fa-check
+    -else
+     = link_to user_course_subscriptions_path(course), method: :post, remote: true,
+       style: ('display: none' if current_user.subscribed_to?(course)),
+       data:{toggle: 'tooltip'}, id: "subscription-btn-#{course.id}",
+       title: 'Subscribe to this course', class:'btn btn-box-tool' do
+      %i.fa.fa-check
      = link_to user_course_subscriptions_path(course), method: :delete, remote: true,
-      style: ('display: none' if !current_user.subscribed_to?(course)),
-      data:{toggle: 'tooltip', remote: true}, id: "unsubscription-btn-#{course.id}",
-      title: 'Unsubscribe from this course', class:'btn btn-box-tool' do
+       style: ('display: none' if !current_user.subscribed_to?(course)),
+       data:{toggle: 'tooltip'}, id: "unsubscription-btn-#{course.id}",
+       title: 'Unsubscribe from this course', class:'btn btn-box-tool' do
       %i.fa.fa-close
-    -#= button_tag class:'btn btn-box-tool', data:{widget: 'collapse'}, type: nil, name: nil do
-    -# %i.fa.fa-minus
-    -#= button_tag class:'btn btn-box-tool', data:{widget: 'remove'}, type: nil, name: nil do
-    -# %i.fa.fa-times
 
   .box-body
    %h2

@@ -1,6 +1,4 @@
 class User::ProfileController < ApplicationController
-  skip_before_action :configure_profile
-
   layout 'devise'
 
   def signed_up_with_social

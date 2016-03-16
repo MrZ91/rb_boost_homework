@@ -1,11 +1,10 @@
 class CoursesController < ApplicationController
   protect_from_forgery with: :exception
-  skip_before_action :configure_profile
 
   COURSES_ON_PAGE = 9
 
   def index
-    @courses = Course.where(visible: true).includes(:user).page(params[:page]).per(COURSES_ON_PAGE)
+    @courses = Course.visible.includes(user: :profile).page(params[:page]).per(COURSES_ON_PAGE)
   end
 
   def show
@@ -13,7 +12,7 @@ class CoursesController < ApplicationController
   end
 
   def course
-    @course ||= Course.find_by(id: params[:id])
+    @course ||= Course.find(params[:id])
   end
   helper_method :course
 end
