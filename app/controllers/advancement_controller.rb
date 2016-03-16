@@ -1,23 +1,15 @@
 class AdvancementController < ApplicationController
-  skip_before_action :configure_profile
   before_action :find_lesson
-  # rubocop:disable Metrics/AbcSize
+  before_action :configure_profile
+
   def create
-    advancement = @lesson.advancements.build(version: params[:advancement][:version],
-                                             user_id: current_user.id)
-    # rubocop:enable Metrics/AbcSize
-    unless advancement.save
-      if current_user.advancements.where(lesson_id: @lesson.id).count.zero?
-        redirect_to :back
-      else
-        render 'advancement/error'
-      end
-    end
+    render 'advancement/error' unless current_user.advancements.where(lesson_id: @lesson.id).count.zero?
+    @lesson.advancements.create(version: params[:advancement][:version], user_id: current_user.id)
   end
 
   private
 
   def find_lesson
-    @lesson = Lesson.find_by(id: params[:lesson_id])
+    @lesson = Lesson.find(params[:lesson_id])
   end
 end

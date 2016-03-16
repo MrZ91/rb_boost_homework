@@ -14,10 +14,7 @@ module Omniauthable
     end
 
     def self.create_with_oauth(oauth_data)
-      pass = Devise.friendly_token(6)
-      user = User.new(email: "#{SecureRandom.hex(3)}_#{oauth_data.provider}_email@social.login",
-                      password: pass, password_confirmation: pass,
-                      profile_attributes: { first_name: 'Change', last_name: 'This' })
+      user = User.new(email: "#{SecureRandom.hex(3)}_#{oauth_data.provider}_email@social.login")
       user.logged_with_social = true
       user.save!
       user
@@ -30,7 +27,7 @@ module Omniauthable
 
       if social_profile.user_id.present? && social_profile.user_id != id
         false
-      elsif social_profiles.count.zero?
+      elsif social_profiles.count.zero? && encrypted_password.blank?
         social_profile.update!(user_id: id, signed_up_with_social: true)
       else
         social_profile.update!(user_id: id, signed_up_with_social: false)

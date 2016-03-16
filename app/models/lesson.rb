@@ -1,5 +1,5 @@
 class Lesson < ActiveRecord::Base
-  default_scope -> { order('position ASC') }
+  scope :by_position, -> { order('position ASC') }
 
   before_create :set_position
   before_destroy :reduce_subsequent_position
@@ -20,8 +20,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def course_lessons_count
-    count = Lesson.where(course_id: course_id).count
-    count ? count : 0
+    course.lessons.count
   end
 
   def reduce_subsequent_position

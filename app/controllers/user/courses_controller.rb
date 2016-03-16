@@ -9,8 +9,10 @@ class User::CoursesController < User::AuthenticateController
     @course = current_user.courses.new(course_params)
 
     if @course.save
+
       redirect_to user_course_path(@course)
     else
+
       render :new
     end
   end

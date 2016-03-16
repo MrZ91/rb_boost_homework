@@ -1,17 +1,28 @@
 class User::ProfileController < ApplicationController
-  skip_before_action :configure_profile
-
+  before_action :authenticate_user!
   layout 'devise'
 
   def signed_up_with_social
   end
 
+  def edit
+  end
+
+  def update
+    if current_user.update(profile_params)
+      current_user.social_profiles.each { |social_profile| social_profile.update!(signed_up_with_social: false) }
+      sign_in :user, current_user, bypass: true
+      redirect_to current_user
+    else
+      render :edit
+      # Some error messages need to be placed here!
+    end
+  end
+
   def edit_signed_up_with_social
     if current_user.update(profile_params)
 
-      current_user.social_profiles.each do |social_profile|
-        social_profile.update(signed_up_with_social: false)
-      end
+      current_user.social_profiles.each { |social_profile| social_profile.update!(signed_up_with_social: false) }
       sign_in :user, current_user, bypass: true
 
       redirect_to current_user

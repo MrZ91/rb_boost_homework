@@ -3,18 +3,24 @@ class User::LessonsController < User::AuthenticateController
 
   def create
     @lesson = @course.lessons.new(homework_params)
-    @lesson.save
 
-    redirect_to user_course_path(@course)
+    if @lesson.save
+
+      redirect_to user_course_path(@course)
+    else
+
+      redirect_to :back
+    end
   end
 
   def show
-    @lesson = @course.lessons.find_by(id: params[:id])
+    @lesson = @course.lessons.find(params[:id])
   end
 
   def destroy
-    lesson = @course.lessons.find_by(id: params[:id])
+    lesson = @course.lessons.find(params[:id])
     lesson.destroy
+
     redirect_to user_course_path(@course)
   end
 
@@ -23,6 +29,6 @@ class User::LessonsController < User::AuthenticateController
   end
 
   def find_course
-    @course = Course.find_by(id: params[:course_id])
+    @course = Course.find(params[:course_id])
   end
 end

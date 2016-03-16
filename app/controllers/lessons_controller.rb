@@ -2,7 +2,7 @@ class LessonsController < ApplicationController
   before_action :find_course
 
   def show
-    @lesson = @course.lessons.find_by(id: params[:id])
+    @lesson = @course.lessons.find(params[:id])
   end
 
   def homework_params
@@ -10,6 +10,6 @@ class LessonsController < ApplicationController
   end
 
   def find_course
-    @course = Course.find_by(id: params[:course_id])
+    @course = Course.find(params[:course_id])
   end
 end

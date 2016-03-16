@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   has_one :profile, dependent: :destroy
 
   accepts_nested_attributes_for :profile
-  delegate :first_name, :last_name, to: :profile
+  delegate :first_name, :last_name, to: :profile, allow_nil: true
 
   validates_associated :profile
 
