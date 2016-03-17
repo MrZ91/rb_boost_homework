@@ -40,7 +40,7 @@ describe User::CoursesController, type: :controller do
   end
 
   context 'destroy' do
-    let!(:course) { create :course, user_id: user.id}
+    let!(:course) { create :course, user_id: user.id }
 
     it 'should delete course' do
       expect { delete :destroy, id: course.id }.to change(user.courses, :count).by(-1)

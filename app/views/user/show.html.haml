@@ -1,7 +1,7 @@
 = @user.first_name
 = @user.last_name
 
-= link_to 'Edit profile', (profile_configured? ? edit_user_profile_path : edit_user_registration_path )
+= link_to 'Edit profile', ((profile_configured? && !current_user.encrypted_password.blank?) ? edit_user_registration_path : edit_user_profile_path)
 %br/
 
 - User.omniauth_providers.each do |provider|

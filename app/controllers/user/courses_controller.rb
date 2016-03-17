@@ -22,10 +22,8 @@ class User::CoursesController < User::AuthenticateController
   end
 
   def new
-    unless current_user.has_role? :trainer
+    redirect_to :back unless current_user.has_role? :trainer
 
-      redirect_to :back
-    end
     @course = current_user.courses.build
   end
 

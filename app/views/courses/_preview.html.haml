@@ -13,20 +13,20 @@
 
    .box-tools
     - if profile_configured?
-     = link_to user_profile_signed_up_with_social_path, data:{toggle: 'tooltip'},
-      title: 'Subscribe to this course', class:'btn btn-box-tool' do
-      %i.fa.fa-check
-    -else
      = link_to user_course_subscriptions_path(course), method: :post, remote: true,
        style: ('display: none' if current_user.subscribed_to?(course)),
-       data:{ toggle: 'tooltip' }, id: "subscription-btn-#{course.id}",
+       data: { toggle: 'tooltip' }, id: "subscription-btn-#{course.id}",
        title: 'Subscribe to this course', class:'btn btn-box-tool' do
       %i.fa.fa-check
      = link_to user_course_subscriptions_path(course), method: :delete, remote: true,
        style: ('display: none' unless current_user.subscribed_to?(course)),
-       data:{ toggle: 'tooltip' }, id: "unsubscription-btn-#{course.id}",
+       data: { toggle: 'tooltip' }, id: "unsubscription-btn-#{course.id}",
        title: 'Unsubscribe from this course', class:'btn btn-box-tool' do
       %i.fa.fa-close
+    -else
+     = link_to signed_up_with_social_user_profile_path, data: { toggle: 'tooltip' },
+      title: 'Subscribe to this course', class:'btn btn-box-tool' do
+      %i.fa.fa-check
 
   .box-body
    %h2

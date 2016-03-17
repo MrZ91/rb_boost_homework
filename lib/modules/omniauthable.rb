@@ -27,7 +27,7 @@ module Omniauthable
 
       if social_profile.user_id.present? && social_profile.user_id != id
         false
-      elsif social_profiles.count.zero?
+      elsif social_profiles.count.zero? && encrypted_password.blank?
         social_profile.update!(user_id: id, signed_up_with_social: true)
       else
         social_profile.update!(user_id: id, signed_up_with_social: false)

@@ -20,8 +20,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def course_lessons_count
-    count = course.lessons.count
-    count ? count : 0
+    course.lessons.count
   end
 
   def reduce_subsequent_position
