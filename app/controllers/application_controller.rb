@@ -21,13 +21,13 @@ class ApplicationController < ActionController::Base
   end
 
   def configure_profile
-    return unless profile_configured?
+    return if profile_configured?
 
-    redirect_to user_profile_signed_up_with_social_path
+    redirect_to signed_up_with_social_user_profile_path
   end
 
   def profile_configured?
-    user_signed_in? && current_user.signed_up_with_social
+    user_signed_in? && !current_user.signed_up_with_social
   end
   helper_method :profile_configured?
 end

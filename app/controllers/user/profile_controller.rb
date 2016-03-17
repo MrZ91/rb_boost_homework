@@ -1,4 +1,5 @@
 class User::ProfileController < ApplicationController
+  before_action :authenticate_user!
   layout 'devise'
 
   def signed_up_with_social
@@ -9,7 +10,7 @@ class User::ProfileController < ApplicationController
 
   def update
     if current_user.update(profile_params)
-      current_user.social_profiles.each { |social_profile| social_profile.update(signed_up_with_social: false) }
+      current_user.social_profiles.each { |social_profile| social_profile.update!(signed_up_with_social: false) }
       sign_in :user, current_user, bypass: true
       redirect_to current_user
     else
@@ -21,11 +22,11 @@ class User::ProfileController < ApplicationController
   def edit_signed_up_with_social
     if current_user.update(profile_params)
 
-      current_user.social_profiles.each { |social_profile| social_profile.update(signed_up_with_social: false) }
+      current_user.social_profiles.each { |social_profile| social_profile.update!(signed_up_with_social: false) }
       sign_in :user, current_user, bypass: true
 
       redirect_to current_user
-    else
+    else    count =
       render :signed_up_with_social
       # Some error messages need to be placed here!
     end

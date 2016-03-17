@@ -1,6 +1,5 @@
 class LessonsController < ApplicationController
   before_action :find_course
-  before_action :configure_profile
 
   def show
     @lesson = @course.lessons.find(params[:id])
