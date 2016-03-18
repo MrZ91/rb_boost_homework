@@ -7,11 +7,11 @@ class User::ExclusionsController < User::AuthenticateController
   end
 
   def find_course
-    @course = Course.find_by(id: params[:courses_id])
+    @course = Course.find(params[:courses_id])
   end
 
   def user
-    @user ||= User.find_by(id: params[:id])
+    @user ||= User.find(params[:id])
   end
   helper_method :user
 end

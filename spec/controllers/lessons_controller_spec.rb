@@ -5,7 +5,7 @@ describe LessonsController, type: :controller do
   let!(:lesson) { create(:lesson, course_id: course.id) }
 
   context 'show' do
-    before { get :show, prefix: 'courses', id: lesson.id, course_id: course.id }
+    before { get :show, id: lesson.id, course_id: course.id }
 
     it 'should render template' do
       expect(response).to render_template(:show)

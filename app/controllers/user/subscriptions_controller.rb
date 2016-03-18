@@ -20,7 +20,7 @@ class User::SubscriptionsController < User::AuthenticateController
   end
 
   def find_course
-    @course = Course.find_by(id: params[:course_id])
+    @course = Course.find(params[:course_id])
   end
 
   def participations

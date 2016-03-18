@@ -32,7 +32,7 @@ Rails.application.routes.draw do
 
     post '/:id/courses/:courses_id/prohibition', to: 'exclusions#create', as: :create_course_prohibition
 
-    namespace :profile do
+    resource :profile, only: [:edit, :update], controller: :profile do
       get 'signed_up_with_social'
       put 'edit_signed_up_with_social'
     end

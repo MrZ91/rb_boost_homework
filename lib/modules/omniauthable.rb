@@ -14,10 +14,7 @@ module Omniauthable
     end
 
     def self.create_with_oauth(oauth_data)
-      pass = Devise.friendly_token(6)
-      user = User.new(email: "#{SecureRandom.hex(3)}_#{oauth_data.provider}_email@social.login",
-                      password: pass, password_confirmation: pass,
-                      profile_attributes: { first_name: 'Change', last_name: 'This' })
+      user = User.new(email: "#{SecureRandom.hex(3)}_#{oauth_data.provider}_email@social.login")
       user.logged_with_social = true
       user.save!
       user

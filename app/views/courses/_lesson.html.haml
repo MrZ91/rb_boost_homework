@@ -1,4 +1,4 @@
-- unless current_user && current_user.subscribed_to?(course)
+- unless user_signed_in? && current_user.subscribed_to?(course)
  %tr{class:'rowlink-skip', title: 'Subscribe first to proceed.', data:{toggle: 'tooltip'}}
   %td
    = link_to course_lesson_path(course, lesson) do
