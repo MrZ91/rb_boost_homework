@@ -36,6 +36,8 @@ Rails.application.routes.draw do
       get 'signed_up_with_social'
       put 'edit_signed_up_with_social'
     end
+
+    resources :newsfeeds, only: [:index, :destroy]
   end
 
   resources :courses, only: [:show, :index] do

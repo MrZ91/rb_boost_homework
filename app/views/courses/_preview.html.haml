@@ -23,9 +23,13 @@
        data: { toggle: 'tooltip' }, id: "unsubscription-btn-#{course.id}",
        title: 'Unsubscribe from this course', class:'btn btn-box-tool' do
       %i.fa.fa-close
-    -else
+    -elsif user_signed_in?
      = link_to signed_up_with_social_user_profile_path, data: { toggle: 'tooltip' },
       title: 'Subscribe to this course', class:'btn btn-box-tool' do
+      %i.fa.fa-check
+    -else
+     = link_to new_user_session_path, data: { toggle: 'tooltip' },
+       title: 'Subscribe to this course', class:'btn btn-box-tool' do
       %i.fa.fa-check
 
   .box-body

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160314091227) do
+ActiveRecord::Schema.define(version: 20160318090711) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,6 +72,20 @@ ActiveRecord::Schema.define(version: 20160314091227) do
 
   add_index "lessons", ["course_id", "date_of"], name: "index_lessons_on_course_id_and_date_of", unique: true, using: :btree
   add_index "lessons", ["state"], name: "index_lessons_on_state", using: :btree
+
+  create_table "newsfeeds", force: :cascade do |t|
+    t.integer  "recipient_id",   null: false
+    t.integer  "owner_id",       null: false
+    t.integer  "trackable_id",   null: false
+    t.string   "trackable_type"
+    t.integer  "kind"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "newsfeeds", ["owner_id"], name: "index_newsfeeds_on_owner_id", using: :btree
+  add_index "newsfeeds", ["recipient_id"], name: "index_newsfeeds_on_recipient_id", using: :btree
+  add_index "newsfeeds", ["trackable_id", "trackable_type"], name: "index_newsfeeds_on_trackable_id_and_trackable_type", using: :btree
 
   create_table "profiles", force: :cascade do |t|
     t.string   "first_name", null: false

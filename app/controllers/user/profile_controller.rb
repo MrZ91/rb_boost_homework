@@ -26,7 +26,7 @@ class User::ProfileController < ApplicationController
       sign_in :user, current_user, bypass: true
 
       redirect_to current_user
-    else    count =
+    else
       render :signed_up_with_social
       # Some error messages need to be placed here!
     end

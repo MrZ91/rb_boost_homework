@@ -3,10 +3,11 @@ class Lesson < ActiveRecord::Base
 
   scope :by_position, -> { order('position ASC') }
 
-  before_create :set_position
+  before_create  :set_position
   before_destroy :reduce_subsequent_position
-  after_find :check_for_performing
-  after_commit :check_for_performing
+  after_find     :check_for_performing
+  after_commit   :check_for_performing
+  after_create   :proceed_feedbacks
 
   validates :title, length: { maximum: 50 }, presence:  true
   validates :description, :lecture_notes, :date_of, presence:  true
@@ -53,5 +54,11 @@ class Lesson < ActiveRecord::Base
   def check_for_performing
     return unless expected_to_performing? && DateTime.now > date_of
     perform!
+  end
+
+  def proceed_feedbacks
+    course.subscribers.each do |subscriber|
+      course.user.feedbacks.create(recipient: subscriber, trackable: self, kind: Newsfeed::KIND_LESSON_CREATED)
+    end
   end
 end

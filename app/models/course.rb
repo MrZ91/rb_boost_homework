@@ -19,4 +19,10 @@ class Course < ActiveRecord::Base
   def sort_lessons_by_order(order)
     lessons.each { |l| l.update(position: (order.index(l.id.to_s) + 1)) }
   end
+
+  def proceed_feedbacks(kind)
+    subscribers.each do |subscriber|
+      Newsfeed.update_or_create(owner: user, recipient: subscriber, trackable: self, kind: kind)
+    end
+  end
 end

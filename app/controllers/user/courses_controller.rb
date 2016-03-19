@@ -28,7 +28,7 @@ class User::CoursesController < User::AuthenticateController
   end
 
   def show
-    @subscribers = @course.subscribers
+    @subscribers = @course.subscribers.includes(:profile)
   end
 
   def update
