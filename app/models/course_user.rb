@@ -10,7 +10,9 @@ class CourseUser < ActiveRecord::Base
   private
 
   def proceed_feedback
-    user.feedbacks.create(recipient: course.user, trackable: self, kind: Newsfeed::KIND_USER_SUBSCRIBED)
+    NewsfeedWorker.perform_async(owner_id: user.id, recipient_id: course.user.id,
+                                 trackable_type: 'CourseUser', trackable_id: id,
+                                 kind: Newsfeed::KIND_USER_SUBSCRIBED)
   end
 
   def delete_feedbacks

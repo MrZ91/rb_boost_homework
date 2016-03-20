@@ -15,6 +15,14 @@ gem 'carrierwave', '0.9.0'
 gem 'date_validator'
 gem 'aasm'
 
+gem 'sidekiq', '~>3.5.4'
+gem 'sidekiq-status'
+gem 'sidekiq-failures'
+gem 'sidekiq-unique-jobs'
+gem 'sinatra', require: false
+gem 'slim'
+gem 'foreman'
+
 gem 'sass'
 # gem 'mini_magick'
 gem 'rmagick'
@@ -51,12 +59,12 @@ group :test, :development do
   gem 'quiet_assets'
   gem 'dotenv-rails', require: 'dotenv/rails-now'
   gem 'factory_girl_rails'
+  gem 'letter_opener'
 end
 
 group :development do
   gem 'rubocop', require: false
   gem 'rubycritic', require: false
-  gem 'letter_opener'
   gem 'annotate'
   gem 'better_errors'
   gem 'spring-commands-rspec'

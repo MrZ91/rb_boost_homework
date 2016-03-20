@@ -7,7 +7,7 @@ class Lesson < ActiveRecord::Base
   before_destroy :reduce_subsequent_position
   after_find     :check_for_performing
   after_commit   :check_for_performing
-  after_create   :proceed_feedbacks
+  after_commit   :lesson_created_feedbacks, :begining_day_feedbacks, on: :create
 
   validates :title, length: { maximum: 50 }, presence:  true
   validates :description, :lecture_notes, :date_of, presence:  true
@@ -16,6 +16,7 @@ class Lesson < ActiveRecord::Base
   belongs_to :course
   has_many :advancements, dependent: :destroy
   has_many :users, through: :advancements
+  has_many :feedbacks, class_name: 'Newsfeed', as: :trackable, dependent: :destroy
 
   mount_uploader :image, LessonImageUploader
 
@@ -28,7 +29,7 @@ class Lesson < ActiveRecord::Base
       transitions from: :expected_to_performing, to: :awaits_material_loading
     end
 
-    event :load_materials do
+    event :load_materials, after: :material_loaded_feedbacks do
       transitions from:  :awaits_material_loading, to: :materials_loaded
     end
   end
@@ -56,9 +57,27 @@ class Lesson < ActiveRecord::Base
     perform!
   end
 
-  def proceed_feedbacks
-    course.subscribers.each do |subscriber|
-      course.user.feedbacks.create(recipient: subscriber, trackable: self, kind: Newsfeed::KIND_LESSON_CREATED)
+  def proceed_feedbacks(kind, with_mailing=false)
+    SheduleLessonNewsfeedWorker.perform_async(id, kind, with_mailing)
+  end
+
+  def proceed_delayed_feedbacks(start_date, kind, with_mailing=false)
+    if start_date > DateTime.now.days_since(1)
+      SheduleLessonNewsfeedWorker.perform_in(start_date, id, kind, with_mailing)
+    else
+      SheduleLessonNewsfeedWorker.perform_async(id, kind, with_mailing)
     end
+  end
+
+  def material_loaded_feedbacks
+    proceed_feedbacks Newsfeed::KIND_LESSON_MATERIALS_LOADED, true
+  end
+
+  def lesson_created_feedbacks
+    proceed_feedbacks Newsfeed::KIND_LESSON_CREATED
+  end
+
+  def begining_day_feedbacks
+    proceed_delayed_feedbacks date_of.days_ago(1), Newsfeed::KIND_LESSON_BEGIN_IN_ONE_DAY, true
   end
 end

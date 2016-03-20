@@ -16,8 +16,8 @@ class User < ActiveRecord::Base
   has_many :exclusions,      dependent: :destroy
   has_many :social_profiles, dependent: :destroy
   has_many :advancements,    dependent: :destroy
-  has_many :news,      class_name: 'Newsfeed', foreign_key: :recipient_id
-  has_many :feedbacks, class_name: 'Newsfeed', foreign_key: :owner_id
+  has_many :news,      class_name: 'Newsfeed', foreign_key: :recipient_id, dependent: :destroy
+  has_many :feedbacks, class_name: 'Newsfeed', foreign_key: :owner_id, dependent: :destroy
   has_one  :profile, dependent: :destroy
 
   accepts_nested_attributes_for :profile

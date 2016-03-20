@@ -1,0 +1,6 @@
+#{@newsfeed.owner.first_name} #{@newsfeed.owner.last_name}
+
+Loaded material for lesson:
+= link_to "#{@newsfeed.trackable.title}.", course_lesson_url(@newsfeed.trackable.course, @newsfeed.trackable)
+At course:
+= link_to "#{@newsfeed.trackable.course.title}.", course_url(@newsfeed.trackable.course)

@@ -6,6 +6,7 @@ class Course < ActiveRecord::Base
   has_many :course_users, dependent: :destroy
   has_many :subscribers, through: :course_users, source: :user
   has_many :prohibitions, class_name: 'Exclusion', foreign_key: :course_id, dependent: :destroy
+  has_many :feedbacks, class_name: 'Newsfeed', as: :trackable, dependent: :destroy
 
   validates :title, length: { maximum: 50 }, presence:  true
   validates :description, presence:  true
@@ -21,8 +22,6 @@ class Course < ActiveRecord::Base
   end
 
   def proceed_feedbacks(kind)
-    subscribers.each do |subscriber|
-      Newsfeed.update_or_create(owner: user, recipient: subscriber, trackable: self, kind: kind)
-    end
+    SheduleCourseNewsfeedWorker.perform_async(id, kind)
   end
 end
