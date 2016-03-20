@@ -17,8 +17,7 @@
     %th Title
     %th
   %tbody.rowlink{ data: { link: 'row' } }
-   - course.lessons.by_position.each do |lesson|
-    = render 'user/courses/lesson', lesson: lesson, course: course
+   = render partial: 'user/courses/lesson', collection: course.lessons
 
 #CreateModal.modal.fade{"aria-labelledby" => "CreateLabel", :role => "dialog", :tabindex => "-1"}
 

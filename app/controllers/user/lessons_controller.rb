@@ -2,7 +2,7 @@ class User::LessonsController < User::AuthenticateController
   before_action :find_course, only: [:create, :show, :destroy]
 
   def create
-    @lesson = @course.lessons.new(homework_params)
+    @lesson = @course.lessons.build(homework_params)
 
     if @lesson.save
 

@@ -4,10 +4,11 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: [:facebook, :twitter]
 
+  scope :visible, -> { where(visible: true) }
+
   has_many :courses, dependent: :destroy
-  has_many :course_users, dependent: :destroy
+  has_many :course_users, -> { active }, dependent: :destroy
   has_many :subscriptions, through: :course_users, source: :course
-  has_many :exclusions, dependent: :destroy
   has_many :social_profiles, dependent: :destroy
   has_many :advancements, dependent: :destroy
   has_one :profile, dependent: :destroy
@@ -23,6 +24,10 @@ class User < ActiveRecord::Base
   end
 
   def subscribed_to?(course)
-    subscriptions.exists?(id: course.id)
+    course_users.exists?(course_id: course.id)
+  end
+
+  def advancement_in?(lesson)
+    !advancements.where(lesson_id: lesson.id).count.zero?
   end
 end

@@ -2,8 +2,13 @@
  .row
   %section.content-header
    %h1.text-center #{@lesson.title}
-   %button.btn.btn-primary{"data-target" => "#CreateModal", "data-toggle" => "modal", :type => "button"}
-    Pass lesson
+   - if profile_configured?
+    %button.btn.btn-primary{"data-target" => "#CreateModal", "data-toggle" => "modal", :type => "button"}
+     Pass lesson
+   -else
+    = link_to = link_to signed_up_with_social_user_profile_path do
+     %button.btn.btn-primary
+      Pass lesson
   .col-md-3
    = image_tag @lesson.image.url, alt: 'Lesson image'
   .col-md-8

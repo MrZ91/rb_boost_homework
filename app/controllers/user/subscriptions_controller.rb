@@ -5,6 +5,7 @@ class User::SubscriptionsController < User::AuthenticateController
 
   def create
     if @course.prohibited_for?(current_user)
+
       render 'user/exclusions/error'
     else
       @course.subscribers << current_user
@@ -12,7 +13,12 @@ class User::SubscriptionsController < User::AuthenticateController
   end
 
   def destroy
-    @course.course_users.find_by(user_id: current_user.id).destroy!
+    if @course.prohibited_for?(current_user)
+
+      render 'user/exclusions/error'
+    else
+      @course.course_users.find_by(user_id: current_user.id).destroy!
+    end
   end
 
   def show

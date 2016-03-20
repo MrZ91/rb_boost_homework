@@ -10,9 +10,19 @@
  .tab-content
   #homework.tab-pane.active
    %section.content-header
-    %h1.text-center
-     Homework content
-    = render 'courses/homework', course: course
+
+    %h1.text-center #{course.title} homework
+
+   - unless course.lessons.count <1
+    %table.table.table-striped.table-hover#homework-list
+     %thead
+      %tr
+       %th
+       %th
+       %th Title
+       %th
+     %tbody.rowlink{ data: { link: 'row' } }
+      = render partial: 'courses/lesson', collection: course.lessons, course: course
   #subscribers.tab-pane
    %h1.text-center
     Subscribers
@@ -27,6 +37,31 @@
        %td #{subscriber.first_name} #{subscriber.last_name}
        %td Progress-bar
   #description.tab-pane
+
+
+
+   - if user_signed_in?
+    - if profile_configured?
+     = link_to user_course_subscriptions_path(course), method: :post, remote: true,
+         style: ('display: none' if current_user.subscribed_to?(course) || course.prohibited_for?(current_user)),
+         data: { toggle: 'tooltip' }, id: "subscription-btn-#{course.id}",
+         title: 'Subscribe to this course' do
+      = button_tag 'Subscribe', type: 'button', class: 'btn btn-success'
+     = link_to user_course_subscriptions_path(course), method: :delete, remote: true,
+         style: ('display: none' unless current_user.subscribed_to?(course) && !course.prohibited_for?(current_user)),
+         data: { toggle: 'tooltip' }, id: "unsubscription-btn-#{course.id}",
+         title: 'Unsubscribe from this course' do
+      = button_tag 'Unsubscribe',  type: 'button', class: 'btn btn-danger'
+    -else
+     = link_to signed_up_with_social_user_profile_path, data: { toggle: 'tooltip' },
+        title: 'Subscribe to this course' do
+      = button_tag 'Subscribe', type: 'button', class: 'btn btn-success'
+   -else
+    = link_to new_user_session_path,
+       data: { toggle: 'tooltip' }, id: "subscription-btn-#{course.id}",
+       title: 'Sign in to subscribe to this course' do
+     = button_tag 'Subscribe', type: 'button', class: 'btn btn-success'
+
    %h1.text-center
     Description
    .col-md-4

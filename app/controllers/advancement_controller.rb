@@ -3,7 +3,7 @@ class AdvancementController < ApplicationController
   before_action :configure_profile
 
   def create
-    render 'advancement/error' unless current_user.advancements.where(lesson_id: @lesson.id).count.zero?
+    render 'advancement/error' if current_user.advancement_in?(@lesson)
     @lesson.advancements.create(version: params[:advancement][:version], user_id: current_user.id)
   end
 

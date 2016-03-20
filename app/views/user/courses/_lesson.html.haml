@@ -1,6 +1,6 @@
 %tr{ id: "#{lesson.id}" }
  %td
-  = link_to user_course_lesson_path(course, lesson) do
+  = link_to user_course_lesson_path(lesson.course, lesson) do
    #{lesson.position}
  %td
   = image_tag lesson.image.thumb.url, alt: 'Lesson image'

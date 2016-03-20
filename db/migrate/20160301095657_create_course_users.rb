@@ -3,6 +3,7 @@ class CreateCourseUsers < ActiveRecord::Migration
     create_table :course_users do |t|
       t.integer :user_id, null: false
       t.integer :course_id, null: false
+      t.boolean :active, null: false, default: true
 
       t.timestamp null: false
     end
