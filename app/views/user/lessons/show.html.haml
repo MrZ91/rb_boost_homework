@@ -2,11 +2,16 @@
  .row
   %section.content-header
    %h1.text-center #{@lesson.title}
-  .col-md-3
-   = image_tag @lesson.image.url, alt: 'Lesson image'
-  .col-md-8
-   %h3.text-center Lesson description:
-   #{@lesson.description}
+ .col-md-3
+  = image_tag @lesson.image.url, alt: 'Lesson image'
+  %br/
+  = link_to 'Edit ', edit_user_course_lesson_path(@course, @lesson)
+  or
+  =link_to 'delete', user_course_lesson_path(@course, @lesson), method: :delete, data: {confirm: 'Are you sure want to delete this lesson?!'}
+  this lesson.
+ .col-md-8
+  %h3.text-center Lesson description:
+  #{@lesson.description}
 
  .row
   .col-md-8.col-md-offset-2

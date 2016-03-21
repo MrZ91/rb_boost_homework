@@ -1,14 +1,15 @@
 class User::CoursesController < User::AuthenticateController
-  before_action :find_course, only: [:edit, :show, :update, :destroy]
+  before_action :load_course, only: [:edit, :show, :update, :destroy]
+  authorize_resource
 
   protect_from_forgery with: :exception
 
-  COURSES_ON_CABINET_PAGE = 9
+  COURSES_ON_CABINET_PAGE = 3
 
   def create
     @course = current_user.courses.new(course_params)
 
-    if (current_user.has_role? :trainer) && @course.save
+    if @course.save
 
       redirect_to user_course_path(@course)
     else
@@ -22,8 +23,6 @@ class User::CoursesController < User::AuthenticateController
   end
 
   def new
-    redirect_to :back unless current_user.has_role? :trainer
-
     @course = current_user.courses.build
   end
 
@@ -48,13 +47,17 @@ class User::CoursesController < User::AuthenticateController
     redirect_to user_courses_path
   end
 
+  def not_authorized_message
+    'You not authorized to manage this course'
+  end
+
+  def load_course
+    @course = current_user.courses.find_by(id: params[:id])
+  end
+
   private
 
   def course_params
     params.require(:course).permit(:title, :description, :image)
-  end
-
-  def find_course
-    @course = current_user.courses.find_by(id: params[:id])
   end
 end

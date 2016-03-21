@@ -34,7 +34,7 @@ describe User::CoursesController, type: :controller do
       before { user.remove_role :trainer }
 
       it 'should not create course' do
-        expect { post :create, course: attributes_for(:course) }.to change(user.courses, :count).by(0)
+        expect { post :create, course: attributes_for(:course) }.to raise_error(CanCan::AccessDenied)
       end
     end
   end

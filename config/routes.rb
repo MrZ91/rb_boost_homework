@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     resources :courses do
       resource :subscriptions, only: [:create, :destroy]
       resource :visibility, controller: :course_visibility, only: [:update]
-      resources :lessons, except: [:index, :new] do
+      resources :lessons, except: [:index] do
         resources :advancements, only: [:index]
       end
     end

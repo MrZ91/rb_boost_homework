@@ -1,7 +1,7 @@
 class User::SubscriptionsController < User::AuthenticateController
   before_action :find_course, only: [:create, :destroy]
 
-  COURSES_ON_PAGE = 4
+  COURSES_ON_PAGE = 3
 
   def create
     if @course.prohibited_for?(current_user)
@@ -22,7 +22,7 @@ class User::SubscriptionsController < User::AuthenticateController
   end
 
   def show
-    @subscriptions = current_user.subscriptions.page(params[:subscrip_page]).per(COURSES_ON_PAGE)
+    @subscriptions = current_user.subscriptions.page(params[:page]).per(COURSES_ON_PAGE)
   end
 
   def find_course

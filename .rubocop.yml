@@ -6,6 +6,7 @@ AllCops:
     - 'bin/*'
     - 'db/schema.rb'
     - 'db/migrate/*'
+    - 'app/models/ability.rb'
   TargetRubyVersion: 2.2
   DisplayCopNames: true
 

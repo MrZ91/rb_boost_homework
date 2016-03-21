@@ -15,7 +15,7 @@
    .btn-group
     = link_to 'Cabinet', user_courses_path, class: 'btn btn-default btn-flat btn-sm'
     = link_to 'New course', new_user_course_path,
-    class: "btn btn-default btn-flat btn-sm #{'disabled' unless current_user.has_role? :trainer}"
+    class: "btn btn-default btn-flat btn-sm #{'disabled' unless can? :manage, Course}"
     = link_to  'Subscriptions', user_subscription_path, class: 'btn btn-default btn-flat btn-sm'
   %li.user-footer
    = link_to 'Logout',  destroy_user_session_path, class: 'btn btn-default btn-flat', method: :delete

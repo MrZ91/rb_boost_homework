@@ -1,5 +1,6 @@
 class AdvancementController < ApplicationController
   before_action :find_lesson
+  before_action :authenticate_user!
   before_action :configure_profile
 
   def create
