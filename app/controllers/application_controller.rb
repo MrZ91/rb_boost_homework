@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
   end
 
   def profile_configured?
-    user_signed_in? && !current_user.signed_up_with_social
+    user_signed_in? && current_user.profile.present?
   end
   helper_method :profile_configured?
 end

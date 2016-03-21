@@ -11,7 +11,7 @@
  .tab-content
 
   #homework.tab-pane.active
-   = render 'user/courses/homework', course: @course
+   = render 'user/courses/lessons', course: @course
   #subscribers.tab-pane
    %section.content-header
     %h1.text-center #{@course.title} subscribers
@@ -24,10 +24,16 @@
        %th
      %tbody
       - @subscribers.each do |subscriber|
-       %tr{ id: "course-subscriber-#{subscriber.id}-column" }
+       %tr
         %td #{subscriber.first_name} #{subscriber.last_name}
         %td Progress-bar
         %td
-         = link_to 'Exclude', user_create_course_prohibition_path(subscriber, @course), class: 'btn btn-danger', remote: true, method: :post
+
+         = link_to 'Exclude', user_create_course_prohibition_path(subscriber, @course),
+          class: 'btn btn-danger', remote: true, method: :post, id: "exclude-#{subscriber.id}", style:('display: none' if @course.prohibited_for?(subscriber))
+
+         = link_to 'Excluded', user_create_course_prohibition_path(subscriber, @course),
+          class: 'btn btn-danger', remote: true, method: :post, id: "excluded-#{subscriber.id}", style:('display: none' unless @course.prohibited_for?(subscriber))
+         
   #description.tab-pane
    = render 'user/courses/description', course: @course

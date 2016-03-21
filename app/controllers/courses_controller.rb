@@ -8,7 +8,7 @@ class CoursesController < ApplicationController
   end
 
   def show
-    @subscribers = course.subscribers
+    @subscribers = course.active_subscribers.includes(:profile)
   end
 
   def course

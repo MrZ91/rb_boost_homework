@@ -5,6 +5,7 @@ class User::SubscriptionsController < User::AuthenticateController
 
   def create
     if @course.prohibited_for?(current_user)
+
       render 'user/exclusions/error'
     else
       @course.subscribers << current_user
@@ -12,7 +13,12 @@ class User::SubscriptionsController < User::AuthenticateController
   end
 
   def destroy
-    @course.course_users.find_by(user_id: current_user.id).destroy!
+    if @course.prohibited_for?(current_user)
+
+      render 'user/exclusions/error'
+    else
+      @course.course_users.find_by(user_id: current_user.id).destroy!
+    end
   end
 
   def show
@@ -22,9 +28,4 @@ class User::SubscriptionsController < User::AuthenticateController
   def find_course
     @course = Course.find(params[:course_id])
   end
-
-  def participations
-    @participations ||= Kaminari.paginate_array(current_user.participations.distinct).page(params[:particip_page]).per(COURSES_ON_PAGE)
-  end
-  helper_method :participations
 end

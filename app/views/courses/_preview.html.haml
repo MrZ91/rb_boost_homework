@@ -12,20 +12,26 @@
      %br/
 
    .box-tools
-    - if profile_configured?
-     = link_to user_course_subscriptions_path(course), method: :post, remote: true,
-       style: ('display: none' if current_user.subscribed_to?(course)),
+    - if user_signed_in?
+     - if profile_configured?
+      = link_to user_course_subscriptions_path(course), method: :post, remote: true,
+       style: ('display: none' if current_user.subscribed_to?(course) || course.prohibited_for?(current_user)),
        data: { toggle: 'tooltip' }, id: "subscription-btn-#{course.id}",
        title: 'Subscribe to this course', class:'btn btn-box-tool' do
-      %i.fa.fa-check
-     = link_to user_course_subscriptions_path(course), method: :delete, remote: true,
-       style: ('display: none' unless current_user.subscribed_to?(course)),
-       data: { toggle: 'tooltip' }, id: "unsubscription-btn-#{course.id}",
-       title: 'Unsubscribe from this course', class:'btn btn-box-tool' do
-      %i.fa.fa-close
+       %i.fa.fa-check
+      = link_to user_course_subscriptions_path(course), method: :delete, remote: true,
+        style: ('display: none' unless current_user.subscribed_to?(course) && !course.prohibited_for?(current_user)),
+        data: { toggle: 'tooltip' }, id: "unsubscription-btn-#{course.id}",
+        title: 'Unsubscribe from this course', class:'btn btn-box-tool' do
+       %i.fa.fa-close
+     - else
+      = link_to signed_up_with_social_user_profile_path, data: { toggle: 'tooltip' },
+       title: 'Subscribe to this course', class:'btn btn-box-tool' do
+       %i.fa.fa-check
     -else
-     = link_to signed_up_with_social_user_profile_path, data: { toggle: 'tooltip' },
-      title: 'Subscribe to this course', class:'btn btn-box-tool' do
+     = link_to new_user_session_path,
+       data: { toggle: 'tooltip' }, id: "subscription-btn-#{course.id}",
+       title: 'Sign in to subscribe to this course', class:'btn btn-box-tool' do
       %i.fa.fa-check
 
   .box-body
@@ -33,6 +39,6 @@
     = link_to course.title, course_path(course)
    - if user_signed_in?
     .some-good-class
-     %span.description{id: "subscribed-title-#{course.id}", style: ('display: none' unless current_user.subscribed_to?(course))}
+     %span.description{id: "subscription-title-#{course.id}", style: ('display: none' unless current_user.subscribed_to?(course))}
       You subscribed on this course
    = image_tag course.image.thumb.url, alt: 'Course image', class: 'img-responsive pad'

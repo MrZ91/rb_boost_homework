@@ -24,7 +24,7 @@ Rails.application.routes.draw do
       get '/courses/:id/sort', action: :sort, as: :sort
     end
 
-    post '/:id/courses/:courses_id/prohibition', to: 'exclusions#create', as: :create_course_prohibition
+    post '/:id/courses/:courses_id/prohibition', to: 'exclusions#update', as: :create_course_prohibition
 
     resource :profile, only: [:edit, :update], controller: :profile do
       get 'signed_up_with_social'
