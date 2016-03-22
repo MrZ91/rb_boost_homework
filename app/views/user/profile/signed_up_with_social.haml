@@ -3,8 +3,8 @@
  %h1 Please introduce yourself.
  .form-inputs
   = f.input :email, required: true, hint: 'Please set your your email.'
-  = f.simple_fields_for :profile_attributes do |pf|
+  = f.simple_fields_for @profile do |pf|
    = pf.input :first_name, required: true, autofocus: true, hint: 'Please set your first name.'
    = pf.input :last_name, required: true, hint: 'Please set your last name.'
  .form-actions
-  = f.button :submit, 'Update'
+ = f.button :submit, 'Update'

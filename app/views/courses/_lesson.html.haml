@@ -1,8 +1,8 @@
-- unless user_signed_in? && current_user.subscribed_to?(course)
+- unless can? :read, lesson
  %tr{class:'rowlink-skip', title: 'Subscribe first to proceed.', data:{toggle: 'tooltip'}}
   %td
    = link_to course_lesson_path(course, lesson) do
-    #{lesson.date_of.to_formatted_s(:long)}
+    #{lesson.position}
   %td
    = image_tag lesson.image.thumb.url, alt: 'Lesson image'
   %td #{lesson.title}
@@ -11,10 +11,8 @@
  %tr
   %td
    = link_to course_lesson_path(course, lesson) do
-    #{lesson.date_of.to_formatted_s(:long)}
+    #{lesson.position}
   %td
    = image_tag lesson.image.thumb.url, alt: 'Lesson image'
   %td #{lesson.title}
   %td
-
-

@@ -3,19 +3,23 @@ require 'user/lessons_controller'
 describe User::LessonsController, type: :controller do
   let(:user) { create :user }
   let!(:course) { create :course, user_id: user.id }
-  before { sign_in user }
+
+  before do
+    user.add_role :trainer
+    sign_in user
+  end
 
   context 'create' do
     context 'with valid params' do
-      it 'should create course' do
+      it 'should create lesson' do
         expect do
           post :create, course_id: course.id, lesson: attributes_for(:lesson)
         end.to change(course.lessons, :count).by(1)
       end
 
-      context 'should redirect to course page' do
+      context 'should redirect to lesson page' do
         before { post :create, course_id: course.id, lesson: attributes_for(:lesson) }
-        it { expect(response).to redirect_to user_course_path(course, anchor: 'homework') }
+        it { expect(response).to redirect_to user_course_lesson_path(course, course.lessons.last) }
       end
     end
 

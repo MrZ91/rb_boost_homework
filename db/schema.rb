@@ -29,8 +29,9 @@ ActiveRecord::Schema.define(version: 20160318090711) do
   add_index "advancements", ["user_id", "lesson_id"], name: "index_advancements_on_user_id_and_lesson_id", unique: true, using: :btree
 
   create_table "course_users", force: :cascade do |t|
-    t.integer "user_id",   null: false
-    t.integer "course_id", null: false
+    t.integer "user_id",                  null: false
+    t.integer "course_id",                null: false
+    t.boolean "active",    default: true, null: false
   end
 
   add_index "course_users", ["user_id", "course_id"], name: "index_course_users_on_user_id_and_course_id", unique: true, using: :btree
@@ -46,15 +47,6 @@ ActiveRecord::Schema.define(version: 20160318090711) do
   end
 
   add_index "courses", ["title"], name: "index_courses_on_title", using: :btree
-
-  create_table "exclusions", force: :cascade do |t|
-    t.integer  "user_id",    null: false
-    t.integer  "course_id",  null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "exclusions", ["user_id", "course_id"], name: "index_exclusions_on_user_id_and_course_id", unique: true, using: :btree
 
   create_table "lessons", force: :cascade do |t|
     t.string   "title",                               null: false
@@ -112,9 +104,8 @@ ActiveRecord::Schema.define(version: 20160318090711) do
     t.string   "provider"
     t.string   "uid"
     t.integer  "user_id"
-    t.boolean  "signed_up_with_social", default: true
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "social_profiles", ["user_id", "provider"], name: "index_social_profiles_on_user_id_and_provider", unique: true, using: :btree

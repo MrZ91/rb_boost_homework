@@ -1,17 +1,18 @@
 class User::LessonsController < User::AuthenticateController
-  before_action :find_course
-  before_action :find_lesson
+  before_action :load_lesson, except: [:new, :create]
+  authorize_resource
 
   def new
     @lesson = @course.lessons.build
   end
 
   def create
-    @lesson = @course.lessons.new(homework_params)
+    @lesson = course.lessons.build(homework_params)
     if @lesson.save
 
-      redirect_to user_course_path(@course, anchor: 'homework')
+      redirect_to user_course_lesson_path(course, @lesson)
     else
+
       render :new
     end
   end
@@ -19,17 +20,21 @@ class User::LessonsController < User::AuthenticateController
   def update
     if @lesson.update(homework_params)
 
-      redirect_to user_course_lesson_path(@lesson)
+      redirect_to user_course_lesson_path(course, @lesson)
     else
 
       render :edit
-      # Some error messages need to be placed here!
     end
+  end
+
+  def show
+    authorize! :manage, @lesson
   end
 
   def destroy
     @lesson.destroy
-    redirect_to user_course_path(@course, anchor: 'homework')
+
+    redirect_to user_course_path(course)
   end
 
   private
@@ -38,8 +43,12 @@ class User::LessonsController < User::AuthenticateController
     params.require(:lesson).permit(:title, :description, :image, :lecture_notes, :homework_text, :date_of)
   end
 
-  def find_course
-    @course = Course.find(params[:course_id])
+  def load_lesson
+    @lesson = course.lessons.find(params[:id])
+  end
+
+  def course
+    @course ||= Course.find(params[:course_id])
   end
 
   def find_lesson

@@ -3,6 +3,7 @@ class User::ProfileController < ApplicationController
   layout 'devise'
 
   def signed_up_with_social
+    @profile = current_user.with_profile.profile
   end
 
   def edit
@@ -10,7 +11,6 @@ class User::ProfileController < ApplicationController
 
   def update
     if current_user.update(profile_params)
-      current_user.social_profiles.each { |social_profile| social_profile.update!(signed_up_with_social: false) }
       sign_in :user, current_user, bypass: true
       redirect_to current_user
     else
@@ -20,10 +20,8 @@ class User::ProfileController < ApplicationController
   end
 
   def edit_signed_up_with_social
+    @profile = current_user.with_profile.profile
     if current_user.update(profile_params)
-
-      current_user.social_profiles.each { |social_profile| social_profile.update!(signed_up_with_social: false) }
-      sign_in :user, current_user, bypass: true
 
       redirect_to current_user
     else

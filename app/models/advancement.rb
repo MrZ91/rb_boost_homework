@@ -37,9 +37,9 @@ class Advancement < ActiveRecord::Base
   end
 
   def proceed_news(kind, with_mailing=false)
-    NewsfeedWorker.perform_async(owner_id: lesson.course.user.id, recipient_id:  user.id,
+    NewsfeedWorker.perform_async({ owner_id: lesson.course.user.id, recipient_id:  user.id,
                                  trackable_type: self.class.name, trackable_id: id,
-                                 kind: kind, with_mailing: with_mailing)
+                                 kind: kind }, with_mailing: with_mailing)
   end
 
   def proceed_approved_news

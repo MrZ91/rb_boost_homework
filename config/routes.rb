@@ -16,8 +16,8 @@ Rails.application.routes.draw do
     resource  :subscription, only: [:show]
     resources :courses do
       resource  :subscriptions, only: [:create, :destroy]
-      resource  :visibility, controller: :course_visibility, only: [:update]
-      resources :lessons, except: [:index] do
+      resource  :visibility, controller: :course_visibility, only: :update
+      resources :lessons, except: :index do
         resources :advancements, only: [:index, :show] do
           controller :advancements_state do
             post :approve
@@ -32,7 +32,7 @@ Rails.application.routes.draw do
       get '/courses/:id/sort', action: :sort, as: :sort
     end
 
-    post '/:id/courses/:courses_id/prohibition', to: 'exclusions#create', as: :create_course_prohibition
+    post '/:id/courses/:courses_id/prohibition', to: 'exclusions#update', as: :create_course_prohibition
 
     resource :profile, only: [:edit, :update], controller: :profile do
       get 'signed_up_with_social'

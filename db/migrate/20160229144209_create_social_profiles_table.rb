@@ -4,7 +4,6 @@ class CreateSocialProfilesTable < ActiveRecord::Migration
       t.string :provider
       t.string :uid
       t.integer :user_id
-      t.boolean :signed_up_with_social, default: true
 
       t.timestamps null: false
     end

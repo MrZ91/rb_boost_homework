@@ -1,7 +1,12 @@
 class User::AdvancementsController < User::AuthenticateController
   before_action :find_advancement, only: [:show]
   def index
+    authorize! :manage, lesson
     @advancements = lesson.advancements.includes(:user)
+  end
+
+  def show
+    authorize! :manage, lesson
   end
 
   private

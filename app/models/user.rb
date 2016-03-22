@@ -3,17 +3,14 @@ class User < ActiveRecord::Base
 
   include Omniauthable
 
-  after_commit :apply_default_role
+  after_save :apply_default_role
 
   devise :database_authenticatable, :registerable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: [:facebook, :twitter]
 
-  has_many :subscriptions,  through: :course_users, source: :course
-  has_many :participations, through: :lessons, source: :course
-  has_many :lessons,        through: :advancements
+  has_many :subscriptions, through: :course_users, source: :course
+  has_many :course_users, -> { active }, dependent: :destroy
   has_many :courses,         dependent: :destroy
-  has_many :course_users,    dependent: :destroy
-  has_many :exclusions,      dependent: :destroy
   has_many :social_profiles, dependent: :destroy
   has_many :advancements,    dependent: :destroy
   has_many :news,      class_name: 'Newsfeed', foreign_key: :recipient_id, dependent: :destroy
@@ -31,7 +28,11 @@ class User < ActiveRecord::Base
   end
 
   def subscribed_to?(course)
-    subscriptions.exists?(id: course.id)
+    course_users.exists?(course_id: course.id)
+  end
+
+  def advancement_in?(lesson)
+    !advancements.where(lesson_id: lesson.id).count.zero?
   end
 
   private
