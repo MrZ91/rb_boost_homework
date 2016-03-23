@@ -3,6 +3,8 @@ source 'http://rubygems.org'
 
 gem 'rails', '4.2.5'
 gem 'uglifier'
+gem 'active_model_serializers'
+gem 'faraday'
 
 gem 'simple_form'
 
@@ -70,6 +72,7 @@ group :development do
   gem 'better_errors'
   gem 'spring-commands-rspec'
   gem 'bullet'
+  gem 'binding_of_caller'
 end
 
 group :test do

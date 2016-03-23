@@ -52,5 +52,30 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :api do
+    namespace :v1 do
+      resources :courses, only: :index
+
+      constraints(id: /[0-9]+/) do
+        resources :user, only: [] do
+          resources :courses, module: :user, only: :index
+        end
+      end
+
+      resource :user, only: [] do
+        scope  module: :user do
+          resources :subscriptions, only: [:index]
+          resource :profile, only: [:update]
+          resources :course, only: [] do
+            resource :subscription, only: [:create, :destroy]
+          end
+
+          post 'sign_in', to: 'authentication#show'
+          post 'sign_up', to: 'authentication#create'
+        end
+      end
+    end
+  end
+
   root to: 'static_pages#index'
 end

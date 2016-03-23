@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
 
   include Omniauthable
 
-  after_save :apply_default_role
+  after_save :apply_default_role, :ensure_authentication_token
 
   devise :database_authenticatable, :registerable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: [:facebook, :twitter]
@@ -21,6 +21,16 @@ class User < ActiveRecord::Base
   delegate :first_name, :last_name, to: :profile, allow_nil: true
 
   validates_associated :profile
+
+  def ensure_authentication_token
+    return unless authentication_token.blank?
+    self.authentication_token = generate_authentication_token
+  end
+
+  def generate_authentication_token
+    token = Devise.friendly_token
+    id.to_s + token
+  end
 
   def with_profile
     build_profile if profile.nil?

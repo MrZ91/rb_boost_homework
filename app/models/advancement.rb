@@ -6,8 +6,8 @@ class Advancement < ActiveRecord::Base
   validates :version, presence:  true
   validates :user_id, uniqueness: { scope: :lesson_id }
 
-  belongs_to :lesson, -> { includes :course }
-  belongs_to :user, -> { includes :profile }
+  belongs_to :lesson
+  belongs_to :user
   has_many :feedbacks, class_name: 'Newsfeed', as: :trackable, dependent: :destroy
 
   aasm column: :state do
@@ -38,8 +38,8 @@ class Advancement < ActiveRecord::Base
 
   def proceed_news(kind, with_mailing=false)
     NewsfeedWorker.perform_async({ owner_id: lesson.course.user.id, recipient_id:  user.id,
-                                 trackable_type: self.class.name, trackable_id: id,
-                                 kind: kind }, with_mailing: with_mailing)
+                                   trackable_type: self.class.name, trackable_id: id, kind: kind },
+                                 with_mailing: with_mailing)
   end
 
   def proceed_approved_news
