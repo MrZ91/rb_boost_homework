@@ -5,6 +5,7 @@ AllCops:
     - 'tmp/**/*'
     - 'bin/*'
     - 'db/schema.rb'
+    - 'db/migrate/*'
   TargetRubyVersion: 2.2
   DisplayCopNames: true
 

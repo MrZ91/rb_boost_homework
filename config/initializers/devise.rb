@@ -12,5 +12,5 @@ Devise.setup do |config|
   config.remember_for = 2.weeks
   config.expire_all_remember_me_on_sign_out = true
   config.password_length = 6..20
-  config.sign_out_via = :delete
+  config.sign_out_via = :get, :delete
 end

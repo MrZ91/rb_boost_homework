@@ -19,4 +19,5 @@
 //= require app
 //= require pages/dashboard
 //= require demo
-
+//= require jasny-bootstrap.min
+//= require TableDnD/jquery.tablednd.0.9.rc1.js

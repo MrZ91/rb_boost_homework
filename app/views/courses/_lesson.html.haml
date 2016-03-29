@@ -1,0 +1,8 @@
+%tr{ id: "course-lesson-#{lesson.id}-row" }
+  %td
+    = link_to course_lesson_path(course, lesson) do
+      #{lesson.position}
+  %td
+    = image_tag lesson.image.thumb.url, alt: 'Lesson image'
+  %td #{lesson.title}
+  %td

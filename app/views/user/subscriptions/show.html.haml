@@ -1,0 +1,19 @@
+%section.content-header
+ %h1.text-center List of my subscriptions
+- @subscriptions.each do |course|
+ %br/
+ .row
+  .col-md-2
+   = image_tag(course.image.thumb.url, align: :middle)
+  .col-md-10
+
+   .row
+    .col-md-4
+     %h3= link_to course.title, course_path(course)
+     = course.description
+    .col-md-4
+     = link_to 'Visible', '#', class: 'btn btn-success disabled', style:('display: none' unless course.visible)
+     = link_to 'Hidden', '#', class: 'btn btn-danger disabled', style:('display: none' unless !course.visible)
+
+ %br/
+= paginate @subscriptions

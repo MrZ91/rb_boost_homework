@@ -1,5 +1,5 @@
 %li.dropdown.user.user-menu
- %a.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :href => "#"}
+ %a.dropdown-toggle{ "aria-expanded" => "false", "data-toggle" => "dropdown", href: "#" }
   = image_tag 'http://placehold.it/160x160', alt: 'User avatar', class: 'user-image'
   %span.hidden-xs
    #{current_user.first_name} #{current_user.last_name}
@@ -9,9 +9,9 @@
    %h4
     #{current_user.first_name} #{current_user.last_name}
   %li.user-body
-   = link_to  'Profile', user_path(current_user)
-  %li.user-footer
    .btn-group
-    = link_to 'Cabinet', user_index_root_path, class: 'btn btn-default btn-flat'
-    = link_to 'Create course', new_user_course_path(current_user), class: 'btn btn-default btn-flat'
-    = link_to 'Logout',  destroy_user_session_path, class: 'btn btn-default btn-flat', method: :delete
+    = link_to 'Cabinet', user_courses_path, class: 'btn btn-default btn-flat btn-sm'
+    = link_to 'New course', new_user_course_path, class: 'btn btn-default btn-flat btn-sm'
+    = link_to  'Subscriptions', user_subscription_path, class: 'btn btn-default btn-flat btn-sm'
+  %li.user-footer
+   = link_to 'Logout',  destroy_user_session_path, class: 'btn btn-default btn-flat', method: :delete

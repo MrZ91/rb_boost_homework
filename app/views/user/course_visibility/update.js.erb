@@ -1,0 +1,7 @@
+<% if !@course.visible %>
+  $('#visible-btn-<%=@course.id%>').hide();
+  $('#hidden-btn-<%=@course.id%>').show();
+<% else %>
+  $('#hidden-btn-<%=@course.id%>').hide();
+  $('#visible-btn-<%=@course.id%>').show();
+<% end %>

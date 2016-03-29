@@ -1,2 +1,10 @@
 = @user.first_name
 = @user.last_name
+
+= link_to 'Edit profile', ((profile_configured? && !current_user.encrypted_password.blank?) ? edit_user_registration_path : edit_user_profile_path)
+%br/
+
+- User.omniauth_providers.each do |provider|
+ = link_to "Assign your #{OmniAuth::Utils.camelize(provider)} account",
+  user_omniauth_authorize_path(provider) unless current_user.social_profiles.find_by(provider: provider)
+ %br/

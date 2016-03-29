@@ -1,0 +1,13 @@
+$('#homework-list').tableDnD({
+  onDrop: function(table, row) {
+    $.ajax({
+      status: "redirect",
+      to: "<%= user_course_path(@course) %>",
+      type: "GET",
+      url: "<%=  user_lessons_sorting_sort_path(@course) %>",
+      processData: false,
+      dataType: "html",
+      data: $.tableDnD.serialize() + '&authenticity_token=' + encodeURIComponent('<%= form_authenticity_token if protect_against_forgery? %>')
+    });
+  }
+})

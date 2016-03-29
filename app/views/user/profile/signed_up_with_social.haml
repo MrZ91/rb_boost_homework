@@ -1,0 +1,8 @@
+= simple_form_for(@profile, url: edit_signed_up_with_social_user_profile_path, html: { method: :put }) do |f|
+ = f.error_notification
+ %h1 Please introduce yourself.
+ .form-inputs
+ = f.input :first_name, required: true, autofocus: true, hint: 'Please set your first'
+ = f.input :last_name, required: true, hint: 'and last name.'
+ .form-actions
+ = f.button :submit, 'Update'

@@ -1,7 +1,70 @@
-- provide(:title, "#{@course.title} course")
+- provide(:title, "#{course.title} course")
 .container-fluid
- .row
-  .col-md-6
-   = image_tag(@course.image_url)
-  .col-md-6
-   = @course.description
+ %ul#coursetab.nav.nav-tabs
+  %li.active
+   = link_to 'Homework', '#homework', data: {toggle: 'tab'}
+  %li
+   = link_to 'Subscribers', '#subscribers', data: {toggle: 'tab'}
+  %li
+   = link_to 'Description', '#description', data: {toggle: 'tab'}
+ .tab-content
+  #homework.tab-pane.active
+   %section.content-header
+
+    %h1.text-center #{course.title} homework
+
+   - unless course.lessons.count <1
+    %table.table.table-striped.table-hover#homework-list
+     %thead
+      %tr
+       %th
+       %th
+       %th Title
+       %th
+     %tbody.rowlink{ data: { link: 'row' } }
+      = render partial: 'courses/lesson', collection: course.lessons, course: course
+  #subscribers.tab-pane
+   %h1.text-center
+    Subscribers
+   %table.table.table-striped
+    %thead
+     %tr
+      %th Subscriber
+      %th Progress
+    %tbody
+     - @subscribers.each do |subscriber|
+      %tr
+       %td #{subscriber.first_name} #{subscriber.last_name}
+       %td Progress-bar
+  #description.tab-pane
+
+
+
+   - if user_signed_in?
+    - if profile_configured?
+     = link_to user_course_subscriptions_path(course), method: :post, remote: true,
+         style: ('display: none' if current_user.subscribed_to?(course) || course.prohibited_for?(current_user)),
+         data: { toggle: 'tooltip' }, id: "subscription-btn-#{course.id}",
+         title: 'Subscribe to this course' do
+      = button_tag 'Subscribe', type: 'button', class: 'btn btn-success'
+     = link_to user_course_subscriptions_path(course), method: :delete, remote: true,
+         style: ('display: none' unless current_user.subscribed_to?(course) && !course.prohibited_for?(current_user)),
+         data: { toggle: 'tooltip' }, id: "unsubscription-btn-#{course.id}",
+         title: 'Unsubscribe from this course' do
+      = button_tag 'Unsubscribe',  type: 'button', class: 'btn btn-danger'
+    -else
+     = link_to signed_up_with_social_user_profile_path, data: { toggle: 'tooltip' },
+        title: 'Subscribe to this course' do
+      = button_tag 'Subscribe', type: 'button', class: 'btn btn-success'
+   -else
+    = link_to new_user_session_path,
+       data: { toggle: 'tooltip' }, id: "subscription-btn-#{course.id}",
+       title: 'Sign in to subscribe to this course' do
+     = button_tag 'Subscribe', type: 'button', class: 'btn btn-success'
+
+   %h1.text-center
+    Description
+   .col-md-4
+    = image_tag(course.image_url)
+   .col-md-6
+    = @course.description
