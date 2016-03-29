@@ -1,5 +1,6 @@
 - provide(:title, 'courses')
-%div.container-fluid
+
+%div.container-fluid#main-container
  - @courses.each do |course|
   = render 'preview', course: course
 = paginate @courses

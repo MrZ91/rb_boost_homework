@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :configure_profile, unless: :devise_controller?
 
   protect_from_forgery with: :exception
 
@@ -22,7 +21,13 @@ class ApplicationController < ActionController::Base
   end
 
   def configure_profile
-    return unless user_signed_in? && current_user.signed_up_with_social
-    redirect_to user_profile_signed_up_with_social_path
+    return if profile_configured?
+
+    redirect_to signed_up_with_social_user_profile_path
   end
+
+  def profile_configured?
+    user_signed_in? && current_user.profile.present?
+  end
+  helper_method :profile_configured?
 end

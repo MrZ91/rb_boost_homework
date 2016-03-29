@@ -1,0 +1,15 @@
+%section.content-header
+ %h1.text-center #{course.title}
+.col-md-4
+ = image_tag(course.image_url)
+.col-md-6
+ = link_to user_course_visibility_path(course), method: :put, remote: true do
+  = button_tag 'Visible', id: "visible-btn-#{course.id}",  type: 'button', class: 'btn btn-success', style:('display: none' unless course.visible)
+  = button_tag 'Hidden', id: "hidden-btn-#{course.id}",  type: 'button', class: 'btn btn-danger', style:('display: none' if course.visible)
+.col-md-6
+ = course.description
+ %br/
+ = link_to 'Edit ', edit_user_course_path(course)
+ or
+ =link_to 'delete', user_course_path(course), method: :delete, data: {confirm: 'Are you sure want to delete this course?!'}
+ this course

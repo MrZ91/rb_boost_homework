@@ -1,5 +1,4 @@
-class User::CoursesController < ApplicationController
-  before_action :authenticate_user!
+class User::CoursesController < User::AuthenticateController
   before_action :find_course, only: [:edit, :show, :update, :destroy]
 
   protect_from_forgery with: :exception
@@ -10,8 +9,10 @@ class User::CoursesController < ApplicationController
     @course = current_user.courses.new(course_params)
 
     if @course.save
-      redirect_to @course
+
+      redirect_to user_course_path(@course)
     else
+
       render :new
     end
   end
@@ -20,19 +21,17 @@ class User::CoursesController < ApplicationController
     @my_courses = current_user.courses.page(params[:page]).per(COURSES_ON_CABINET_PAGE)
   end
 
-  def edit
-  end
-
   def new
     @course = current_user.courses.build
   end
 
   def show
+    @subscribers = @course.subscribers.includes(:profile)
   end
 
   def update
     if @course.update(course_params)
-      redirect_to @course
+      redirect_to user_course_path(@course)
     else
       render :edit
       # Some error messages need to be placed here!

@@ -1,0 +1,18 @@
+.container-fluid#main-container
+ .row
+  %section.content-header
+   %h1.text-center #{@lesson.title}
+  .col-md-3
+   = image_tag @lesson.image.url, alt: 'Lesson image'
+  .col-md-8
+   %h3.text-center Lesson description:
+   #{@lesson.description}
+
+ .row
+  .col-md-8.col-md-offset-2
+   %h3.text-center Lecture notes:
+   #{@lesson.lecture_notes}
+ .row
+  .col-md-8.col-md-offset-2
+   %h3.text-center Homework
+   #{@lesson.homework_text}

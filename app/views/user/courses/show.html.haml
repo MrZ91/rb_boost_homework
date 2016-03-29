@@ -1,12 +1,39 @@
 - provide(:title, "#{@course.title} course")
 .container-fluid
- .row
-  .col-md-6
-   = image_tag(@course.image_url)
-  .col-md-6
-   = @course.description
 
- = link_to 'Edit ', edit_user_course_path(@course)
- or
- =link_to 'delete', user_course_path(@course), method: :delete, data: {confirm: 'Are you sure want to delete this course?!'}
- this course
+ %ul#coursetab.nav.nav-tabs
+  %li.active
+   = link_to 'Homework', '#homework', data: {toggle: 'tab'}
+  %li
+   = link_to 'Subscribers', '#subscribers', data: {toggle: 'tab'}
+  %li
+   = link_to 'Description', '#description', data: {toggle: 'tab'}
+ .tab-content
+
+  #homework.tab-pane.active
+   = render 'user/courses/lessons', course: @course
+
+  #subscribers.tab-pane
+   %section.content-header
+    %h1.text-center #{@course.title} subscribers
+   - unless @subscribers.count <1
+    %table.table.table-striped#course-subscribers-list
+     %thead
+      %tr
+       %th Subscriber
+       %th Progress
+       %th
+     %tbody
+      - @subscribers.each do |subscriber|
+       %tr
+        %td #{subscriber.first_name} #{subscriber.last_name}
+        %td Progress-bar
+        %td
+         = link_to 'Exclude', user_create_course_prohibition_path(subscriber, @course),
+          class: 'btn btn-danger', remote: true, method: :post, id: "exclude-#{subscriber.id}", style:('display: none' if @course.prohibited_for?(subscriber))
+
+         = link_to 'Excluded', user_create_course_prohibition_path(subscriber, @course),
+          class: 'btn btn-danger', remote: true, method: :post, id: "excluded-#{subscriber.id}", style:('display: none' unless @course.prohibited_for?(subscriber))
+
+  #description.tab-pane
+   = render 'user/courses/description', course: @course

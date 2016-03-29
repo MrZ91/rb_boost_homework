@@ -1,0 +1,5 @@
+$('#advancement-close').click();
+$('#new_advancement')[0].reset();
+$('#main-container').append('<%= j render('advancement/alert')%>');
+$(".alert").delay(200).fadeOut(3500);
+

@@ -1,0 +1,7 @@
+<% if @course.prohibited_for?(@user) %>
+  $('#excluded-<%= @user.id %>').show();
+  $('#exclude-<%= @user.id %>').hide();
+<% else %>
+  $('#excluded-<%= @user.id %>').hide();
+  $('#exclude-<%= @user.id %>').show();
+<% end %>
