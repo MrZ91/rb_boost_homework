@@ -1,0 +1,1 @@
+class WrongRequest < StandardError; end

@@ -15,12 +15,8 @@ class User::AdvancementsStateController < User::AuthenticateController
 
   private
 
-  def redirect_to_advancement
-    redirect_to user_course_lesson_advancement_path(course, lesson, @advancement)
-  end
-
   def course
-    @course ||= Course.find_by(id: params[:course_id])
+    @course ||= current_user.courses.find_by(id: params[:course_id])
   end
 
   def lesson

@@ -70,7 +70,7 @@ Rails.application.routes.draw do
             resource :subscription, only: [:create, :destroy]
           end
 
-          post 'sign_in', to: 'authentication#show'
+          get 'sign_in', to: 'authentication#show'
           post 'sign_up', to: 'authentication#create'
         end
       end

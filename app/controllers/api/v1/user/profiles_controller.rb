@@ -5,7 +5,7 @@ class Api::V1::User::ProfilesController < Api::V1::User::BaseController
     if profile_params.present?
       profile = current_user.with_profile
 
-      render(json: { success: true, message: 'Profile updated' }, status: 202) unless profile.update(profile_params)
+      render(json: { success: true, message: 'Profile updated' }, status: 202) if profile.update(profile_params)
 
       respond_with_error(profile, 409)
     else

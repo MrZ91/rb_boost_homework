@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   unless Rails.application.config.consider_all_requests_local
     rescue_from Exception, with: :redirect_with_error
 
-    rescue_from CanCan::AccessDenied, with: :not_autorized
+    rescue_from CanCan::AccessDenied, with: :not_authorized
 
     rescue_from ActiveRecord::RecordNotFound,
                 ActionController::RoutingError,
@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
     redirect_to root_path
   end
 
-  def not_autorized
+  def not_authorized
     flash[:alert] = not_authorized_message
     redirect_to root_path
   end

@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
 
   def ensure_authentication_token
     return unless authentication_token.blank?
-    self.authentication_token = generate_authentication_token
+    update!(authentication_token: generate_authentication_token)
   end
 
   def generate_authentication_token

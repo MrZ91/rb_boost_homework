@@ -4,6 +4,8 @@ class Api::V1::BaseController < ActionController::Base
   unless Rails.application.config.consider_all_requests_local
     rescue_from Exception, with: :respond_with_internal_error
 
+    rescue_from WrongRequest, with: :respond_with_wrong_request
+
     rescue_from CanCan::AccessDenied,
                 NotAuthorized,
                 with: :respond_with_not_authorized
@@ -44,5 +46,9 @@ class Api::V1::BaseController < ActionController::Base
     response[:debug] = exception.message  unless Rails.env.production?
 
     render json: response, status: 500
+  end
+
+  def respond_with_wrong_request
+    render json: { success: false, errors: 'Wrong type of request' }, status: 400
   end
 end

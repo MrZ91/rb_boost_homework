@@ -1,5 +1,5 @@
 class CourseUser < ActiveRecord::Base
-  after_create :proceed_feedback
+  after_commit :proceed_feedback, on: :create
   before_destroy :delete_feedbacks
 
   belongs_to :user
