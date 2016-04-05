@@ -2,7 +2,13 @@
  .row
   %section.content-header
    %h1.text-center #{@lesson.title}
+   - if @lesson.advancements.count > 0
+    = link_to  user_course_lesson_advancements_path(@course, @lesson) do
+     %button.btn.btn-primary.pull-right
+      Show advancements
  .col-md-3
+  %h5 Will start at:
+  %h5 #{@lesson.date_of.to_formatted_s(:long)}
   = image_tag @lesson.image.url, alt: 'Lesson image'
   %br/
   = link_to 'Edit ', edit_user_course_lesson_path(@course, @lesson)

@@ -1,4 +1,3 @@
-
 subscribers = FactoryGirl.create_list(:user, 3)
 trainer_users = FactoryGirl.create_list(:user, 3)
 trainer_users.each do |u|
@@ -12,4 +11,8 @@ trainer_users.each do |u|
   c.subscribers.each do |su|
     su.advancements << FactoryGirl.create(:advancement, user_id: su.id, lesson_id: c.lessons.first.id)
   end
+  as = u.courses.first.lessons.first.advancements
+  as.first.approve!
+  as.last.reject!
+  as.last.resend!
 end

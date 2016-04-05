@@ -27,6 +27,7 @@ class User::CoursesController < User::AuthenticateController
   end
 
   def show
+    authorize! :manage, @course
     @subscribers = @course.subscribers.includes(:profile)
   end
 

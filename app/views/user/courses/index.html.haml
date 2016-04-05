@@ -1,5 +1,7 @@
 %section.content-header
  %h1.text-center List of my courses
+ = link_to 'New course', new_user_course_path,
+   class: "btn btn-primary pull-right #{'disabled' unless current_user.has_role? :trainer}"
 - @my_courses.each do |course|
  %br/
  .row

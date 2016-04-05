@@ -3,27 +3,27 @@ class User::LessonsController < User::AuthenticateController
   authorize_resource
 
   def new
-    @lesson = course.lessons.build
+    @lesson = @course.lessons.build
   end
 
   def create
     @lesson = course.lessons.build(homework_params)
     if @lesson.save
 
-      redirect_to user_course_path(course)
+      redirect_to user_course_lesson_path(course, @lesson)
     else
 
-      redirect_to :back
+      render :new
     end
   end
 
   def update
     if @lesson.update(homework_params)
 
-      redirect_to user_course_path(course)
+      redirect_to user_course_lesson_path(course, @lesson)
     else
 
-      redirect_to :back
+      render :edit
     end
   end
 
@@ -37,8 +37,10 @@ class User::LessonsController < User::AuthenticateController
     redirect_to user_course_path(course)
   end
 
+  private
+
   def homework_params
-    params.require(:lesson).permit(:title, :description, :image, :lecture_notes, :homework_text)
+    params.require(:lesson).permit(:title, :description, :image, :lecture_notes, :homework_text, :date_of)
   end
 
   def load_lesson
@@ -47,5 +49,9 @@ class User::LessonsController < User::AuthenticateController
 
   def course
     @course ||= Course.find(params[:course_id])
+  end
+
+  def find_lesson
+    @lesson = @course.lessons.find_by(id: params[:id])
   end
 end

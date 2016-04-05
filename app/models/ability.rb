@@ -7,7 +7,7 @@ class Ability
     can :read, Course
     if user.has_role? :trainer
       can :manage, Course
-      can :manage, Lesson do |lesson |
+      can :manage, Lesson do |lesson|
         lesson.course.user == user
       end
     end
