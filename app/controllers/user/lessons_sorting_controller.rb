@@ -2,7 +2,7 @@ class User::LessonsSortingController < User::AuthenticateController
   before_action :find_course
 
   def sort
-    authorize! :manage, @course
+    authorize! :crud, @course
     @course.sort_lessons_by_order params['homework-list']
     redirect_to user_course_path(@course)
   end

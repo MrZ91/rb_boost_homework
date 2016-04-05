@@ -19,13 +19,6 @@ Bundler.require(*Rails.groups)
 module Homework
   class Application < Rails::Application
     # rubocop:enable ClassAndModuleChildren
-
-    config.autoload_paths += %W(
-      #{config.root}/app/services )
-
-    config.eager_load_paths += %W(
-      #{config.root}/app/services )
-
     config.active_record.raise_in_transactional_callbacks = true
   end
 end

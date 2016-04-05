@@ -17,6 +17,8 @@ class User::SubscriptionsController < User::AuthenticateController
     @subscriptions = current_user.subscriptions.page(params[:page]).per(COURSES_ON_PAGE)
   end
 
+  private
+
   def load_course
     @course = Course.find(params[:course_id])
   end

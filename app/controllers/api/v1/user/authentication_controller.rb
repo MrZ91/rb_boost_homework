@@ -1,6 +1,5 @@
 class Api::V1::User::AuthenticationController < Api::V1::BaseController
   before_action :initialize_auth_service
-  
   def show
     user = @service.authenticate_user!
 

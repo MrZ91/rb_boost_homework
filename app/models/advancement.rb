@@ -3,12 +3,12 @@ class Advancement < ActiveRecord::Base
 
   after_commit :proceed_created_feedback, on: :create
 
-  validates :version, presence:  true
-  validates :user_id, uniqueness: { scope: :lesson_id }
-
   belongs_to :lesson
   belongs_to :user
   has_many :feedbacks, class_name: 'Newsfeed', as: :trackable, dependent: :destroy
+
+  validates :version, presence:  true
+  validates :user_id, uniqueness: { scope: :lesson_id }
 
   aasm column: :state do
     state :pending, initial: true

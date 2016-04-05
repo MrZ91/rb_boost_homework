@@ -5,8 +5,12 @@
 %span.description
  = distance_of_time_in_words_to_now(newsfeed.updated_at)
  ago.
-
-Excluded your from course:
-= link_to "#{newsfeed.trackable.course.title}.", course_path(newsfeed.trackable.course)
-Your subscription has been suspended. Now, you are not allowed to subscribe to this course.
 %br/
+- if newsfeed.trackable.active?
+ Restored your subscription in course:
+ = link_to "#{newsfeed.trackable.course.title}.", course_path(newsfeed.trackable.course)
+ %br/
+- else
+ Excluded your from course:
+ = link_to "#{newsfeed.trackable.course.title}.", course_path(newsfeed.trackable.course)
+ Your subscription has been suspended. Now, you are not allowed to subscribe to this course.

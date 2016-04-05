@@ -46,8 +46,7 @@ class APIAuthenticationService
   end
 
   def create_user_with_params
-    user = User.new(user_sign_up_params)
-    user.save!
+    user = User.create!(user_sign_up_params)
     user
   end
 

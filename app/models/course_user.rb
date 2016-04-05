@@ -8,10 +8,6 @@ class CourseUser < ActiveRecord::Base
 
   validates :course_id, uniqueness: { scope: :user_id }
 
-  def active?
-    active
-  end
-
   private
 
   def proceed_feedback

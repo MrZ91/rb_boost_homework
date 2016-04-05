@@ -1,14 +1,5 @@
 module NewsfeedHelper
-  def newsfeed_template_path(kind)
-    'user/newsfeeds/partials/'.concat newsfeed_path_for(kind)
-  end
-
-  def template_path_for_kind(kind)
-    "#{newsfeed_template_path(kind)}/#{newsfeed_name_for_kind(kind)}"
-  end
-
-  def newsfeed_path_for(kind)
-    kind_path = %w(
+  KIND_PATH = %w(
       course
       user
       user
@@ -19,11 +10,8 @@ module NewsfeedHelper
       advancement
       lesson
       lesson )
-    kind_path[kind]
-  end
-
-  def newsfeed_name_for_kind(kind)
-    kind_name = %w(
+      
+  KIND_NAME = %w(
       visibility
       subscribed
       excluded
@@ -34,11 +22,8 @@ module NewsfeedHelper
       resended
       materials_loaded
       begin_in_day )
-    kind_name[kind]
-  end
 
-  def mail_subject_for_kind(kind)
-    subject = [
+  SUBJECT = [
       '0',
       '1',
       '2',
@@ -49,7 +34,25 @@ module NewsfeedHelper
       '7',
       'Materials for lesson loaded.',
       'Lesson will begin in one day.']
-    subject[kind]
+
+  def newsfeed_template_path(kind)
+    'user/newsfeeds/partials/'.concat newsfeed_path_for(kind)
+  end
+
+  def template_path_for_kind(kind)
+    "#{newsfeed_template_path(kind)}/#{newsfeed_name_for_kind(kind)}"
+  end
+
+  def newsfeed_path_for(kind)
+    KIND_PATH[kind]
+  end
+
+  def newsfeed_name_for_kind(kind)
+    KIND_NAME[kind]
+  end
+
+  def mail_subject_for_kind(kind)
+    SUBJECT[kind]
   end
 
   def mail_template_name_for_kind(kind)

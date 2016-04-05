@@ -4,20 +4,22 @@ class Ability
   def initialize(user)
     user ||= User.new # guest user (not logged in)
 
+    alias_action :create, :read, :update, :destroy, to: :crud
+
     can :read, Course
     if user.has_role? :trainer
-      can :manage, Course
-      can :manage, Lesson do |lesson|
+      can :crud, Course
+      can :crud, Lesson do |lesson|
         lesson.course.user == user
       end
     end
 
     can :subscribe, Course do |course|
-      !course.prohibited_for?(user) && !course.subscribers.exists?(user)
+      !course.prohibited_for?(user) && !course.subscribers.exists?(user.id)
     end
 
     can :unsubscribe, Course do |course|
-      !course.prohibited_for?(user) && course.subscribers.exists?(user)
+      !course.prohibited_for?(user) && course.subscribers.exists?(user.id)
     end
 
     can :read, Lesson do |lesson|

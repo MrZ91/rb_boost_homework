@@ -7,6 +7,8 @@ class User::ExclusionsController < User::AuthenticateController
     @course_user.toggle(:active).save!
   end
 
+  private
+
   def find_course
     @course = Course.find(params[:courses_id])
   end
@@ -21,6 +23,6 @@ class User::ExclusionsController < User::AuthenticateController
   helper_method :user
 
   def proceed_news
-    @user.news.create(owner: @course.user, trackable: @course_user, kind: Newsfeed::KIND_USER_EXCLUDED)
+    user.news.update_or_create(owner: @course.user, trackable: @course_user, kind: Newsfeed::KIND_USER_EXCLUDED)
   end
 end

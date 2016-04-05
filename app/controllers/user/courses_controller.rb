@@ -27,7 +27,7 @@ class User::CoursesController < User::AuthenticateController
   end
 
   def show
-    authorize! :manage, @course
+    authorize! :crud, @course
     @subscribers = @course.subscribers.includes(:profile)
   end
 
@@ -48,6 +48,8 @@ class User::CoursesController < User::AuthenticateController
     redirect_to user_courses_path
   end
 
+  private
+
   def not_authorized_message
     'You not authorized to manage this course'
   end
@@ -55,8 +57,6 @@ class User::CoursesController < User::AuthenticateController
   def load_course
     @course = current_user.courses.find_by(id: params[:id])
   end
-
-  private
 
   def course_params
     params.require(:course).permit(:title, :description, :image)

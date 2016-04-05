@@ -3,7 +3,7 @@ class User::LessonsController < User::AuthenticateController
   authorize_resource
 
   def new
-    @lesson = @course.lessons.build
+    @lesson = course.lessons.build
   end
 
   def create
@@ -28,7 +28,7 @@ class User::LessonsController < User::AuthenticateController
   end
 
   def show
-    authorize! :manage, @lesson
+    authorize! :crud, @lesson
   end
 
   def destroy

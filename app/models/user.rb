@@ -3,7 +3,8 @@ class User < ActiveRecord::Base
 
   include Omniauthable
 
-  after_save :apply_default_role, :ensure_authentication_token
+  after_save :ensure_authentication_token
+  after_commit :apply_default_role, on: :create
 
   devise :database_authenticatable, :registerable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: [:facebook, :twitter]
@@ -17,7 +18,7 @@ class User < ActiveRecord::Base
   has_many :feedbacks, class_name: 'Newsfeed', foreign_key: :owner_id, dependent: :destroy
   has_one  :profile, dependent: :destroy
 
-  accepts_nested_attributes_for :profile
+  accepts_nested_attributes_for :profile, update_only: true
   delegate :first_name, :last_name, to: :profile, allow_nil: true
 
   validates_associated :profile
