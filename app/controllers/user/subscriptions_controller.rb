@@ -1,31 +1,27 @@
 class User::SubscriptionsController < User::AuthenticateController
-  before_action :find_course, only: [:create, :destroy]
+  before_action :load_course, only: [:create, :destroy]
 
-  COURSES_ON_PAGE = 9
+  COURSES_ON_PAGE = 3
 
   def create
-    if @course.prohibited_for?(current_user)
-
-      render 'user/exclusions/error'
-    else
-      @course.subscribers << current_user
-    end
+    authorize! :subscribe, @course
+    @course.subscribers << current_user
   end
 
   def destroy
-    if @course.prohibited_for?(current_user)
-
-      render 'user/exclusions/error'
-    else
-      @course.course_users.find_by(user_id: current_user.id).destroy!
-    end
+    authorize! :unsubscribe, @course
+    @course.course_users.find_by(user_id: current_user.id).destroy!
   end
 
   def show
     @subscriptions = current_user.subscriptions.page(params[:page]).per(COURSES_ON_PAGE)
   end
 
-  def find_course
+  def load_course
     @course = Course.find(params[:course_id])
+  end
+
+  def not_authorized
+    render 'user/exclusions/error'
   end
 end

@@ -1,34 +1,57 @@
 class User::LessonsController < User::AuthenticateController
-  before_action :find_course, only: [:create, :show, :destroy]
+  before_action :load_lesson, except: [:new, :create]
+  authorize_resource
+
+  def new
+    @lesson = @course.lessons.build
+  end
 
   def create
-    @lesson = @course.lessons.build(homework_params)
-
+    @lesson = course.lessons.build(homework_params)
     if @lesson.save
 
-      redirect_to user_course_path(@course)
+      redirect_to user_course_lesson_path(course, @lesson)
     else
 
-      redirect_to :back
+      render :new
+    end
+  end
+
+  def update
+    if @lesson.update(homework_params)
+
+      redirect_to user_course_lesson_path(course, @lesson)
+    else
+
+      render :edit
     end
   end
 
   def show
-    @lesson = @course.lessons.find(params[:id])
+    authorize! :manage, @lesson
   end
 
   def destroy
-    lesson = @course.lessons.find(params[:id])
-    lesson.destroy
+    @lesson.destroy
 
-    redirect_to user_course_path(@course)
+    redirect_to user_course_path(course)
   end
+
+  private
 
   def homework_params
-    params.require(:lesson).permit(:title, :description, :image, :lecture_notes, :homework_text)
+    params.require(:lesson).permit(:title, :description, :image, :lecture_notes, :homework_text, :date_of)
   end
 
-  def find_course
-    @course = Course.find(params[:course_id])
+  def load_lesson
+    @lesson = course.lessons.find(params[:id])
+  end
+
+  def course
+    @course ||= Course.find(params[:course_id])
+  end
+
+  def find_lesson
+    @lesson = @course.lessons.find_by(id: params[:id])
   end
 end

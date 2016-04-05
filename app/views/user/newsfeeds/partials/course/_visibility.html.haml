@@ -1,0 +1,12 @@
+%span.username
+ #{newsfeed.owner.first_name} #{newsfeed.owner.last_name}
+ = link_to user_newsfeed_path(newsfeed), method: :delete, remote: true, class: 'btn-box-tool pull-right' do
+  %i.fa.fa-times
+%span.description
+ = distance_of_time_in_words_to_now(newsfeed.updated_at)
+ ago.
+
+= newsfeed.trackable.visible ? 'Showed' : 'Hided'
+his course:
+= link_to "#{newsfeed.trackable.title}.", course_path(newsfeed.trackable)
+%br/

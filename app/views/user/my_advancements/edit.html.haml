@@ -1,0 +1,4 @@
+- provide(:title, 'Edit your advancement')
+= simple_form_for @my_advancement,  url: user_my_advancement_path(@my_advancement), method: :patch do |f|
+ = f.input :version, as: :text, require: true, label: 'Place your answer here, please.', input_html:{size:'120x20'}
+ = f.button :submit, 'Resend advancement', class: 'btn btn-primary'

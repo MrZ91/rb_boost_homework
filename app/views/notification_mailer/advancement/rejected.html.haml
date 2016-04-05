@@ -1,0 +1,7 @@
+#{@newsfeed.owner.first_name} #{@newsfeed.owner.last_name}
+
+Rejected your
+= link_to 'advancement', user_my_advancement_url(@newsfeed.trackable)
+for lesson:
+= link_to @newsfeed.trackable.lesson.title, course_lesson_url(@newsfeed.trackable.lesson.course,
+                                                              @newsfeed.trackable.lesson)

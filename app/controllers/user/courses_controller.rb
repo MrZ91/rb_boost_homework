@@ -1,9 +1,10 @@
 class User::CoursesController < User::AuthenticateController
-  before_action :find_course, only: [:edit, :show, :update, :destroy]
+  before_action :load_course, only: [:edit, :show, :update, :destroy]
+  authorize_resource
 
   protect_from_forgery with: :exception
 
-  COURSES_ON_CABINET_PAGE = 9
+  COURSES_ON_CABINET_PAGE = 3
 
   def create
     @course = current_user.courses.new(course_params)
@@ -26,13 +27,16 @@ class User::CoursesController < User::AuthenticateController
   end
 
   def show
+    authorize! :manage, @course
     @subscribers = @course.subscribers.includes(:profile)
   end
 
   def update
     if @course.update(course_params)
+
       redirect_to user_course_path(@course)
     else
+
       render :edit
       # Some error messages need to be placed here!
     end
@@ -41,16 +45,20 @@ class User::CoursesController < User::AuthenticateController
   def destroy
     @course.destroy
 
-    redirect_to courses_path
+    redirect_to user_courses_path
+  end
+
+  def not_authorized_message
+    'You not authorized to manage this course'
+  end
+
+  def load_course
+    @course = current_user.courses.find_by(id: params[:id])
   end
 
   private
 
   def course_params
     params.require(:course).permit(:title, :description, :image)
-  end
-
-  def find_course
-    @course = current_user.courses.find_by(id: params[:id])
   end
 end

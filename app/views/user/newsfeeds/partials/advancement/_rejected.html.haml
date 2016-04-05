@@ -1,0 +1,14 @@
+%span.username
+ #{newsfeed.owner.first_name} #{newsfeed.owner.last_name}
+ = link_to user_newsfeed_path(newsfeed), method: :delete, remote: true, class: 'btn-box-tool pull-right' do
+  %i.fa.fa-times
+%span.description
+ = distance_of_time_in_words_to_now(newsfeed.updated_at)
+ ago.
+
+Rejected your
+= link_to 'advancement', user_my_advancement_path(newsfeed.trackable)
+for lesson:
+= link_to newsfeed.trackable.lesson.title, course_lesson_path(newsfeed.trackable.lesson.course,
+                                                              newsfeed.trackable.lesson)
+%br/

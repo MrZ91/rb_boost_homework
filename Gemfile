@@ -3,6 +3,8 @@ source 'http://rubygems.org'
 
 gem 'rails', '4.2.5'
 gem 'uglifier'
+gem 'active_model_serializers'
+gem 'faraday'
 
 gem 'simple_form'
 
@@ -12,6 +14,16 @@ gem 'puma', '1.5.0'
 gem 'kaminari'
 
 gem 'carrierwave', '0.9.0'
+gem 'date_validator'
+gem 'aasm'
+
+gem 'sidekiq', '~>3.5.4'
+gem 'sidekiq-status'
+gem 'sidekiq-failures'
+gem 'sidekiq-unique-jobs'
+gem 'sinatra', require: false
+gem 'slim'
+gem 'foreman'
 
 gem 'sass'
 # gem 'mini_magick'
@@ -28,6 +40,8 @@ gem 'bootstrap-sass'
 gem 'jasny-bootstrap-rails'
 gem 'bootstrap_notify'
 
+gem 'cancancan'
+gem 'rolify'
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-facebook'
@@ -48,16 +62,17 @@ group :test, :development do
   gem 'quiet_assets'
   gem 'dotenv-rails', require: 'dotenv/rails-now'
   gem 'factory_girl_rails'
+  gem 'letter_opener'
 end
 
 group :development do
   gem 'rubocop', require: false
   gem 'rubycritic', require: false
-  gem 'letter_opener'
   gem 'annotate'
   gem 'better_errors'
   gem 'spring-commands-rspec'
   gem 'bullet'
+  gem 'binding_of_caller'
 end
 
 group :test do

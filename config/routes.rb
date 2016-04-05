@@ -1,4 +1,6 @@
+require 'sidekiq/web'
 Rails.application.routes.draw do
+  mount Sidekiq::Web, at: '/sidekiq'
   devise_for :user, controllers: { omniauth_callbacks: 'user/callbacks' } do
     root to: 'user/profile#cabinet'
   end
@@ -10,12 +12,18 @@ Rails.application.routes.draw do
   end
 
   namespace :user do
-    resource :subscription, only: [:show]
+    resources :my_advancements, only: [:index, :show, :edit, :update]
+    resource  :subscription, only: [:show]
     resources :courses do
-      resource :subscriptions, only: [:create, :destroy]
-      resource :visibility, controller: :course_visibility, only: [:update]
-      resources :lessons, except: [:index, :new] do
-        resources :advancements, only: [:index]
+      resource  :subscriptions, only: [:create, :destroy]
+      resource  :visibility, controller: :course_visibility, only: :update
+      resources :lessons, except: :index do
+        resources :advancements, only: [:index, :show] do
+          controller :advancements_state do
+            post :approve
+            post :reject
+          end
+        end
       end
     end
 
@@ -30,6 +38,8 @@ Rails.application.routes.draw do
       get 'signed_up_with_social'
       put 'edit_signed_up_with_social'
     end
+
+    resources :newsfeeds, only: [:index, :destroy]
   end
 
   resources :courses, only: [:show, :index] do
@@ -39,6 +49,31 @@ Rails.application.routes.draw do
       # and controller advancement#create
       # resource :advancement, only: [:create]
       post 'advancement', to: 'advancement#create', as: :create_advancement
+    end
+  end
+
+  namespace :api do
+    namespace :v1 do
+      resources :courses, only: :index
+
+      constraints(id: /[0-9]+/) do
+        resources :user, only: [] do
+          resources :courses, module: :user, only: :index
+        end
+      end
+
+      resource :user, only: [] do
+        scope  module: :user do
+          resources :subscriptions, only: [:index]
+          resource :profile, only: [:update]
+          resources :course, only: [] do
+            resource :subscription, only: [:create, :destroy]
+          end
+
+          get 'sign_in', to: 'authentication#show'
+          post 'sign_up', to: 'authentication#create'
+        end
+      end
     end
   end
 

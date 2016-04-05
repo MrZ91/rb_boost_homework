@@ -1,8 +1,18 @@
-%tr{ id: "course-lesson-#{lesson.id}-row" }
+- unless can? :read, lesson
+ %tr{class:'rowlink-skip', title: 'Subscribe first to proceed.', data:{toggle: 'tooltip'}}
   %td
-    = link_to course_lesson_path(course, lesson) do
-      #{lesson.position}
+   = link_to course_lesson_path(course, lesson) do
+    #{lesson.position}
   %td
-    = image_tag lesson.image.thumb.url, alt: 'Lesson image'
+   = image_tag lesson.image.thumb.url, alt: 'Lesson image'
+  %td #{lesson.title}
+  %td
+-else
+ %tr
+  %td
+   = link_to course_lesson_path(course, lesson) do
+    #{lesson.position}
+  %td
+   = image_tag lesson.image.thumb.url, alt: 'Lesson image'
   %td #{lesson.title}
   %td

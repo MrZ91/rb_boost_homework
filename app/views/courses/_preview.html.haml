@@ -15,12 +15,12 @@
     - if user_signed_in?
      - if profile_configured?
       = link_to user_course_subscriptions_path(course), method: :post, remote: true,
-       style: ('display: none' if current_user.subscribed_to?(course) || course.prohibited_for?(current_user)),
+       style: ('display: none' unless can?(:subscribe, course)),
        data: { toggle: 'tooltip' }, id: "subscription-btn-#{course.id}",
        title: 'Subscribe to this course', class:'btn btn-box-tool' do
        %i.fa.fa-check
       = link_to user_course_subscriptions_path(course), method: :delete, remote: true,
-        style: ('display: none' unless current_user.subscribed_to?(course) && !course.prohibited_for?(current_user)),
+        style: ('display: none' unless can?(:unsubscribe, course)),
         data: { toggle: 'tooltip' }, id: "unsubscription-btn-#{course.id}",
         title: 'Unsubscribe from this course', class:'btn btn-box-tool' do
        %i.fa.fa-close
