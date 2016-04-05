@@ -8,10 +8,14 @@
    = image_tag 'http://placehold.it/160x160', alt: 'User avatar', class: 'img-circle'
    %h4
     #{current_user.first_name} #{current_user.last_name}
+   %span
+    - if current_user.has_role? :trainer
+     Trainer.
   %li.user-body
    .btn-group
     = link_to 'Cabinet', user_courses_path, class: 'btn btn-default btn-flat btn-sm'
-    = link_to 'New course', new_user_course_path, class: 'btn btn-default btn-flat btn-sm'
+    = link_to 'New course', new_user_course_path,
+    class: "btn btn-default btn-flat btn-sm #{'disabled' unless can? :crud, Course}"
     = link_to  'Subscriptions', user_subscription_path, class: 'btn btn-default btn-flat btn-sm'
   %li.user-footer
    = link_to 'Logout',  destroy_user_session_path, class: 'btn btn-default btn-flat', method: :delete

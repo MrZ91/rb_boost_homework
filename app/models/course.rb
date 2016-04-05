@@ -7,6 +7,7 @@ class Course < ActiveRecord::Base
   has_many :active_course_users, -> { active }, class_name: 'CourseUser', foreign_key: :course_id
   has_many :subscribers, through: :course_users, source: :user
   has_many :active_subscribers, through: :active_course_users, source: :user
+  has_many :feedbacks, class_name: 'Newsfeed', as: :trackable, dependent: :destroy
 
   validates :title, length: { maximum: 50 }, presence:  true
   validates :description, presence:  true
@@ -22,6 +23,10 @@ class Course < ActiveRecord::Base
   end
 
   def sort_lessons_by_order(order)
-    lessons.each { |lesson| lesson.update(position: (order.index(lesson.id.to_s) + 1)) }
+    lessons.each { |lesson| lesson.update!(position: (order.index(lesson.id.to_s) + 1)) }
+  end
+
+  def proceed_feedbacks(kind)
+    SheduleCourseNewsfeedWorker.perform_async(id, kind)
   end
 end

@@ -5,4 +5,5 @@
  %td
   = image_tag lesson.image.thumb.url, alt: 'Lesson image'
  %td #{lesson.title}
- %td
+ %td #{lesson.state.humanize}
+ %td #{lesson.advancements.pending.count}

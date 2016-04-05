@@ -1,0 +1,7 @@
+Lesson:
+= link_to "#{@newsfeed.trackable.title}.", course_lesson_url(@newsfeed.trackable.course, @newsfeed.trackable)
+will start at: #{@newsfeed.trackable.date_of.to_formatted_s(:long)}
+At course:
+= link_to "#{@newsfeed.trackable.course.title}.", course_url(@newsfeed.trackable.course)
+%br/
+Do not miss it!

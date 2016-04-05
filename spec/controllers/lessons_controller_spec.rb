@@ -5,7 +5,11 @@ describe LessonsController, type: :controller do
   let!(:lesson) { create(:lesson, course_id: course.id) }
 
   context 'show' do
-    before { get :show, id: lesson.id, course_id: course.id }
+    before do
+      sign_in user
+      course.subscribers << user
+      get :show, id: lesson.id, course_id: course.id
+    end
 
     it 'should render template' do
       expect(response).to render_template(:show)

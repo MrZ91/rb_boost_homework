@@ -3,7 +3,7 @@ class User::ProfileController < ApplicationController
   layout 'devise'
 
   def signed_up_with_social
-    @profile = current_user.with_profile.profile
+    current_user.with_profile
   end
 
   def edit
@@ -11,7 +11,6 @@ class User::ProfileController < ApplicationController
 
   def update
     if current_user.update(profile_params)
-
       sign_in :user, current_user, bypass: true
       redirect_to current_user
     else
@@ -21,8 +20,7 @@ class User::ProfileController < ApplicationController
   end
 
   def edit_signed_up_with_social
-    @profile = current_user.with_profile.profile
-    if @profile.update(user_profile_params)
+    if current_user.update(profile_params)
 
       redirect_to current_user
     else
@@ -37,9 +35,5 @@ class User::ProfileController < ApplicationController
     params.require(:user).permit(:email, :password,
                                  :password_confirmation, :current_password,
                                  profile_attributes: [:first_name, :last_name])
-  end
-
-  def user_profile_params
-    params.require(:profile).permit(:first_name, :last_name)
   end
 end

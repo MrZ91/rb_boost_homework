@@ -1,8 +1,10 @@
-= simple_form_for(@profile, url: edit_signed_up_with_social_user_profile_path, html: { method: :put }) do |f|
+= simple_form_for(:user, url: edit_signed_up_with_social_user_profile_path, html: { method: :put }) do |f|
  = f.error_notification
  %h1 Please introduce yourself.
  .form-inputs
- = f.input :first_name, required: true, autofocus: true, hint: 'Please set your first'
- = f.input :last_name, required: true, hint: 'and last name.'
+  = f.input :email, required: true, hint: 'Please set your your email.'
+  = f.simple_fields_for :profile_attributes do |pf|
+   = pf.input :first_name, required: true, autofocus: true, hint: 'Please set your first name.'
+   = pf.input :last_name, required: true, hint: 'Please set your last name.'
  .form-actions
  = f.button :submit, 'Update'

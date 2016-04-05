@@ -5,6 +5,7 @@ describe User::LessonsSortingController, type: :controller do
 
   before do
     course.lessons << create_list(:lesson, 5)
+    user.add_role :trainer
     sign_in user
   end
 

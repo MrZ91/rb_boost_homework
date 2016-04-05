@@ -1,3 +1,6 @@
 .row
  .col-lg-12.col-xs-12
   %h1 Welcome to Rubyboost
+
+  - if flash[:alert]
+   =flash[:alert]
