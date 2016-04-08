@@ -3,13 +3,13 @@
   .col-md-8.col-md-offset-2
    %h4
     Status: #{@advancement.state}
-    = link_to user_course_lesson_advancement_approve_path(@course, @lesson, @advancement), method: :post do
+    = link_to user_course_lesson_advancement_approve_path(course, lesson, @advancement), method: :post do
      = button_tag 'Approve', class: 'btn btn-success pull-right', style:('display: none' unless @advancement.pending?)
-    = link_to user_course_lesson_advancement_reject_path(@course, @lesson, @advancement), method: :post do
+    = link_to user_course_lesson_advancement_reject_path(course, lesson, @advancement), method: :post do
      = button_tag 'Reject', class: 'btn btn-danger pull-right', style:('display: none' unless @advancement.approved? || @advancement.pending?)
    %br/
    #{@advancement.user.first_name} #{@advancement.user.last_name} advancement to lesson:
-   = link_to @lesson.title, user_course_lesson_advancements_path(@course, @lesson)
+   = link_to lesson.title, user_course_lesson_advancements_path(course, lesson)
    %br/
    #{@advancement.version}
 

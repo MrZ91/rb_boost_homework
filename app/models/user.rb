@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   include Omniauthable
 
   after_save :ensure_authentication_token
-  after_commit :apply_default_role, on: :create
+  after_create :apply_default_role
 
   devise :database_authenticatable, :registerable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: [:facebook, :twitter]

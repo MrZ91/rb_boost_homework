@@ -1,6 +1,7 @@
 class CourseUser < ActiveRecord::Base
-  after_commit :proceed_feedback, on: :create
   before_destroy :delete_feedbacks
+  after_commit :proceed_subscribed_feedback, on: :create
+  after_update :proceed_updated_feedback
 
   belongs_to :user
   belongs_to :course
@@ -10,7 +11,12 @@ class CourseUser < ActiveRecord::Base
 
   private
 
-  def proceed_feedback
+  def proceed_updated_feedback
+    Newsfeed.update_or_create(owner: course.user, recipient: user, trackable: self,
+                              kind: Newsfeed::KIND_USER_EXCLUDED)
+  end
+
+  def proceed_subscribed_feedback
     NewsfeedWorker.perform_async(owner_id: user.id, recipient_id: course.user.id,
                                  trackable_type: 'CourseUser', trackable_id: id,
                                  kind: Newsfeed::KIND_USER_SUBSCRIBED)

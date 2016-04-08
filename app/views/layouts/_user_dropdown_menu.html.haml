@@ -1,5 +1,5 @@
 %li.dropdown.user.user-menu
- %a.dropdown-toggle{ 'aria-expanded' => 'false', 'data-toggle' => 'dropdown', href: '#' }
+ %a.dropdown-toggle{ 'aria-expanded' => 'false', data:{ toggle: 'dropdown' }, href: '#' }
   = image_tag 'http://placehold.it/160x160', alt: 'User avatar', class: 'user-image'
   %span.hidden-xs
    #{current_user.first_name} #{current_user.last_name}

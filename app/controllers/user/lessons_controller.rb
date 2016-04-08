@@ -50,6 +50,7 @@ class User::LessonsController < User::AuthenticateController
   def course
     @course ||= Course.find(params[:course_id])
   end
+  helper_method :course
 
   def find_lesson
     @lesson = @course.lessons.find_by(id: params[:id])

@@ -5,7 +5,7 @@
    - if profile_configured?
     -if can?(:create, advancement)
 
-     %button.btn.btn-primary#pass-lesson-btn{'data-target' => '#CreateModal', 'data-toggle' => 'modal', type: 'button'}
+     %button.btn.btn-primary#pass-lesson-btn{ data: { target: '#CreateModal', toggle: 'modal' }, type: 'button'}
 
       Pass lesson
    -else
@@ -36,7 +36,7 @@
     - if flash[:error]
      =flash[:error]
 
-    %button.close{'aria-label' => 'Close', 'data-dismiss' => 'modal', type: 'button'}
+    %button.close{'aria-label' => 'Close', data: { dismiss: 'modal' }, type: 'button'}
      %span{'aria-hidden' => 'true'} ×
     %h4#CreateModalLabel.modal-title.text-center Answer for #{@lesson.title}.
 

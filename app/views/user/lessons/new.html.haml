@@ -2,7 +2,7 @@
 %div.container-fluid
  %div.row
   %div.col-md-8.col-md-offset-2
-   = simple_form_for [:user, @course, @lesson] do |f|
+   = simple_form_for [:user, course, @lesson] do |f|
     = f.input :title
     = f.input :description, as: :text
     = f.input :lecture_notes, as: :text

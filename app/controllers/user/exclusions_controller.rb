@@ -1,5 +1,4 @@
 class User::ExclusionsController < User::AuthenticateController
-  after_action :proceed_news
   before_action :find_course, :load_course_user
 
   def update
@@ -21,8 +20,4 @@ class User::ExclusionsController < User::AuthenticateController
     @user ||= User.find(params[:id])
   end
   helper_method :user
-
-  def proceed_news
-    user.news.update_or_create(owner: @course.user, trackable: @course_user, kind: Newsfeed::KIND_USER_EXCLUDED)
-  end
 end
