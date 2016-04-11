@@ -4,7 +4,7 @@ class User::NewsfeedsController < User::AuthenticateController
   end
 
   def destroy
-    @newsfeed = current_user.news.find_by(id: params[:id])
-    @newsfeed.destroy
+    newsfeed = current_user.news.find_by(id: params[:id])
+    newsfeed.destroy
   end
 end

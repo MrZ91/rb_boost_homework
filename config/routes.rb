@@ -34,10 +34,8 @@ Rails.application.routes.draw do
 
     post '/:id/courses/:courses_id/prohibition', to: 'exclusions#update', as: :create_course_prohibition
 
-    resource :profile, only: [:edit, :update], controller: :profile do
-      get 'signed_up_with_social'
-      put 'edit_signed_up_with_social'
-    end
+    resource :profile, only: [:edit, :update], controller: :profile
+    resource :signed_up_with_social, only: [:edit, :update]
 
     resources :newsfeeds, only: [:index, :destroy]
   end

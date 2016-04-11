@@ -6,8 +6,8 @@
    = pf.input :first_name, required: true
    = pf.input :last_name, required: true
   = f.input :email, required: true, autofocus: true
-  = f.input :password, autocomplete: "off", required: false
-  = f.input :password_confirmation, required: false
+  = f.input :password, autocomplete: 'off', required: true, hint: 'Please set your account password now.'
+  = f.input :password_confirmation, required: true
  .form-actions
-  = f.button :submit, "Update"
-= link_to "Back", :back
+  = f.button :submit, 'Update'
+= link_to 'Back', user_path(current_user)

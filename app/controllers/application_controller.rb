@@ -48,7 +48,7 @@ class ApplicationController < ActionController::Base
   def configure_profile
     return if profile_configured?
 
-    redirect_to signed_up_with_social_user_profile_path
+    redirect_to edit_user_signed_up_with_social_path
   end
 
   def profile_configured?

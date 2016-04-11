@@ -9,14 +9,14 @@ class Lesson < ActiveRecord::Base
   after_commit   :check_for_performing
   after_commit   :lesson_created_feedbacks, :begining_day_feedbacks, on: :create
 
-  validates :title, length: { maximum: 50 }, presence:  true
-  validates :description, :lecture_notes, :date_of, presence:  true
-  validates :date_of, date: { after_or_equal_to: proc { Time.now } }, uniqueness: { scope: :course_id }
-
   belongs_to :course
   has_many :advancements, dependent: :destroy
   has_many :users, through: :advancements
   has_many :feedbacks, class_name: 'Newsfeed', as: :trackable, dependent: :destroy
+
+  validates :title, length: { maximum: 50 }, presence:  true
+  validates :description, :lecture_notes, :date_of, presence:  true
+  validates :date_of, date: { after_or_equal_to: proc { Time.now } }, uniqueness: { scope: :course_id }
 
   mount_uploader :image, LessonImageUploader
 

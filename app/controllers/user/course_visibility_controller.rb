@@ -6,6 +6,8 @@ class User::CourseVisibilityController < User::AuthenticateController
     @course.toggle(:visible).save!
   end
 
+  private
+
   def find_course
     @course = current_user.courses.find_by(id: params[:course_id])
   end

@@ -7,6 +7,8 @@ class User::CallbacksController < Devise::OmniauthCallbacksController
     process_callback
   end
 
+  private
+
   def process_callback
     oauth_data = request.env['omniauth.auth']
 

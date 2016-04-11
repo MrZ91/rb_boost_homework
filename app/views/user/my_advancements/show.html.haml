@@ -4,8 +4,8 @@
    %h4
     Status: #{@my_advancement.state}
    %br/
-   #{@my_advancement.user.first_name} #{@my_advancement.user.last_name} advancement to
-   = link_to 'lesson:', course_lesson_path(@my_advancement.lesson.course, @my_advancement.lesson)
+   #{@my_advancement.user.first_name} #{@my_advancement.user.last_name} advancement to lesson
+   = link_to "#{@my_advancement.lesson.title}:", course_lesson_path(@my_advancement.lesson.course, @my_advancement.lesson)
    %br/
    #{@my_advancement.version}
    = link_to 'Edit advancement', edit_user_my_advancement_path(@my_advancement), class: 'btn btn-primary' if @my_advancement.rejected?

@@ -25,7 +25,7 @@
         title: 'Unsubscribe from this course', class:'btn btn-box-tool' do
        %i.fa.fa-close
      - else
-      = link_to signed_up_with_social_user_profile_path, data: { toggle: 'tooltip' },
+      = link_to edit_user_signed_up_with_social_path, data: { toggle: 'tooltip' },
        title: 'Subscribe to this course', class:'btn btn-box-tool' do
        %i.fa.fa-check
     -else

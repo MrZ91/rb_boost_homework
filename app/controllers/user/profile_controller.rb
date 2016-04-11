@@ -1,37 +1,21 @@
-class User::ProfileController < ApplicationController
-  before_action :authenticate_user!
+class User::ProfileController < User::AuthenticateController
   layout 'devise'
 
-  def signed_up_with_social
-    current_user.with_profile
-  end
-
-  def edit
-  end
-
   def update
-    if current_user.update(profile_params)
+    if current_user.update(user_profile_params)
       sign_in :user, current_user, bypass: true
+
       redirect_to current_user
     else
+      # Some error messages need to be placed here!
+
       render :edit
-      # Some error messages need to be placed here!
-    end
-  end
-
-  def edit_signed_up_with_social
-    if current_user.update(profile_params)
-
-      redirect_to current_user
-    else
-      render :signed_up_with_social
-      # Some error messages need to be placed here!
     end
   end
 
   private
 
-  def profile_params
+  def user_profile_params
     params.require(:user).permit(:email, :password,
                                  :password_confirmation, :current_password,
                                  profile_attributes: [:first_name, :last_name])

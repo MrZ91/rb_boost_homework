@@ -37,18 +37,12 @@ class APIAuthenticationService
 
   def create_user
     if user_sign_up_params.present?
-      create_user_with_params
+      User.create!(user_sign_up_params)
     elsif social_provider_params.present?
       public_send("create_user_with_#{@params[:social_provider]}")
     else
       raise WrongRequest
     end
-  end
-
-  def create_user_with_params
-    user = User.new(user_sign_up_params)
-    user.save!
-    user
   end
 
   def create_user_with_facebook

@@ -2,8 +2,7 @@ class LessonsController < ApplicationController
   before_action :find_course, :load_lesson
   authorize_resource
 
-  def show
-  end
+  private
 
   def find_course
     @course = Course.find(params[:course_id])
